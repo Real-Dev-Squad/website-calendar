@@ -8,9 +8,11 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "./tailwind.css";
+import globalStylesUrl from "~/styles/global.css";
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }];
+  return [{ rel: "stylesheet", href: styles },
+          { rel: "stylesheet", href: globalStylesUrl }];
 }
 
 
