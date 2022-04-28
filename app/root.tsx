@@ -17,7 +17,7 @@ export function links() {
 
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "RDS Website Calendar" };
 };
 
 export default function App() {
