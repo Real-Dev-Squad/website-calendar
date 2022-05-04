@@ -4,5 +4,10 @@
     "stylelint-config-prettier",
     "stylelint-config-standard-scss",
     "stylelint-config-prettier-scss"
-  ]
+  ],
+  "rules": {
+    "property-no-vendor-prefix": null,
+    "selector-no-vendor-prefix": null,
+    "no-duplicate-selectors": null
+  }
 }
