@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Now we're pushing your changes to remote repository ......"
+echo "Now we're pushing your changes to remote repository 😎😎....."
