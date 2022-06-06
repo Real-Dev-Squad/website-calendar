@@ -9,6 +9,7 @@ export function links() {
   return [
     { rel: 'stylesheet', href: styles },
     { rel: 'stylesheet', href: globalStylesUrl },
+    { rel: 'icon', href: '/icons/favicon.ico' },
   ];
 }
 
