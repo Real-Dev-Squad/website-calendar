@@ -1,7 +1,9 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix';
+import {
+  Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration,
+} from 'remix';
 import type { MetaFunction } from 'remix';
 import styles from './tailwind.css';
-import globalStylesUrl from '~/styles/global.css';
+import globalStylesUrl from './styles/global.css';
 
 export function links() {
   return [
@@ -10,9 +12,7 @@ export function links() {
   ];
 }
 
-export const meta: MetaFunction = () => {
-  return { title: 'New Remix App' };
-};
+export const meta: MetaFunction = () => ({ title: 'RDS Website Calendar' });
 
 export default function App() {
   return (
