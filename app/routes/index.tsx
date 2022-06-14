@@ -1,7 +1,9 @@
 import Confetti from 'react-confetti';
+import { useWindowSize } from '~/hooks/useWindowSize';
+
 export default function Index() {
-  const width = 1000;
-  const height = 1000;
+  const { width, height } = useWindowSize();
+
   return (
     <div className="container">
       <h4 className="border border-blue m-auto text-center text-3xl text-blue-700">RDS Calendar</h4>
