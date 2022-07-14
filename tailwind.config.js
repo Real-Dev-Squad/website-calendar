@@ -7,7 +7,12 @@ module.exports = {
       feijoa: '#96D882',
       fern: '#6DB470',
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: 'var(--color-nav)',
+        "lime-green": 'var(--color-lime-green)'
+      }
+    },
   },
   variants: {},
   plugins: [],

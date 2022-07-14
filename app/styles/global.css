@@ -1,1 +1,5 @@
 /* This is a global CSS file  */
+:root {
+  --color-nav: #1d1283;
+  --color-lime-green: #43a047;
+}
