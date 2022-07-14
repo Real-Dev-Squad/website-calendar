@@ -11,10 +11,10 @@ export const Menu: React.FC<Props> = ({ width, height, className }) => {
 			width={width ? width : '24'}
 			height={height ? height : '24'}
 			stroke="currentColor"
-			stroke-width="2"
+			strokeWidth="2"
 			fill="none"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 			className={className}
 		>
 			<line x1="3" y1="12" x2="21" y2="12"></line>
