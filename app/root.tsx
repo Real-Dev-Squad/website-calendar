@@ -8,6 +8,15 @@ export function links() {
     { rel: 'stylesheet', href: styles },
     { rel: 'stylesheet', href: globalStylesUrl },
     { rel: 'icon', href: '/icons/favicon.ico' },
+    { rel: 'stylesheet', href: 'https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css' },
+    {
+      rel: 'stylesheet',
+      href: 'https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css',
+    },
   ];
 }
 
