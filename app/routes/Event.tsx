@@ -1,12 +1,8 @@
 import Calendar from '~/components/Calendar.client';
 
-// This will changed - TODO
-const Fallback = () => {
-  return <p>Loading IDE...</p>;
-};
+//TODO - create ticket to show spinner as a fallback component(Ticket will be attached)
+const Fallback = () => <p>Loading...</p>;
 
-function Event() {
-  return typeof document !== 'undefined' ? <Calendar /> : <Fallback />;
-}
+const Event = () => (typeof document !== 'undefined' ? <Calendar /> : <Fallback />);
 
 export default Event;

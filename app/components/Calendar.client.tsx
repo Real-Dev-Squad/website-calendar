@@ -1,11 +1,9 @@
-import TUICalendar from '@toast-ui/react-calendar';
+import ToastUICalendar from '@toast-ui/react-calendar';
 
-function Calendar() {
-  return (
-    <div>
-      <TUICalendar height="100vh" />
-    </div>
-  );
-}
+const Calendar = () => (
+  <section>
+    <ToastUICalendar height="100vh" />
+  </section>
+);
 
 export default Calendar;
