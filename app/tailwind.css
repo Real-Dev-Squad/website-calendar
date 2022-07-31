@@ -557,6 +557,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
+.resize {
+  resize: both;
+}
+
 .justify-center {
   justify-content: center;
 }
