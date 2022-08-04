@@ -15,7 +15,8 @@
     "lint": "eslint --fix .",
     "style-lint": "stylelint **/*.css",
     "start": "remix-serve build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest"
   },
   "dependencies": {
     "@remix-run/react": "^1.1.3",
@@ -33,6 +34,9 @@
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^16.2.4",
     "@remix-run/dev": "^1.1.3",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.3.0",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
@@ -44,6 +48,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "husky": "^7.0.0",
+    "jest": "^28.1.3",
     "postcss": "^8.4.6",
     "prettier": "2.6.2",
     "prettier-eslint": "^14.0.2",
@@ -56,6 +61,16 @@
     "tailwindcss": "^3.0.23",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.1.2"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    }
   },
   "engines": {
     "node": ">=14"
