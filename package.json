@@ -4,9 +4,9 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "yarn run build:css && remix build",
+    "build": "yarn build:css && remix build",
     "build:css": "tailwindcss -o ./app/tailwind.css",
-    "dev": "concurrently \"yarn run dev:css\" \"remix dev\"",
+    "dev": "concurrently \"yarn dev:css\" \"remix dev\"",
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
     "postinstall": "remix setup node",
     "check-format": "prettier --check .",
