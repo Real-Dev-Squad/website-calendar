@@ -4,10 +4,13 @@
 
 ## Development
 
+This project uses [Yarn](https://yarnpkg.com/getting-started) and [Volta](https://docs.volta.sh/guide/) for package management and version switching. 
+So, make sure to install both to use the project.
+
 From your terminal:
 
 ```sh
-npm run dev
+yarn dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
@@ -17,13 +20,13 @@ This starts your app in development mode, rebuilding assets on file changes.
 First, build your app for production:
 
 ```sh
-npm run build
+yarn build
 ```
 
 Then run the app in production mode:
 
 ```sh
-npm start
+yarn start
 ```
 
 Now you'll need to pick a host to deploy the build/code.
