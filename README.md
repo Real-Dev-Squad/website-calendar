@@ -10,7 +10,7 @@ So, make sure to install both to use the project.
 From your terminal:
 
 ```sh
-yarn run dev
+yarn dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
@@ -20,7 +20,7 @@ This starts your app in development mode, rebuilding assets on file changes.
 First, build your app for production:
 
 ```sh
-yarn run build
+yarn build
 ```
 
 Then run the app in production mode:
