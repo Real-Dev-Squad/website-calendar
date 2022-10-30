@@ -4,7 +4,7 @@
 
 ## Development
 
-This project uses [Yarn](https://yarnpkg.com/getting-started) and [Volta](https://docs.volta.sh/guide/) for package management and version switching. 
+This project uses [Yarn](https://yarnpkg.com/getting-started) and [Volta](https://docs.volta.sh/guide/) for package management and version switching.
 So, make sure to install both to use the project.
 
 From your terminal:
