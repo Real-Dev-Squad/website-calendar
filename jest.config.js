@@ -1,3 +1,17 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.(t|j)sx?$': 'ts-jest',
+  },
+  setupFilesAfterEnv: ['./jest.setup.js'],
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
 };
