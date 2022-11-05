@@ -7,7 +7,6 @@ export default function Index() {
 
   return (
     <div className="container">
-      <Pill title="JavaScript" icon="💖,#️⃣" />
       <h4 className="border border-blue m-auto text-center text-3xl text-blue-700">RDS Calendar</h4>
       <div className="flex justify-center align-middle m-auto">
         <Confetti width={width} height={height} />
