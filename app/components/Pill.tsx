@@ -2,8 +2,8 @@ import { MouseEventHandler } from 'react';
 
 interface PillProps {
   title: string;
-  icon: string;
-  action: MouseEventHandler;
+  icon?: string;
+  action?: MouseEventHandler;
 }
 const Pill: React.FC<PillProps> = ({ title, icon = '💖,#️⃣', action }) => (
   <button className="relative rounded-full bg-slate-200 group py-2 pr-4 pl-3" onClick={action}>
