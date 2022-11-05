@@ -1,5 +1,4 @@
 import Confetti from 'react-confetti';
-import Pill from '~/components/Pill';
 import { useWindowSize } from '~/hooks/useWindowSize';
 
 export default function Index() {
