@@ -1,12 +1,11 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix';
-import type { MetaFunction } from 'remix';
-import styles from './tailwind.css';
-import globalStylesUrl from './styles/global.css';
+import type { MetaFunction } from '@remix-run/node';
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+
+import styles from './styles/tailwind.css';
 
 export function links() {
   return [
     { rel: 'stylesheet', href: styles },
-    { rel: 'stylesheet', href: globalStylesUrl },
     { rel: 'icon', href: '/icons/favicon.ico' },
     { rel: 'stylesheet', href: 'https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css' },
     {
@@ -20,14 +19,16 @@ export function links() {
   ];
 }
 
-export const meta: MetaFunction = () => ({ title: 'RDS Website Calendar' });
+export const meta: MetaFunction = () => ({
+  charset: 'utf-8',
+  title: 'RCal',
+  viewport: 'width=device-width,initial-scale=1',
+});
 
-export default function App() {
+const App = () => {
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
       </head>
@@ -35,8 +36,10 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && <LiveReload />}
+        <LiveReload />
       </body>
     </html>
   );
-}
+};
+
+export default App;
