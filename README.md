@@ -7,6 +7,17 @@
 This project uses [Yarn](https://yarnpkg.com/getting-started) and [Volta](https://docs.volta.sh/guide/) for package management and version switching.
 So, make sure to install both to use the project.
 
+# Yarn Command Reference
+```sh
+yarn 
+```
+Installs all dependencies listed in the root package.json.
+
+If `yarn` is not installed 
+```sh
+npm install --global yarn
+```
+
 From your terminal:
 
 ```sh
