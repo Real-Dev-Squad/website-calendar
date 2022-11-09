@@ -65,3 +65,6 @@ rm -rf app
 # copy your app over
 cp -R ../my-old-remix-app/app app
 ```
+
+The project is temporarily deployed at 
+https://rds-website-calendar.fly.dev/
