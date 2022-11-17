@@ -1,10 +1,12 @@
+import { Icon } from '~/types/Icon';
+
 interface ButtonProps {
   size: 'small' | 'medium' | 'large';
   label: string;
   varient: 'primary' | 'secondary';
 }
 
-const Button: React.FC<ButtonProps> = ({ size = 'medium', label, varient = 'primary' }) => {
+export const Button: React.FC<ButtonProps> = ({ size = 'medium', label, varient = 'primary' }) => {
   return (
     <button
       className={`
@@ -28,4 +30,23 @@ const Button: React.FC<ButtonProps> = ({ size = 'medium', label, varient = 'prim
   );
 };
 
-export default Button;
+interface LinkButtonProps {
+  href: string;
+  title: string;
+  icon: Icon;
+}
+
+export const LinkButton: React.FC<LinkButtonProps> = ({ href, title, icon: Icon }) => {
+  return (
+    <a
+      href={href}
+      className="flex items-center justify-center gap-3 px-2 py-4 font-medium transition duration-300 border text-stone-700 hover:bg-stone-200 active:bg-stone-300 group bg-stone-100 border-stone-200"
+    >
+      <div>
+        <Icon className="w-5 h-5" />
+      </div>
+
+      <span>{title}</span>
+    </a>
+  );
+};
