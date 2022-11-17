@@ -9,6 +9,7 @@ import {
 
 const Navbar = () => {
   const [active, setActive] = useState<number>(0);
+  const [expand, setExpand] = useState<boolean>(false);
 
   const myColor = (elementPosition: number) => {
     if (active === elementPosition) return true;
@@ -18,10 +19,23 @@ const Navbar = () => {
     if (active !== elementPosition) setActive(elementPosition);
   };
   return (
-    <nav className="w-52 flex flex-col h-screen justify-between  px-2 sm:px-4 py-2.5 border-solid border-2 border-stone-200 bg-stone-50">
-      <div>
-        <ul className="flex flex-col p-2 mt-4 md:mt-0 md:text-sm md:font-medium bg-stone-50">
-          <li className="flex items-center mb-8 cursor-pointer group" onClick={() => toggle(0)}>
+    <nav
+      className={`${expand ? 'w-52' : 'w-12'} w-52 flex flex-col h-screen justify-between  ${
+        expand ? 'px-0' : 'px-2'
+      } py-2.5 border-solid border-2 border-stone-200 bg-stone-50`}
+    >
+      <div className="basis-3/12">
+        <ul
+          className={`flex flex-col ${
+            expand ? 'px-4 py-2' : 'p-0'
+          }  mt-4 md:mt-0 md:text-sm md:font-medium bg-stone-50`}
+        >
+          <li
+            className={`flex items-center ${
+              expand ? '' : 'justify-center'
+            }  mb-8 cursor-pointer group`}
+            onClick={() => toggle(0)}
+          >
             <div className="h-5 w-5">
               <HomeIcon
                 className={`${
@@ -29,15 +43,22 @@ const Navbar = () => {
                 } group-hover:stroke-slate-900`}
               />
             </div>
-            <p
-              className={`pl-2  text-base  hover:text-slate-900 ${
-                myColor(0) ? ' text-slate-900' : ' text-stone-500'
-              }`}
-            >
-              Home
-            </p>
+            {expand && (
+              <p
+                className={`pl-2  text-base  hover:text-slate-900 ${
+                  myColor(0) ? ' text-slate-900' : ' text-stone-500'
+                }`}
+              >
+                Home
+              </p>
+            )}
           </li>
-          <li className="flex items-center mb-8 cursor-pointer  group" onClick={() => toggle(1)}>
+          <li
+            className={`flex items-center ${
+              expand ? '' : 'justify-center'
+            } mb-8 cursor-pointer  group`}
+            onClick={() => toggle(1)}
+          >
             <div className="h-5 w-5 group-hover:stroke-slate-900 ">
               <CalendarIcon
                 className={`${
@@ -45,15 +66,22 @@ const Navbar = () => {
                 }  group-hover:stroke-slate-900`}
               />
             </div>
-            <p
-              className={`pl-2 text-base hover:text-slate-900 ${
-                myColor(1) ? ' text-slate-900' : ' text-stone-500'
-              }`}
-            >
-              Events
-            </p>
+            {expand && (
+              <p
+                className={`pl-2 text-base hover:text-slate-900 ${
+                  myColor(1) ? ' text-slate-900' : ' text-stone-500'
+                }`}
+              >
+                Events
+              </p>
+            )}
           </li>
-          <li className="flex items-center mb-8 cursor-pointer  group" onClick={() => toggle(2)}>
+          <li
+            className={`flex items-center ${
+              expand ? '' : 'justify-center'
+            } mb-8 cursor-pointer  group`}
+            onClick={() => toggle(2)}
+          >
             <div className="h-5 w-5 group-hover:stroke-slate-900 ">
               <UsersIcon
                 className={`${
@@ -61,20 +89,36 @@ const Navbar = () => {
                 }  group-hover:stroke-slate-900`}
               />
             </div>
-            <p
-              className={`pl-2 text-base hover:text-slate-900 ${
-                myColor(2) ? ' text-slate-900' : ' text-stone-500'
-              }`}
-            >
-              Social Events
-            </p>
+            {expand && (
+              <p
+                className={`pl-2 text-base hover:text-slate-900 ${
+                  myColor(2) ? ' text-slate-900' : ' text-stone-500'
+                }`}
+              >
+                Social Events
+              </p>
+            )}
           </li>
         </ul>
       </div>
-
-      <div>
-        <ul className="flex flex-col p-2 mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 bg-stone-50">
-          <li className="flex items-center mb-8 cursor-pointer group" onClick={() => toggle(3)}>
+      <div
+        className="basis-6/12"
+        onClick={() => {
+          setExpand((prev) => !prev);
+        }}
+      ></div>
+      <div className="basis-2/12">
+        <ul
+          className={`flex flex-col ${
+            expand ? 'px-4 py-2' : 'p-0'
+          } mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 bg-stone-50`}
+        >
+          <li
+            className={`flex items-center ${
+              expand ? '' : 'justify-center'
+            }  mb-8 cursor-pointer group`}
+            onClick={() => toggle(3)}
+          >
             <div className="h-5 w-5  group">
               <Cog6ToothIcon
                 className={`${
@@ -82,15 +126,20 @@ const Navbar = () => {
                 }  group-hover:stroke-slate-900`}
               />
             </div>
-            <p
-              className={`pl-2 text-base hover:text-slate-900 ${
-                myColor(3) ? ' text-slate-900' : ' text-stone-500'
-              }`}
-            >
-              Settings
-            </p>
+            {expand && (
+              <p
+                className={`pl-2 text-base hover:text-slate-900 ${
+                  myColor(3) ? ' text-slate-900' : ' text-stone-500'
+                }`}
+              >
+                Settings
+              </p>
+            )}
           </li>
-          <li className="flex items-center cursor-pointer  group" onClick={() => toggle(4)}>
+          <li
+            className={`flex items-center ${expand ? '' : 'justify-center'}  cursor-pointer  group`}
+            onClick={() => toggle(4)}
+          >
             <div className="h-5 w-5">
               <QuestionMarkCircleIcon
                 className={`${
@@ -98,7 +147,15 @@ const Navbar = () => {
                 } group-hover:stroke-slate-900`}
               />
             </div>
-            <p className="pl-2 text-base text-stone-500 hover:stroke-slate-900">Help</p>
+            {expand && (
+              <p
+                className={`pl-2 text-base hover:text-slate-900 ${
+                  myColor(4) ? ' text-slate-900' : ' text-stone-500'
+                }`}
+              >
+                Help
+              </p>
+            )}
           </li>
         </ul>
       </div>
