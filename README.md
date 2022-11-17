@@ -69,5 +69,25 @@ rm -rf app
 cp -R ../my-old-remix-app/app app
 ```
 
+### Using Hero Icons
+
+The project uses `heroicons` as its icon provider.
+There are two variants of icons availabe:
+
+- solid
+- outline
+
+- Code to use solid icons:
+
+```js
+import { iconName } from '@heroicons/react/24/solid';
+```
+
+- Code to use outline icons:
+
+```js
+import { iconName } from '@heroicons/react/24/outline';
+```
+
 The project is temporarily deployed at
 https://rds-website-calendar.fly.dev/
