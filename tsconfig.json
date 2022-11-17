@@ -1,5 +1,5 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js", "jest.config.js"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
