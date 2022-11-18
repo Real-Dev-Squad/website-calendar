@@ -10,7 +10,7 @@ import {
 const Navbar = () => {
   const [active, setActive] = useState<number>(0);
   const [expand, setExpand] = useState<boolean>(false);
-  const navbarRef = useRef<any>(null);
+  const navbarRef = useRef<HTMLDivElement>(null!);
 
   const myColor = (elementPosition: number) => {
     if (active === elementPosition) return true;
@@ -39,7 +39,7 @@ const Navbar = () => {
         expand ? 'md:w-52' : 'md:w-12'
       }  flex flex-row md:flex-col h-auto md:h-screen  justify-between  ${
         expand ? 'px-0' : 'px-2'
-      } py-2.5 border-solid border-2 border-stone-200 bg-stone-50 transition-all duration-500 fixed bottom-0 md:static`}
+      } py-2.5 border-solid border-2 border-stone-200 bg-stone-50 transition-all duration-150 fixed bottom-0 md:static`}
     >
       <div className="basis-full md:basis-3/12">
         <ul
@@ -69,7 +69,7 @@ const Navbar = () => {
             </p>
             {expand && (
               <p
-                className={`pl-2  text-base  hover:text-slate-900 ${
+                className={`pl-2 ease-in  text-base  hover:text-slate-900 ${
                   myColor(0) ? ' text-slate-900' : ' text-stone-500 '
                 }`}
               >
