@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    name: Run Coverage Tests
     runs-on: ubuntu-latest
 
     strategy:
