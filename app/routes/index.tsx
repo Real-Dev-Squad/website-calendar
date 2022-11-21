@@ -3,7 +3,7 @@ import Navbar from '~/components/common/navbar';
 export default function Index() {
   return (
     <div className="">
-      <div className="flex">
+      <div className="flex flex-col-reverse md:flex-row ">
         <Navbar />
         <div>
           <h4 className="m-auto text-3xl text-center text-blue-700 border border-blue">
