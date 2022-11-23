@@ -1,16 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  HomeIcon,
-  CalendarIcon,
-  UsersIcon,
-  Cog6ToothIcon,
-  QuestionMarkCircleIcon,
-} from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
+import * as Icons from '@heroicons/react/24/outline';
+
+interface DynamicHeroIconType {
+  name: string;
+  className: string;
+}
+interface NavItemType {
+  icon: string;
+  text: string;
+  href: string;
+  id: number;
+  visibleOnDesktop: boolean;
+}
+
+const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
+  const IconComponent = Icons[`${name}Icon` as keyof typeof Icons];
+
+  if (!IconComponent) {
+    // Return a default one
+    return <Icons.ArrowPathIcon />;
+  }
+
+  return <IconComponent className={className} />;
+};
 
 const Navbar = () => {
   const [active, setActive] = useState<number>(0);
-  const [expand, setExpand] = useState<boolean>(false);
-  const navbarRef = useRef<HTMLDivElement>(null!);
 
   const myColor = (elementPosition: number) => {
     if (active === elementPosition) return true;
@@ -19,206 +34,113 @@ const Navbar = () => {
   const toggle = (elementPosition: number) => {
     if (active !== elementPosition) setActive(elementPosition);
   };
-  useEffect(() => {
-    const observer = new window.ResizeObserver((entries) => {
-      const navbarElementWidth = entries[0].borderBoxSize[0].inlineSize;
-      const navbarElementHeight = entries[0].borderBoxSize[0].blockSize;
 
-      if (navbarElementHeight <= 110 && navbarElementWidth < 768) {
-        if (!expand) {
-          if (!expand) setExpand(false);
-        }
-      }
-    });
-    observer.observe(navbarRef.current);
-  }, []);
+  const navbarElements = {
+    arr1: [
+      {
+        icon: 'Home',
+        text: 'Home',
+        href: '/',
+        id: 0,
+        visibleOnDesktop: true,
+      },
+      {
+        icon: 'Calendar',
+        text: 'Events',
+        href: '/',
+        id: 1,
+        visibleOnDesktop: true,
+      },
+      {
+        icon: 'Users',
+        text: 'Social Events',
+        href: '/',
+        id: 2,
+        visibleOnDesktop: true,
+      },
+      {
+        icon: 'Cog6Tooth',
+        text: 'Settings',
+        href: '/',
+        id: 3,
+        visibleOnDesktop: false,
+      },
+    ],
+    arr2: [
+      {
+        icon: 'Cog6Tooth',
+        text: 'Settings',
+        href: '/',
+        id: 3,
+        visibleOnDesktop: true,
+      },
+      {
+        icon: 'QuestionMarkCircle',
+        text: 'Help',
+        href: '/',
+        id: 4,
+        visibleOnDesktop: true,
+      },
+    ],
+  };
+
   return (
-    <nav
-      ref={navbarRef}
-      className={`w-full ${
-        expand ? 'md:w-52' : 'md:w-12'
-      }  flex flex-row md:flex-col h-auto md:h-screen  justify-between  ${
-        expand ? 'px-0' : 'px-2'
-      } py-2.5 border-solid border-2 border-stone-200 bg-stone-50 transition-all duration-150 fixed bottom-0 md:static`}
-    >
-      <div className="basis-full md:basis-3/12">
-        <ul
-          className={`flex flex-row md:flex-col justify-evenly  ${
-            expand ? 'px-4 py-2' : 'p-0'
-          }  mt-0  md:text-sm md:font-medium bg-stone-50`}
-        >
-          <li
-            className={`flex flex-col md:flex-row items-center ${
-              expand ? '' : 'justify-center'
-            }  mb-0 md:mb-8 cursor-pointer group`}
-            onClick={() => toggle(0)}
-          >
-            <div className="h-5 w-5">
-              <HomeIcon
-                className={`${
-                  myColor(0) ? ' stroke-slate-900' : ' stroke-stone-500'
-                } group-hover:stroke-slate-900`}
-              />
-            </div>
-            <p
-              className={`block md:hidden text-xs  md:text-base  hover:text-slate-900 ${
-                myColor(0) ? ' text-slate-900' : ' text-stone-500 '
-              }`}
+    <nav className="w-full md:w-52 flex flex-row md:flex-col h-auto md:h-screen justify-between  px-0 md:px-2 sm:px-4 py-2.5 border-solid border-2 border-stone-200 bg-stone-50 fixed bottom-0 md:static">
+      <div className="basis-full">
+        <ul className="flex flex-row md:flex-col  justify-evenly px-0 md:px-2  mt-0 md:mt-4 md:text-sm md:font-medium bg-stone-50">
+          {navbarElements.arr1.map((navIntem: NavItemType) => (
+            <li
+              className={`${
+                navIntem.visibleOnDesktop ? '' : 'md:hidden'
+              } flex flex-col md:flex-row items-center mb-0 md:mb-8 cursor-pointer group`}
+              onClick={() => toggle(navIntem.id)}
             >
-              Home
-            </p>
-            {expand && (
+              <div className="h-5 w-5">
+                <DynamicHeroIcon
+                  name={navIntem.icon}
+                  className={`${
+                    myColor(navIntem.id) ? ' stroke-slate-900' : ' stroke-stone-500'
+                  } group-hover:stroke-slate-900`}
+                />
+              </div>
               <p
-                className={`pl-2 ease-in  text-base  hover:text-slate-900 ${
-                  myColor(0) ? ' text-slate-900' : ' text-stone-500 '
+                className={`p-0 md:p-0 md:pl-2   text-xs md:text-base   hover:text-slate-900 ${
+                  myColor(navIntem.id) ? ' text-slate-900' : ' text-stone-500'
                 }`}
               >
-                Home
+                {navIntem.text}
               </p>
-            )}
-          </li>
-          <li
-            className={`flex flex-col md:flex-row items-center ${
-              expand ? '' : 'justify-center'
-            } mb-0 md:mb-8 cursor-pointer  group`}
-            onClick={() => toggle(1)}
-          >
-            <div className="h-5 w-5 group-hover:stroke-slate-900 ">
-              <CalendarIcon
-                className={`${
-                  myColor(1) ? ' stroke-slate-900' : ' stroke-stone-500'
-                }  group-hover:stroke-slate-900`}
-              />
-            </div>
-            <p
-              className={`block md:hidden text-xs  md:text-base  hover:text-slate-900 ${
-                myColor(0) ? ' text-slate-900' : ' text-stone-500 '
-              }`}
-            >
-              Events
-            </p>
-            {expand && (
-              <p
-                className={`pl-2 text-base hover:text-slate-900 ${
-                  myColor(1) ? ' text-slate-900' : ' text-stone-500'
-                }`}
-              >
-                Events
-              </p>
-            )}
-          </li>
-          <li
-            className={`flex flex-col md:flex-row items-center ${
-              expand ? '' : 'justify-center'
-            } mb-0 md:mb-8 cursor-pointer  group`}
-            onClick={() => toggle(2)}
-          >
-            <div className="h-5 w-5 group-hover:stroke-slate-900 ">
-              <UsersIcon
-                className={`${
-                  myColor(2) ? ' stroke-slate-900' : ' stroke-stone-500'
-                }  group-hover:stroke-slate-900`}
-              />
-            </div>
-            <p
-              className={`block md:hidden text-xs  md:text-base  hover:text-slate-900 ${
-                myColor(0) ? ' text-slate-900' : ' text-stone-500 '
-              }`}
-            >
-              Events
-            </p>
-            {expand && (
-              <p
-                className={`pl-2 text-base hover:text-slate-900 ${
-                  myColor(2) ? ' text-slate-900' : ' text-stone-500'
-                }`}
-              >
-                Social Events
-              </p>
-            )}
-          </li>
-          <li
-            className={`flex flex-col md:flex-row md:hidden  items-center ${
-              expand ? '' : 'justify-center'
-            }  mb-0 md:mb-8 cursor-pointer group`}
-            onClick={() => toggle(3)}
-          >
-            <div className="h-5 w-5  group">
-              <Cog6ToothIcon
-                className={`${
-                  myColor(3) ? ' stroke-slate-900' : ' stroke-stone-500'
-                }  group-hover:stroke-slate-900`}
-              />
-            </div>
-
-            <p
-              className={` text-xs hover:text-slate-900 ${
-                myColor(3) ? ' text-slate-900' : ' text-stone-500'
-              }`}
-            >
-              Settings
-            </p>
-          </li>
+            </li>
+          ))}
         </ul>
       </div>
-      <div
-        className="md:basis-6/12"
-        onClick={() => {
-          setExpand((prev) => !prev);
-        }}
-      ></div>
-      <div className="hidden md:block md:basis-2/12">
-        <ul
-          className={`hidden md:flex flex-row md:flex-col ${
-            expand ? 'px-4 py-2' : 'p-0'
-          } mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 bg-stone-50`}
-        >
-          <li
-            className={`flex items-center ${
-              expand ? '' : 'justify-center'
-            }  mb-0 md:mb-8 cursor-pointer group`}
-            onClick={() => toggle(3)}
-          >
-            <div className="h-5 w-5  group">
-              <Cog6ToothIcon
-                className={`${
-                  myColor(3) ? ' stroke-slate-900' : ' stroke-stone-500'
-                }  group-hover:stroke-slate-900`}
-              />
-            </div>
-            {expand && (
+
+      <div>
+        <ul className="hidden md:flex flex-col p-2 mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 bg-stone-50">
+          {navbarElements.arr2.map((navIntem: NavItemType) => (
+            <li
+              className={`${
+                navIntem.visibleOnDesktop ? '' : 'md:hidden'
+              } flex flex-col md:flex-row items-center mb-0 md:mb-8 cursor-pointer group`}
+              onClick={() => toggle(navIntem.id)}
+            >
+              <div className="h-5 w-5">
+                <DynamicHeroIcon
+                  name={navIntem.icon}
+                  className={`${
+                    myColor(navIntem.id) ? ' stroke-slate-900' : ' stroke-stone-500'
+                  } group-hover:stroke-slate-900`}
+                />
+              </div>
               <p
-                className={`pl-2 text-base hover:text-slate-900 ${
-                  myColor(3) ? ' text-slate-900' : ' text-stone-500'
+                className={`p-0 md:p-0 md:pl-2   text-xs md:text-base   hover:text-slate-900 ${
+                  myColor(navIntem.id) ? ' text-slate-900' : ' text-stone-500'
                 }`}
               >
-                Settings
+                {navIntem.text}
               </p>
-            )}
-          </li>
-          <li
-            className={`flex items-center ${
-              expand ? '' : 'justify-center'
-            } mb-0 md:mb-8  cursor-pointer  group`}
-            onClick={() => toggle(4)}
-          >
-            <div className="h-5 w-5">
-              <QuestionMarkCircleIcon
-                className={`${
-                  myColor(4) ? ' stroke-slate-900' : ' stroke-stone-500'
-                } group-hover:stroke-slate-900`}
-              />
-            </div>
-            {expand && (
-              <p
-                className={`pl-2 text-base hover:text-slate-900 ${
-                  myColor(4) ? ' text-slate-900' : ' text-stone-500'
-                }`}
-              >
-                Help
-              </p>
-            )}
-          </li>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
