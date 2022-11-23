@@ -14,7 +14,6 @@ Fork this repository using the **Fork** option at the top-right corner of this p
 
 ![Screenshot 2022-11-14 221659](https://user-images.githubusercontent.com/57326919/201718560-b54f3901-d10e-4ddb-9203-83785d52be8d.png)
 
-
 2. **Cloning repository**
 
 Clone your forked repository, this will download your fork in your computer. To do this, open your terminal (command prompt/bash/git bash) and enter the following command, paste your link after the word **clone** without the **<>**.
