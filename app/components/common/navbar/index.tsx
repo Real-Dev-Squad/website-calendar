@@ -85,7 +85,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full md:w-52 flex flex-row md:flex-col h-auto md:h-screen justify-between  px-0 md:px-2 sm:px-4 py-2.5 border-solid border-2 border-stone-200 bg-stone-50 fixed bottom-0 md:static">
+    <nav className="w-full md:w-52 flex flex-row md:flex-col h-auto md:h-screen justify-between  px-0 md:px-2 sm:px-4 py-2.5 border-t-2  md:border-r-2  border-stone-200 bg-stone-50 fixed bottom-0 md:static">
       <div className="basis-full">
         <ul className="flex flex-row md:flex-col  justify-evenly px-0 md:px-2  mt-0 md:mt-4 md:text-sm md:font-medium bg-stone-50">
           {navbarElements.arr1.map((navIntem: NavItemType) => (
@@ -133,7 +133,7 @@ const Navbar = () => {
                 />
               </div>
               <p
-                className={`p-0 md:p-0 md:pl-2   text-xs md:text-base   hover:text-slate-900 ${
+                className={`p-0 md:pl-2   text-xs md:text-base   hover:text-slate-900 ${
                   myColor(navIntem.id) ? ' text-slate-900' : ' text-stone-500'
                 }`}
               >
