@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   const navbarElements = {
-    navbarItemArrayOne: [
+    navbarPages: [
       {
         icon: 'Home',
         text: 'Home',
@@ -66,7 +66,7 @@ const Navbar = () => {
         visibleOnDesktop: false,
       },
     ],
-    navbarItemArrayTwo: [
+    navbarSettings: [
       {
         icon: 'Cog6Tooth',
         text: 'Settings',
@@ -91,17 +91,18 @@ const Navbar = () => {
     padding: 'px-0 md:px-2',
     headingSelectedColor: 'text-slate-900',
     headingColor: 'text-stone-500',
+    navbarBackgroundColor: 'bg-stone-50',
   };
 
   return (
     <nav
-      className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 bg-stone-50 fixed bottom-0 md:static`}
+      className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static`}
     >
       <div className="basis-full">
         <ul
-          className={`${classShortHands.flexDesktopCol}   justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium bg-stone-50`}
+          className={`${classShortHands.flexDesktopCol}   justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarItemArrayOne.map((navIntem: NavItemType) => (
+          {navbarElements.navbarPages.map((navIntem: NavItemType) => (
             <li
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
@@ -119,9 +120,9 @@ const Navbar = () => {
                 />
               </div>
               <p
-                className={`p-0 md:p-0 md:pl-2   ${
-                  classShortHands.fontSize
-                }  hover:text-slate-900 ${
+                className={`p-0 md:p-0 md:pl-2   ${classShortHands.fontSize}  hover:${
+                  classShortHands.headingSelectedColor
+                } ${
                   myColor(navIntem.id)
                     ? `${classShortHands.headingSelectedColor}`
                     : `${classShortHands.headingColor}`
@@ -136,9 +137,9 @@ const Navbar = () => {
 
       <div>
         <ul
-          className={`hidden md:flex flex-col ${classShortHands.padding} mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 bg-stone-50`}
+          className={`hidden md:flex flex-col ${classShortHands.padding} mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarItemArrayTwo.map((navIntem: NavItemType) => (
+          {navbarElements.navbarSettings.map((navIntem: NavItemType) => (
             <li
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                 classShortHands.flexDesktopRow
@@ -156,7 +157,9 @@ const Navbar = () => {
                 />
               </div>
               <p
-                className={`p-0 md:pl-2   ${classShortHands.fontSize}   hover:text-slate-900 ${
+                className={`p-0 md:pl-2   ${classShortHands.fontSize}   hover:${
+                  classShortHands.headingSelectedColor
+                } ${
                   myColor(navIntem.id)
                     ? `${classShortHands.headingSelectedColor}`
                     : `${classShortHands.headingColor}`
