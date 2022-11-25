@@ -8,12 +8,15 @@ This project uses [Yarn](https://yarnpkg.com/getting-started) and [Volta](https:
 So, make sure to install both to use the project.
 
 # Yarn Command Reference
+
 ```sh
-yarn 
+yarn
 ```
+
 Installs all dependencies listed in the root package.json.
 
-If `yarn` is not installed 
+If `yarn` is not installed
+
 ```sh
 npm install --global yarn
 ```
@@ -66,5 +69,25 @@ rm -rf app
 cp -R ../my-old-remix-app/app app
 ```
 
-The project is temporarily deployed at 
+### Using Hero Icons
+
+The project uses `heroicons` as its icon provider.
+There are two variants of icons availabe:
+
+- solid
+- outline
+
+- Code to use solid icons:
+
+```js
+import { iconName } from '@heroicons/react/24/solid';
+```
+
+- Code to use outline icons:
+
+```js
+import { iconName } from '@heroicons/react/24/outline';
+```
+
+The project is temporarily deployed at
 https://rds-website-calendar.fly.dev/
