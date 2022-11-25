@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   const navbarElements = {
-    arr1: [
+    navbarItemArrayOne: [
       {
         icon: 'Home',
         text: 'Home',
@@ -66,7 +66,7 @@ const Navbar = () => {
         visibleOnDesktop: false,
       },
     ],
-    arr2: [
+    navbarItemArrayTwo: [
       {
         icon: 'Cog6Tooth',
         text: 'Settings',
@@ -101,7 +101,7 @@ const Navbar = () => {
         <ul
           className={`${classShortHands.flexDesktopCol}   justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium bg-stone-50`}
         >
-          {navbarElements.arr1.map((navIntem: NavItemType) => (
+          {navbarElements.navbarItemArrayOne.map((navIntem: NavItemType) => (
             <li
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
@@ -138,7 +138,7 @@ const Navbar = () => {
         <ul
           className={`hidden md:flex flex-col ${classShortHands.padding} mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 bg-stone-50`}
         >
-          {navbarElements.arr2.map((navIntem: NavItemType) => (
+          {navbarElements.navbarItemArrayTwo.map((navIntem: NavItemType) => (
             <li
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                 classShortHands.flexDesktopRow
