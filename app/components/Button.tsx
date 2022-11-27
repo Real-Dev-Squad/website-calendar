@@ -4,13 +4,22 @@ interface ButtonProps {
   size: 'small' | 'medium' | 'large';
   label: string;
   varient: 'primary' | 'secondary';
+  width: 'w-full' | 'w-auto';
+  handleClick?: (value: React.SetStateAction<number>) => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ size = 'medium', label, varient = 'primary' }) => {
+export const Button: React.FC<ButtonProps> = ({
+  size = 'medium',
+  label,
+  varient = 'primary',
+  width,
+  handleClick,
+}) => {
   return (
     <button
       className={`
-                flex items-center border rounded-lg transition
+                flex items-center justify-center border rounded-lg transition 
+                ${width}
                 ${
                   varient === 'primary'
                     ? 'border-transparent bg-blue-600 text-white hover:bg-blue-800'
@@ -24,6 +33,7 @@ export const Button: React.FC<ButtonProps> = ({ size = 'medium', label, varient 
                     : 'px-4 py-2 text-lg gap-3'
                 }
             `}
+      onClick={handleClick}
     >
       {label}
     </button>
