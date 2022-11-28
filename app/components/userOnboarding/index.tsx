@@ -61,6 +61,7 @@ const UserOnboarding = () => {
             width="w-full"
             size="medium"
             varient="primary"
+            disabled={page === FormTitlesAndSubtitles.length - 1}
             handleClick={() => setPage((currentPage: number) => currentPage + 1)}
           />
         </div>

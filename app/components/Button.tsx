@@ -5,6 +5,7 @@ interface ButtonProps {
   label: string;
   varient: 'primary' | 'secondary';
   width: 'w-full' | 'w-auto';
+  disabled: boolean;
   handleClick?: (value: React.SetStateAction<number>) => void;
 }
 
@@ -13,6 +14,7 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   varient = 'primary',
   width,
+  disabled = false,
   handleClick,
 }) => {
   return (
@@ -34,6 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
                 }
             `}
       onClick={handleClick}
+      disabled={disabled}
     >
       {label}
     </button>
