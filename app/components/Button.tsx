@@ -5,7 +5,7 @@ interface ButtonProps {
   label: string;
   varient: 'primary' | 'secondary';
   width: 'w-full' | 'w-auto';
-  disabled: boolean;
+  disabled?: boolean;
   handleClick?: (value: React.SetStateAction<number>) => void;
 }
 
