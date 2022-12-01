@@ -31,7 +31,7 @@ const UserOnboarding = () => {
   return (
     <div className="form bg-stone-50 h-screen">
       <div className="form-container h-full flex flex-col justify-between">
-        <div>
+        <div className="header-pbar-wrapper basis-3/12">
           <div className="header">
             <h1 className="text-2x font-semibold text-center pt-10 mb-3">
               {FormTitlesAndSubtitles[page].title}
@@ -53,9 +53,9 @@ const UserOnboarding = () => {
               ))}
             </div>
           </div>
-          <div className="body">{PageDisplay()}</div>
         </div>
-        <div className=" mx-4 mb-3">
+        <div className="body basis-7/12">{PageDisplay()}</div>
+        <div className=" mx-4 mb-3 basis-1/12">
           <Button
             label="Save & Next"
             width="w-full"
