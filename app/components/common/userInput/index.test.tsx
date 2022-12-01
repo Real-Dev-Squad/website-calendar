@@ -1,4 +1,4 @@
-import { queryByTestId, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import UserInput from '.';
 
 it('renders a input field', () => {
