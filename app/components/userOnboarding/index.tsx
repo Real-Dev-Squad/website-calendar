@@ -25,7 +25,7 @@ const UserOnboarding = () => {
     if (page === 1) {
       return <UserCalendarDetails />;
     }
-    return 'done';
+    return '';
   };
 
   return (
@@ -56,6 +56,7 @@ const UserOnboarding = () => {
           <div className="body">{PageDisplay()}</div>
         </div>
         <div className=" mx-4 mb-3">
+          ``
           <Button
             label="Save & Next"
             width="w-full"
