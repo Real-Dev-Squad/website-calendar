@@ -1,10 +1,10 @@
-interface userInputProps {
+interface UserInputProps {
   label: string;
   placeholder: string;
   link?: string;
 }
 
-const userInput: React.FC<InputOneProps> = ({ label, placeholder, link }) => (
+const UserInput: React.FC<UserInputProps> = ({ label, placeholder, link }) => (
   <div className="mb-6">
     <p className="text-sm text-black mb-2">{label}</p>
     <div className={`${link ? 'flex' : ''}`}>
@@ -24,4 +24,4 @@ const userInput: React.FC<InputOneProps> = ({ label, placeholder, link }) => (
   </div>
 );
 
-export default userInput;
+export default UserInput;
