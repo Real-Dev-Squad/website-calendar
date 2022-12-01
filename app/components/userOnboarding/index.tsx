@@ -56,7 +56,6 @@ const UserOnboarding = () => {
           <div className="body">{PageDisplay()}</div>
         </div>
         <div className=" mx-4 mb-3">
-          -bottom-52{' '}
           <Button
             label="Save & Next"
             width="w-full"
@@ -66,7 +65,6 @@ const UserOnboarding = () => {
             handleClick={() => setPage((currentPage: number) => currentPage + 1)}
           />
         </div>
-        z
       </div>
     </div>
   );
