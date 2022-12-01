@@ -541,6 +541,14 @@ video {
   bottom: 0px;
 }
 
+.-bottom-56 {
+  bottom: -14rem;
+}
+
+.-bottom-60 {
+  bottom: -15rem;
+}
+
 .m-auto {
   margin: auto;
 }

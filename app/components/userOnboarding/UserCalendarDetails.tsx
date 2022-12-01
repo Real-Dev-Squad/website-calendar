@@ -1,4 +1,4 @@
-import { GoogleCalendar, MicrosoftCalendar } from '../icons';
+import { GoogleCalendar } from '../icons';
 import { Button } from '../Button';
 
 const UserCalendarDetails = () => (
@@ -33,7 +33,7 @@ const UserCalendarDetails = () => (
       </div>
     </div>
 
-    <div className=" absolute -bottom-52 left-1/2  -translate-x-1/2 -translate-y-1/2">
+    <div className=" absolute -bottom-60 left-1/2  -translate-x-1/2 -translate-y-1/2">
       <div className="flex justify-center">
         <button className="text-sm ">I&apos;ll connect my calendar later</button>
       </div>
