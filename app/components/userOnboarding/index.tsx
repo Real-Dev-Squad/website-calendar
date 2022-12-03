@@ -58,7 +58,6 @@ const UserOnboarding = () => {
         <div className=" mx-4 mb-3 basis-1/12">
           <Button
             label="Save & Next"
-            width="w-full"
             size="medium"
             varient="primary"
             disabled={page === FormTitlesAndSubtitles.length - 1}

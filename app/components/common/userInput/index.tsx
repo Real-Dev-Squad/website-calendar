@@ -5,9 +5,9 @@ interface UserInputProps {
 }
 
 const UserInput: React.FC<UserInputProps> = ({ label, placeholder, link }) => (
-  <div className="mb-6">
+  <main className="mb-6">
     <p className="text-sm text-black mb-2">{label}</p>
-    <div className={`${link ? 'flex' : ''}`} data-testid="user-input-wrapper">
+    <div className='flex' data-testid="user-input-wrapper">
       {link && (
         <button
           data-testid="url-btn"
@@ -19,13 +19,13 @@ const UserInput: React.FC<UserInputProps> = ({ label, placeholder, link }) => (
       <input
         type="text"
         data-testid="user-input"
-        className={`text-sm p-3 focus:outline-none ${
+        className={` bg-stone-50 text-sm p-3  focus:outline-none ${
           link ? 'basis-3/4 border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
         }   border-solid border  border-stone-400`}
         placeholder={placeholder}
       />
     </div>
-  </div>
+  </main>
 );
 
 export default UserInput;
