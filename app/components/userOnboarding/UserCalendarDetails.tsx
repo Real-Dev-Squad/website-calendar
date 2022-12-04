@@ -1,12 +1,10 @@
-import { GoogleCalendar } from '../icons';
-import { Button } from '../Button';
+import { GoogleCalendar, MicrosoftCalendar } from '../icons';
 import ContentPill from '../common/contentPill';
 
 const UserCalendarDetails = () => (
   <div className="h-full flex flex-col justify-between">
     <div className="relative">
-      <ContentPill title="Apple Calendar" btnHeading="Connect" svg={<GoogleCalendar />} />
-      <ContentPill title="Microsoft Calendar" btnHeading="Connect" svg={<GoogleCalendar />} />
+      <ContentPill title="Microsoft Calendar" btnHeading="Connect" svg={<MicrosoftCalendar />} />
       <ContentPill title="Google Calendar" btnHeading="Connect" svg={<GoogleCalendar />} />
     </div>
     <div className="flex justify-center">
