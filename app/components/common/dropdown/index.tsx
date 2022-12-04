@@ -32,14 +32,14 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
   ];
 
   const setDropdown = (e: any) => {
-    console.log(e.target.innerText);
     setDropdownValue(e.target.innerText);
     setDropdownStatus(false);
   };
   return (
-    <main>
+    <main data-testid="dropdown">
       <div
-        className={`w-full flex items-center justify-between border solid py-3 px-3 ${
+        data-testid="dropdown-controller"
+        className={`w-full flex items-center justify-between border border-stone-400 solid py-3 px-3 ${
           dropdownStatus ? 'rounded-b-none rounded-t-lg' : 'rounded-lg'
         } cursor-pointer `}
         onClick={() => setDropdownStatus((prev: boolean) => !prev)}
@@ -47,19 +47,25 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
         {dropdownValue ? (
           <span className="text-gray-700  text-sm">{dropdownValue}</span>
         ) : (
-          <span className="text-slate-400">{placeholder}</span>
+          <span className="text-slate-400 text-sm">{placeholder}</span>
         )}
         <span className="h-5 w-5">{dropdownStatus ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>
       </div>
       <div>
         <ul
+          data-testid="option-list"
           className={`${
             dropdownStatus ? '' : 'hidden'
-          } border rounded-t-none rounded-b-lg h-36 overflow-y-auto text-sm text-gray-700 dark:text-gray-200`}
+          } border border-t-0 rounded-t-none  rounded-b-lg h-36 border-stone-400 overflow-y-auto text-sm text-gray-700 dark:text-gray-200`}
           onClick={(e) => setDropdown(e)}
         >
           {timezoneArray?.map((item, index) => (
-            <li key={item.id} className="flex p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+            <li
+              value={index}
+              key={item.id}
+              data-testid={`option-${index + 1}`}
+              className="flex p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+            >
               <label htmlFor={`checkbox-${index + 1}`}>{item.title}</label>
             </li>
           ))}
