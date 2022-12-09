@@ -5,7 +5,6 @@ import "tui-calendar/dist/tui-calendar.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
 
-
 const start = new Date();
 const end = new Date(new Date().setMinutes(start.getMinutes() + 30));
 const schedules: ISchedule[] = [
@@ -58,42 +57,34 @@ const calendars: ICalendarInfo[] = [
 ];
 
 const Calendar = () => {
-  const cal = useRef<any>();
+  const cal = useRef<TUICalendar | null>(null)
 
   const onClickSchedule = useCallback((e: {schedule: ISchedule}) => {
     const { calendarId, id } = e.schedule;
-    const el = cal.current.calendarInst.getElement(id, calendarId);
+    const el = cal.current!.calendarInstance?.getElement(id!, calendarId!);
 
-    console.log(e, el.getBoundingClientRect());
   }, []);
 
-  const onBeforeCreateSchedule = useCallback((scheduleData: any) => {
-    console.log(scheduleData);
-
+  const onBeforeCreateSchedule = useCallback((scheduleData: ISchedule) => {
+    
     const schedule = {
       id: String(Math.random()),
       title: scheduleData.title,
       isAllDay: scheduleData.isAllDay,
-      start: scheduleData.start,
-      end: scheduleData.end,
-      category: scheduleData.isAllDay ? "allday" : "time",
+      start: scheduleData.start?.toString(),
+      end: scheduleData.end?.toString(),
       dueDateClass: "",
       location: scheduleData.location,
-      raw: {
-        class: scheduleData.raw["class"]
-      },
-      state: scheduleData.state
     };
 
-    cal.current.calendarInst.createSchedules([schedule]);
+    cal.current!.calendarInstance!.createEvents([schedule]);
   }, []);
 
   const onBeforeDeleteSchedule = useCallback((res: IEventScheduleObject) => {
-    console.log(res);
 
     const { id, calendarId } = res.schedule;
 
-    cal.current.calendarInst.deleteSchedule(id, calendarId);
+    cal.current!.calendarInstance!.deleteEvent(id!, calendarId!);
   }, []);
 
   const onBeforeUpdateSchedule = useCallback((e : { schedule: ISchedule, changes: any}) => {
@@ -101,9 +92,9 @@ const Calendar = () => {
 
     const { schedule, changes } = e;
 
-    cal.current.calendarInst.updateSchedule(
-      schedule.id,
-      schedule.calendarId,
+    cal.current!.calendarInstance!.updateEvent(
+      schedule.id!,
+      schedule.calendarId!,
       changes
     );
   }, []);
@@ -117,7 +108,7 @@ const Calendar = () => {
   }
 
   function _getTimeTemplate(schedule: ISchedule , isAllDay: boolean) {
-    var html = [];
+    let html : Array<string> = [];
 
     if (!isAllDay) {
       html.push("<strong>" + _getFormattedTime(schedule.start!) + "</strong> ");
