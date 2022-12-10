@@ -88,7 +88,7 @@ const Calendar = () => {
   }, []);
 
   const onBeforeUpdateSchedule = useCallback((e : { schedule: ISchedule, changes: any}) => {
-    console.log(e);
+    
 
     const { schedule, changes } = e;
 
