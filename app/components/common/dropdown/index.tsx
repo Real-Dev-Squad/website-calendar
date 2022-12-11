@@ -31,8 +31,9 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
     },
   ];
 
-  const setDropdown = (e: any) => {
-    setDropdownValue(e.target.innerText);
+  const setDropdown = (e: React.MouseEvent<Element, MouseEvent>) => {
+    const element = e.target as HTMLElement;
+    setDropdownValue(element.innerText);
     setDropdownStatus(false);
   };
   return (
@@ -44,11 +45,14 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
         } cursor-pointer `}
         onClick={() => setDropdownStatus((prev: boolean) => !prev)}
       >
-        {dropdownValue ? (
-          <span className="text-gray-700  text-sm">{dropdownValue}</span>
-        ) : (
-          <span className="text-slate-400 text-sm">{placeholder}</span>
-        )}
+        <button
+          data-testid="dropdown-value"
+          value={dropdownValue || placeholder}
+          className={`${dropdownValue ? 'text-gray-700 ' : 'text-slate-400'}  text-sm`}
+        >
+          {dropdownValue || placeholder}
+        </button>
+
         <span className="h-5 w-5">{dropdownStatus ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>
       </div>
       <div>
@@ -56,12 +60,12 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
           data-testid="option-list"
           className={`${
             dropdownStatus ? '' : 'hidden'
-          } border border-t-0 rounded-t-none  rounded-b-lg h-36 border-stone-400 overflow-y-auto text-sm text-gray-700 dark:text-gray-200`}
+          } mb-2 border border-t-0 rounded-t-none  rounded-b-lg h-32 border-stone-400 overflow-y-auto text-sm text-gray-700 dark:text-gray-200`}
           onClick={(e) => setDropdown(e)}
         >
           {timezoneArray?.map((item, index) => (
             <li
-              value={index}
+              data-value={item.title}
               key={item.id}
               data-testid={`option-${index + 1}`}
               className="flex p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-600"

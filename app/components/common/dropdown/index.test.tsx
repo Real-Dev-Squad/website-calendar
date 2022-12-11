@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, getByTestId } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Dropdown from '.';
 
 it('renders a dropwdown element', () => {
@@ -18,14 +18,17 @@ it('checks if the click for showing dropdown is working', () => {
 });
 
 it('checks if the click on any option changes the value of dropdown', async () => {
-  render(<Dropdown placeholder="select timezone" />);
-  const dropdownController = screen.getByTestId('dropdown-controller');
-  const option = screen.getByTestId('option-1');
-  await fireEvent.click(dropdownController);
-
+  const { getByTestId } = render(<Dropdown placeholder="select timezone" />);
+  const dropdownController = getByTestId('dropdown-controller');
+  const option = getByTestId('option-1');
+  fireEvent.click(dropdownController);
+  const dropdownValue = screen.getByTestId('dropdown-value') as HTMLButtonElement;
+  // click on dropdown
+  fireEvent.click(dropdownController);
   // select the first option in the dropdown
-  await fireEvent.click(option);
-  console.log(dropdownController.textContent, dropdownController.firstChild?.textContent);
+  fireEvent.click(option, {
+    target: { innerText: '(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi' },
+  });
 
-  expect(screen.getByTestId('dropdown-controller').textContent).toBe(option.textContent);
+  expect(dropdownValue).toHaveValue('(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi');
 });
