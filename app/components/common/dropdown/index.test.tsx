@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Dropdown from '.';
 
 it('renders a dropwdown element', () => {
@@ -15,6 +15,18 @@ it('checks if the click for showing dropdown is working', () => {
   expect(optionList).toHaveClass('hidden');
   fireEvent.click(dropdownController);
   expect(optionList).not.toHaveClass('hidden');
+});
+
+it('checks if all options are rendered', () => {
+  render(<Dropdown placeholder="select timezone" />);
+  const option1 = screen.getByTestId('option-1');
+  const option2 = screen.getByTestId('option-2');
+  const option3 = screen.getByTestId('option-3');
+  const option4 = screen.getByTestId('option-4');
+  expect(option1).toBeInTheDocument();
+  expect(option2).toBeInTheDocument();
+  expect(option3).toBeInTheDocument();
+  expect(option4).toBeInTheDocument();
 });
 
 it('checks if the click on any option changes the value of dropdown', async () => {

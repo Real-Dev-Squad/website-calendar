@@ -63,7 +63,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
           } mb-2 border border-t-0 rounded-t-none  rounded-b-lg h-32 border-stone-400 overflow-y-auto text-sm text-gray-700 dark:text-gray-200`}
           onClick={(e) => setDropdown(e)}
         >
-          {timezoneArray?.map((item, index) => (
+          {timezoneArray.map((item, index) => (
             <li
               data-value={item.title}
               key={item.id}
