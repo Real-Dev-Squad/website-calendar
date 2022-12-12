@@ -1,6 +1,7 @@
 import React from 'react';
 import UserInput from '../common/userInput';
 import Dropdown from '../common/dropdown';
+
 const UserDetails = () => (
   <div className="mx-4">
     <div>
