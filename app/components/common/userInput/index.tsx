@@ -6,8 +6,8 @@ interface UserInputProps {
 
 const UserInput: React.FC<UserInputProps> = ({ label, placeholder, link }) => (
   <main className="mb-6">
-    <p className="text-sm text-black mb-2">{label}</p>
-    <div className='flex' data-testid="user-input-wrapper">
+    <p className=" text-black mb-2">{label}</p>
+    <div className="flex" data-testid="user-input-wrapper">
       {link && (
         <button
           data-testid="url-btn"
