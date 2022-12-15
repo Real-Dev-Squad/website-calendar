@@ -3,6 +3,7 @@ import { json, LoaderFunction } from '@remix-run/node';
 
 import { SocialAuth } from '~/components/SocialAuth';
 import { getOAuthLinks } from '~/models/oauth.server';
+import EmailSignup from '~/components/emailSignup';
 
 type LoaderData = {
   ENV: Awaited<ReturnType<typeof getOAuthLinks>>;
@@ -22,6 +23,8 @@ const SignUpPage = () => {
       <h1 className="mt-20 mb-10 text-xl font-semibold lg:mt-24">HapDay</h1>
 
       <h2 className="text-3xl font-semibold sm:text-3xl">Create your account</h2>
+
+      <EmailSignup />
 
       {ENV.GOOGLE_OAUTH && ENV.MICROSOFT_OAUTH && (
         <SocialAuth google={ENV.GOOGLE_OAUTH} microsoft={ENV.MICROSOFT_OAUTH} />

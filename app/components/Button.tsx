@@ -4,9 +4,8 @@ interface ButtonProps {
   size: 'small' | 'medium' | 'large';
   label: string;
   varient: 'primary' | 'secondary';
-
   disabled?: boolean;
-  handleClick?: (value: React.SetStateAction<number>) => void;
+  handleClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -15,10 +14,9 @@ export const Button: React.FC<ButtonProps> = ({
   varient = 'primary',
   disabled = false,
   handleClick,
-}) => {
-  return (
-    <button
-      className={`
+}) => (
+  <button
+    className={`
                 flex items-center justify-center border rounded-lg transition 
                w-full
                 ${
@@ -34,13 +32,12 @@ export const Button: React.FC<ButtonProps> = ({
                     : 'px-4 py-2 text-lg gap-3'
                 }
             `}
-      onClick={handleClick}
-      disabled={disabled}
-    >
-      {label}
-    </button>
-  );
-};
+    onClick={handleClick}
+    disabled={disabled}
+  >
+    {label}
+  </button>
+);
 
 interface LinkButtonProps {
   href: string;
@@ -48,17 +45,15 @@ interface LinkButtonProps {
   icon: Icon;
 }
 
-export const LinkButton: React.FC<LinkButtonProps> = ({ href, title, icon: Icon }) => {
-  return (
-    <a
-      href={href}
-      className="flex items-center justify-center gap-3 px-2 py-4 font-medium transition duration-300 border text-stone-700 hover:bg-stone-200 active:bg-stone-300 group bg-stone-100 border-stone-200"
-    >
-      <div>
-        <Icon className="w-5 h-5" />
-      </div>
+export const LinkButton: React.FC<LinkButtonProps> = ({ href, title, icon: Icon }) => (
+  <a
+    href={href}
+    className="flex items-center justify-center gap-3 px-2 py-4 font-medium transition duration-300 border text-stone-700 hover:bg-stone-200 active:bg-stone-300 group bg-stone-100 border-stone-200"
+  >
+    <div>
+      <Icon className="w-5 h-5" />
+    </div>
 
-      <span>{title}</span>
-    </a>
-  );
-};
+    <span>{title}</span>
+  </a>
+);
