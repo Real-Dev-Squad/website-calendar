@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import { Button } from '~/components/Button';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import PasswordInput from '~/components/common/passwordInput';
 
 const ResetPassword = () => {
   return (
@@ -18,28 +17,4 @@ const ResetPassword = () => {
   );
 };
 
-const PasswordInput = ({ label, description }: { label: string; description: string }) => {
-  const [showPassword, setShowPasword] = useState(false);
-  const Icon = showPassword ? EyeIcon : EyeSlashIcon;
-  return (
-    <div>
-      <label>{label}</label>
-      <div className="relative">
-        <input
-          aria-describedby="desc"
-          type={showPassword ? 'text' : 'password'}
-          className={` bg-stone-50 text-sm p-3  focus:outline-none rounded-lg w-full  border-solid border  border-stone-400`}
-        />
-        <Icon
-          data-testid="icon"
-          className="h-6 w-6 absolute right-3 top-1/2 -translate-y-1/2"
-          onClick={() => setShowPasword((prev) => !prev)}
-        />
-      </div>
-      <span id="desc" className="text-stone-500 text-sm">
-        {description}
-      </span>
-    </div>
-  );
-};
 export default ResetPassword;
