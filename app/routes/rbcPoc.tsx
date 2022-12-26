@@ -1,9 +1,13 @@
+import { LinksFunction } from 'remix';
 import moment from 'moment';
 import { useState, useCallback } from 'react';
 import Navbar from '~/components/common/navbar';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 import EventModal from '~/components/common/eventModal';
 import RdsCalendar from '~/components/common/rdsCalendar';
+import styles from '../components/common/eventModal/styles.css';
+
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 const initialEventsList: CalEvent[] = [
   {
