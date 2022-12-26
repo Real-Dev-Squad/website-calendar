@@ -28,7 +28,7 @@ const UserInput: FC<UserInputProps> = ({
     <main className="mb-6">
       <p className="text-sm text-black mb-2">{label}</p>
 
-      <div data-testid="user-input-wrapper">
+      <div className="flex" data-testid="user-input-wrapper">
         {link && (
           <button
             data-testid="url-btn"
@@ -37,13 +37,13 @@ const UserInput: FC<UserInputProps> = ({
             {link}
           </button>
         )}
-        <div className="relative">
+        <div className={`relative flex w-full`}>
           <input
             aria-describedby="desc"
             type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
             data-testid={dataTestId ?? 'user-input'}
             className={` bg-stone-50 text-sm p-3  focus:outline-none ${
-              link ? 'basis-3/4 border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
+              link ? 'basis-full border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
             }   border-solid border  border-stone-400`}
             placeholder={placeholder}
             value={value}
@@ -57,13 +57,13 @@ const UserInput: FC<UserInputProps> = ({
             />
           )}
         </div>
-
-        {description && (
-          <span id="desc" className="text-stone-500 text-sm">
-            {description}
-          </span>
-        )}
       </div>
+
+      {description && (
+        <span id="desc" className="text-stone-500 text-sm">
+          {description}
+        </span>
+      )}
     </main>
   );
 };
