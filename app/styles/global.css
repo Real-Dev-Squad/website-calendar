@@ -1,1 +1,3 @@
 /* This is a global CSS file  */
+@import url('react-big-calendar/lib/css/react-big-calendar.css');
+@import url('react-big-calendar/lib/addons/dragAndDrop/styles.css');
