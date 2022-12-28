@@ -37,7 +37,7 @@ const UserInput: FC<UserInputProps> = ({
             {link}
           </button>
         )}
-        <div className={`relative flex w-full`}>
+        <div className="relative flex w-full">
           <input
             aria-describedby="desc"
             type={type === 'password' ? (showPassword ? 'text' : 'password') : type}

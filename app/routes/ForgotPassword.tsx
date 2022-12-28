@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'remix';
+import { useNavigate } from '@remix-run/react';
 import { Button } from '~/components/Button';
 import UserInput from '../components/common/userInput';
+
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const ForgotPassword = () => {
             label="Send verification code"
             varient="primary"
             disabled={false}
-            handleClick={() => navigate('/otp_verification')}
+            handleClick={() => navigate('/otpverification')}
           />
         </form>
       </main>

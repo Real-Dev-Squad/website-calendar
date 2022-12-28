@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from '@remix-run/react';
 import { Button } from '~/components/Button';
 import OTPInput from '~/components/common/otpInput';
 
@@ -15,18 +15,18 @@ export const OTPVerification = () => {
         <form>
           <div className="my-8 mx-auto w-fit">
             <OTPInput otpLength={4} />
-            <p className="flex ">
+            <div className="flex gap-2">
               Didn't receive code?
               <Link to="" className="flex underline text-blue-900 underline-offset-4">
                 Send again
               </Link>
-            </p>
+            </div>
           </div>
           <Button
             size="medium"
             label=" Continue"
             varient="primary"
-            handleClick={() => navigate('/reset_password')}
+            handleClick={() => navigate('/resetpassword')}
           />
         </form>
       </main>
