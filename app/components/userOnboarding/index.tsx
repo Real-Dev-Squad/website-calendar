@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import UserCalendarDetails from './UserCalendarDetails';
 import UserDetails from './UserDetails';
 import { Button } from '../Button';
 
-const UserOnboarding = () => {
+interface UserOnboardingInterface {
+  apiHost: string;
+  authToken: string;
+}
+
+const UserOnboarding: FC<UserOnboardingInterface> = ({ apiHost, authToken }) => {
   const [page, setPage] = useState<number>(0);
   const FormTitlesAndSubtitles = [
     {
@@ -20,7 +25,7 @@ const UserOnboarding = () => {
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <UserDetails />;
+      return <UserDetails apiHost={apiHost} authToken={authToken} />;
     }
     if (page === 1) {
       return <UserCalendarDetails />;

@@ -10,6 +10,7 @@ interface UserInputProps {
   value: string;
   setValue: (str: string) => void;
   description?: string;
+  err?: string | null;
 }
 
 const UserInput: FC<UserInputProps> = ({
@@ -21,9 +22,21 @@ const UserInput: FC<UserInputProps> = ({
   value,
   setValue,
   description,
+  err,
 }) => {
   const [showPassword, setShowPasword] = useState(false);
   const Icon = showPassword ? EyeIcon : EyeSlashIcon;
+
+  const inputType = () => {
+    if (type === 'password') {
+      if (showPassword) {
+        return 'text';
+      }
+      return 'password';
+    }
+    return type;
+  };
+
   return (
     <main className="mb-6">
       <p className="text-sm text-black mb-2">{label}</p>
@@ -32,7 +45,9 @@ const UserInput: FC<UserInputProps> = ({
         {link && (
           <button
             data-testid="url-btn"
-            className="basis-1/4 border-solid border border-stone-400 rounded-l-lg text-stone-700 "
+            className={`basis-1/4 border-solid border ${
+              err ? 'border-red-600' : 'border-stone-400'
+            } rounded-l-lg text-stone-700 `}
           >
             {link}
           </button>
@@ -40,11 +55,11 @@ const UserInput: FC<UserInputProps> = ({
         <div className="relative flex w-full">
           <input
             aria-describedby="desc"
-            type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
+            type={inputType()}
             data-testid={dataTestId ?? 'user-input'}
             className={` bg-stone-50 text-sm p-3  focus:outline-none ${
               link ? 'basis-full border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
-            }   border-solid border  border-stone-400`}
+            }   border-solid border  ${err ? 'border-red-600' : 'border-stone-400'}`}
             placeholder={placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -64,6 +79,7 @@ const UserInput: FC<UserInputProps> = ({
           {description}
         </span>
       )}
+      {err && <div className="mt-2 text-sm text-red-600">{err}</div>}
     </main>
   );
 };
