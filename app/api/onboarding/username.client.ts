@@ -1,10 +1,12 @@
+/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 
-export const isUsernameAvailable = async (host: string, username: string) => {
+export const isUsernameAvailable = async (host: string, token: string, username: string) => {
   const url = `${host}/api/v1/users/usernameCheck/${username}`;
   try {
     const response = await axios.get(url, {
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     });

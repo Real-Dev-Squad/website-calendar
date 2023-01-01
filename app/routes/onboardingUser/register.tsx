@@ -59,7 +59,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
   useEffect(() => {
     (async () => {
       if (query !== '') {
-        const res: boolean = await isUsernameAvailable(apiHost!, query);
+        const res: boolean = await isUsernameAvailable(apiHost!, authToken!, query);
         setUsernameAvailable(res);
       }
     })();
