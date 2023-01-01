@@ -13,11 +13,19 @@ Provide a small description of what did you change and provide the reference to 
 - [ ] Yes
 - [ ] No
 
+
+### \*Is new files added to project-directory file?
+
+- [ ] Yes
+- [ ] No
+
 ### \*Tested on:
 
 #### Platforms
 
 - [ ] Web
+
+
 
 #### Browsers
 
