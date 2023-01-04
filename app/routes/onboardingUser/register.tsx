@@ -32,10 +32,8 @@ export async function action({ request }: ActionArgs) {
         firstname: fullName,
         timezone: 'Asia/India',
       };
-      console.log('####userData####', userData);
       if(userData) {
         const response = await register(userData);
-        console.info(response)
         if (response.username) {
           return redirect(`/onboardingUser/connect?username=${response.username}`);
         }
