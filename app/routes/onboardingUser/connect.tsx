@@ -5,15 +5,6 @@ import { FormTitlesAndSubtitles } from '~/constants/userOnboarding';
 import ContentPill from '~/components/common/contentPill';
 import { GoogleCalendar, MicrosoftCalendar } from '~/components/icons';
 
-interface UserDetailsInterface {
-  apiHost: string;
-  authToken: string;
-}
-
-export async function loader() {
-  return json({ apiHost: process.env.API_HOST, authToken: process.env.AUTH_TOKEN });
-}
-
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const username = formData.get('username');
@@ -30,7 +21,7 @@ export async function action({ request }: ActionArgs) {
   return null;
 }
 
-const ConnectCalendar: FC<UserDetailsInterface> = () => {
+const ConnectCalendar: FC = () => {
   return (
     <main className="max-w-md flex mx-auto">
       <div className="form bg-stone-50 h-screen">
