@@ -94,6 +94,8 @@ const Navbar = () => {
     navbarBackgroundColor: 'bg-stone-50',
   };
 
+  let id = 0;
+
   return (
     <nav
       className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static`}
@@ -108,7 +110,7 @@ const Navbar = () => {
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
               onClick={() => toggle(navIntem.id)}
-              key={navIntem.id}
+              key={id++}
             >
               <div className="h-5 w-5">
                 <DynamicHeroIcon
