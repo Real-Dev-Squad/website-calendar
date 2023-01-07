@@ -108,6 +108,7 @@ const Navbar = () => {
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
               onClick={() => toggle(navIntem.id)}
+              key={navIntem.id}
             >
               <div className="h-5 w-5">
                 <DynamicHeroIcon
