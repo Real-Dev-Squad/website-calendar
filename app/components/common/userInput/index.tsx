@@ -11,6 +11,7 @@ interface UserInputProps {
   setValue: (str: string) => void;
   description?: string;
   err?: string | null;
+  name?:string;
 }
 
 const UserInput: FC<UserInputProps> = ({
@@ -23,6 +24,7 @@ const UserInput: FC<UserInputProps> = ({
   setValue,
   description,
   err,
+  name
 }) => {
   const [showPassword, setShowPasword] = useState(false);
   const Icon = showPassword ? EyeIcon : EyeSlashIcon;
@@ -63,6 +65,7 @@ const UserInput: FC<UserInputProps> = ({
             placeholder={placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            name={name}
           />
           {type === 'password' && (
             <Icon
