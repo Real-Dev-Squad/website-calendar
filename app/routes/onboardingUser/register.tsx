@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
-import { Form, useActionData, useLoaderData } from 'remix';
+import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import { ActionArgs, json, redirect } from '@remix-run/node';
 import UserInput from '~/components/common/userInput';
 import { register } from '~/api/onboarding/register.server';
@@ -26,18 +26,18 @@ export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const username = formData.get('username');
   const fullName = formData.get('fullName');
-  if(username && fullName) {
+  if (username && fullName) {
     const userData = {
-        username,
-        firstname: fullName,
-        timezone: 'Asia/India',
-      };
-      if(userData) {
-        const response = await register(userData);
-        if (response.username) {
-          return redirect(`/onboardingUser/connect?username=${response.username}`);
-        }
+      username,
+      firstname: fullName,
+      timezone: 'Asia/India',
+    };
+    if (userData) {
+      const response = await register(userData);
+      if (response.username) {
+        return redirect(`/onboardingUser/connect?username=${response.username}`);
       }
+    }
   }
 
   return null;

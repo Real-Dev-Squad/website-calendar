@@ -1,13 +1,8 @@
-import { LinksFunction } from 'remix';
 import moment from 'moment';
 import { useState, useCallback } from 'react';
-import Navbar from '~/components/common/navbar';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 import EventModal from '~/components/common/eventModal';
 import RdsCalendar from '~/components/common/rdsCalendar';
-import styles from '../components/common/eventModal/styles.css';
-
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 const initialEventsList: CalEvent[] = [
   {
@@ -30,7 +25,7 @@ const initialEventsList: CalEvent[] = [
   },
 ];
 
-const RbcPoc = () => {
+const Calendar = () => {
   const [eventsList, setEventsList] = useState<CalEvent[]>(initialEventsList);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>();
 
@@ -67,8 +62,7 @@ const RbcPoc = () => {
   );
 
   return (
-    <div className="flex h-[100vh] w-[100vw]">
-      <Navbar />
+    <>
       <div className="w-[100%]">{memoizedRdsCalendar()}</div>
       {calendarEvent?.show && (
         <EventModal
@@ -79,8 +73,8 @@ const RbcPoc = () => {
           newEvent={calendarEvent.new}
         />
       )}
-    </div>
+    </>
   );
 };
 
-export default RbcPoc;
+export default Calendar;
