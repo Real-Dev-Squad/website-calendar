@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import Calendar from '../components/Calendar.client';
+import Calendar from '../components/Calendar';
 
 type CalendarType = typeof Calendar;
 
