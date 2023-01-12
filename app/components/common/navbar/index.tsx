@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as Icons from '@heroicons/react/24/outline';
+import Slider from '../slider';
 
 interface DynamicHeroIconType {
   name: string;
@@ -26,6 +27,7 @@ const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
 
 const Navbar = () => {
   const [active, setActive] = useState<number>(0);
+  const [toggleSlider, setToggleSlider] = useState<boolean>(false);
 
   const myColor = (elementPosition: number) => {
     if (active === elementPosition) return true;
@@ -98,6 +100,10 @@ const Navbar = () => {
     <nav
       className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static`}
     >
+      <h1 onClick={() => setToggleSlider((prev) => !prev)}>Slider Button</h1>
+
+      <Slider toOpen={toggleSlider} setToggle={setToggleSlider} />
+
       <div className="basis-full">
         <ul
           className={`${classShortHands.flexDesktopCol}   justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
