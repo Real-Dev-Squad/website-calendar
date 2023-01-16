@@ -98,9 +98,12 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static`}
+      className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static z-10`}
     >
-      <h1 onClick={() => setToggleSlider((prev) => !prev)}>Slider Button</h1>
+      {/* Temporary button to demonstrate working of the slider. */}
+      {/* <h1 onClick={() => setToggleSlider((prev) => !prev)} title="slider">
+        Slider Button
+      </h1> */}
 
       <Slider toOpen={toggleSlider} setToggle={setToggleSlider} />
 
