@@ -27,7 +27,7 @@ const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
 
 const Navbar = () => {
   const [active, setActive] = useState<number>(0);
-  const [toggleSlider, setToggleSlider] = useState<boolean>(false);
+  const [showSlider, setShowSlider] = useState<boolean>(false);
 
   const myColor = (elementPosition: number) => {
     if (active === elementPosition) return true;
@@ -100,19 +100,15 @@ const Navbar = () => {
     <nav
       className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static z-10`}
     >
-      {/* Temporary button to demonstrate working of the slider. */}
-      {/* <h1 onClick={() => setToggleSlider((prev) => !prev)} title="slider">
-        Slider Button
-      </h1> */}
-
-      <Slider toOpen={toggleSlider} setToggle={setToggleSlider} />
+      <Slider isOpen={showSlider} toggle={setShowSlider} />
 
       <div className="basis-full">
         <ul
-          className={`${classShortHands.flexDesktopCol}   justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
+          className={`${classShortHands.flexDesktopCol} justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarPages.map((navIntem: NavItemType) => (
+          {navbarElements.navbarPages.map((navIntem: NavItemType, index: number) => (
             <li
+              key={index}
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
@@ -148,8 +144,9 @@ const Navbar = () => {
         <ul
           className={`hidden md:flex flex-col ${classShortHands.padding} mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarSettings.map((navIntem: NavItemType) => (
+          {navbarElements.navbarSettings.map((navIntem: NavItemType, index: number) => (
             <li
+              key={index}
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
