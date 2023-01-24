@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as Icons from '@heroicons/react/24/outline';
+import Slider from '../slider';
 
 interface DynamicHeroIconType {
   name: string;
@@ -26,6 +27,7 @@ const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
 
 const Navbar = () => {
   const [active, setActive] = useState<number>(0);
+  const [showSlider, setShowSlider] = useState<boolean>(false);
 
   const myColor = (elementPosition: number) => {
     if (active === elementPosition) return true;
@@ -96,14 +98,17 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static`}
+      className={`w-full md:w-52 ${classShortHands.flexDesktopCol} md:h-screen justify-between  ${classShortHands.padding} sm:px-4 border-t-2  md:border-r-2  border-stone-200 ${classShortHands.navbarBackgroundColor} fixed bottom-0 md:static z-10`}
     >
+      <Slider isOpen={showSlider} toggle={setShowSlider} />
+
       <div className="basis-full">
         <ul
-          className={`${classShortHands.flexDesktopCol}   justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
+          className={`${classShortHands.flexDesktopCol} justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
         >
           {navbarElements.navbarPages.map((navIntem: NavItemType) => (
             <li
+              key={navIntem.id}
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
@@ -141,6 +146,7 @@ const Navbar = () => {
         >
           {navbarElements.navbarSettings.map((navIntem: NavItemType) => (
             <li
+              key={navIntem.id}
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
