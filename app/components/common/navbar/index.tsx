@@ -106,9 +106,9 @@ const Navbar = () => {
         <ul
           className={`${classShortHands.flexDesktopCol} justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarPages.map((navIntem: NavItemType, index: number) => (
+          {navbarElements.navbarPages.map((navIntem: NavItemType) => (
             <li
-              key={index}
+              key={navIntem.id}
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
@@ -144,9 +144,9 @@ const Navbar = () => {
         <ul
           className={`hidden md:flex flex-col ${classShortHands.padding} mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarSettings.map((navIntem: NavItemType, index: number) => (
+          {navbarElements.navbarSettings.map((navIntem: NavItemType) => (
             <li
-              key={index}
+              key={navIntem.id}
               className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
