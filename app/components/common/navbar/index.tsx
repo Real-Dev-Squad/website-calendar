@@ -14,7 +14,7 @@ interface NavItemType {
   visibleOnDesktop: boolean;
 }
 
-const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
+export const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
   const IconComponent = Icons[`${name}Icon` as keyof typeof Icons];
 
   if (!IconComponent) {
