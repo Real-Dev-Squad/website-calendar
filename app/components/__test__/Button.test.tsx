@@ -24,7 +24,7 @@ describe('Button', () => {
     const handleClick = jest.fn(() => null);
     const { getByText } = render(
       <Button
-        size="small"
+        size="medium"
         label="Click me"
         varient="primary"
         disabled={false}
@@ -37,6 +37,16 @@ describe('Button', () => {
     expect(handleClick).toHaveBeenCalled();
 
     expect(getByText(btnText).classList.contains('border-transparent')).toBeTruthy();
+
+    render(
+      <Button
+        size="large"
+        label="Click me"
+        varient="secondary"
+        disabled={false}
+        handleClick={handleClick}
+      />
+    );
   });
 });
 

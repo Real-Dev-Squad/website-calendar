@@ -21,7 +21,7 @@ describe('Navbar', () => {
 
   it('renders the dynamic hero icon', () => {
     const props = {
-      name: 'randon',
+      name: 'random',
       className: 'random',
     };
     const { container } = render(<DynamicHeroIcon name={props.name} className={props.className} />);
