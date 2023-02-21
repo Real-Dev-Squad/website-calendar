@@ -10,7 +10,7 @@ export default function SearchBar() {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                    </button>
-                <input type="search" placeholder="Search Events" className="block rounded-md border-0 focus:outline-none focus:ring-0 focus:border-blue-500 flex-grow p-2 bg-gray-100" />
+                <input type="search" placeholder="Search Events" className="block rounded-md border-0 flex-grow p-2 bg-gray-100" />
             </form>
 
         </>
