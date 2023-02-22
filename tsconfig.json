@@ -1,4 +1,3 @@
-
 {
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js", "jest.config.js"],
   "compilerOptions": {
