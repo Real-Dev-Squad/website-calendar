@@ -2,7 +2,7 @@ import { screen, render, fireEvent, getByTestId, waitFor } from '@testing-librar
 import SearchBar from '.';
 import userEvent from '@testing-library/user-event';
 
-describe('Input Value', () => {
+describe('Rendering Input Value', () => {
   it('renders a input field', () => {
     render(<SearchBar placeholder="Search" defaultValue="" onChangeValue={() => {}} />);
     const searchBar = screen.getByTestId('searchBar');
@@ -10,8 +10,8 @@ describe('Input Value', () => {
   });
 });
 
-describe('Not Empty', () => {
-  it('checks input value to be empty', () => {
+describe('checks input value to be empty', () => {
+  it('checking whether Empty or Not', () => {
     render(<SearchBar placeholder="" defaultValue="" onChangeValue={() => {}} />);
     const inputElement = screen.getByTestId('searchBar');
     expect(inputElement).toBeInTheDocument();
@@ -19,7 +19,7 @@ describe('Not Empty', () => {
 });
 
 describe('Accepting Letters', () => {
-  it('checks input letter', () => {
+  it('checking input letter', () => {
     render(<SearchBar placeholder="" onChangeValue={jest.fn((value) => {})} />);
     const letters = 'abcdefghizklmnopqrstuvwxyz';
     const input = screen.getByTestId('searchBar') as HTMLInputElement;
@@ -38,8 +38,8 @@ describe('Accepting Symbols', () => {
   });
 });
 
-describe('Check Input', () => {
-  it('Input Matched', async () => {
+describe('Checking whether Input matches or not', () => {
+  it('Matching Input', async () => {
     render(<SearchBar placeholder="" defaultValue="" onChangeValue={jest.fn((value) => {})} />);
     const box = screen.getByRole('searchbox') as HTMLInputElement;
     await userEvent.click(box);
@@ -64,3 +64,4 @@ describe('checking placeholder', () => {
     expect(inputBox).toBeDefined();
   });
 });
+  
