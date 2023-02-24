@@ -30,5 +30,3 @@ jobs:
         run: yarn run test:ci
       - name: Code Coverage Summary
         uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: coverage.clover.xml
