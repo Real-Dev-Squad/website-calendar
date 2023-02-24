@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
@@ -24,7 +24,7 @@ const SearchBar: React.FC<SearchProps> = ({
         placeholder={placeholder}
         defaultValue={defaultValue}
         onChange={(e) => onChangeValue(e.target.value)}
-        className="block rounded-md border-0 flex-grow p-2 bg-gray-100 !outline-none"
+        className="block rounded-md border-0 flex-grow p-2 bg-gray-100"
       />
     </div>
   );
