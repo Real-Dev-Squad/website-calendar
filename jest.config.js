@@ -6,6 +6,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': 'ts-jest',
   },
   setupFilesAfterEnv: ['./jest.setup.js'],
+  reporters: [['github-actions', { silent: false }], 'summary'],
   coverageThreshold: {
     global: {
       branches: 100,
