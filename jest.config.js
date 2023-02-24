@@ -6,7 +6,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': 'ts-jest',
   },
   setupFilesAfterEnv: ['./jest.setup.js'],
-  coverageReporters: ['clover', 'json', 'html'],
+  coverageReporters: ['cobertura', 'json', 'html'],
   coverageThreshold: {
     global: {
       branches: 85,
