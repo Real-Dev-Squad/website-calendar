@@ -3,10 +3,10 @@ import debounce from 'lodash.debounce';
 import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import { ActionArgs, json, redirect } from '@remix-run/node';
 import UserInput from '~/components/common/userInput';
-import { register } from '~/api/onboarding/register.server';
+import register from '~/api/onboarding/register.server';
 import Dropdown from '~/components/common/dropdown';
 import { isUsernameAvailable } from '~/api/onboarding/username.client';
-import { FormTitlesAndSubtitles } from '~/constants/userOnboarding';
+import FormTitlesAndSubtitles from '~/constants/userOnboarding';
 
 interface UserFormInterface {
   username: string;

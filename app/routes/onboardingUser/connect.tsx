@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ActionArgs, json, redirect } from '@remix-run/node';
-import { register } from '~/api/onboarding/register.server';
-import { FormTitlesAndSubtitles } from '~/constants/userOnboarding';
+import register from '~/api/onboarding/register.server';
+import FormTitlesAndSubtitles from '~/constants/userOnboarding';
 import ContentPill from '~/components/common/contentPill';
 import { GoogleCalendar, MicrosoftCalendar } from '~/components/icons';
 
