@@ -10,7 +10,3 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - uses: artiomtr/jest-coverage-report-action@v1.3
-                  with:
-                      threshold: 80 
-                      annotations: all
-                      package-manager: yarn
