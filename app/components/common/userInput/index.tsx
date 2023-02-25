@@ -11,7 +11,7 @@ interface UserInputProps {
   setValue: (str: string) => void;
   description?: string;
   err?: string | null;
-  name?:string;
+  name?: string;
 }
 
 const UserInput: FC<UserInputProps> = ({
@@ -24,7 +24,7 @@ const UserInput: FC<UserInputProps> = ({
   setValue,
   description,
   err,
-  name
+  name,
 }) => {
   const [showPassword, setShowPasword] = useState(false);
   const Icon = showPassword ? EyeIcon : EyeSlashIcon;
