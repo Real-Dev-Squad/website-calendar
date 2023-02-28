@@ -3306,25 +3306,6 @@
   resolved "https://registry.npmjs.org/@testing-library/user-event/-/user-event-14.4.3.tgz"
   integrity sha512-kCUc5MEwaEMakkO5x7aoD+DLi02ehmEM2QCGWvNqAS1dV/fAvORWEjnjsEIvml59M7Y5kCkWN6fCCyPOe8OL6Q==
 
-"@toast-ui/calendar@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.npmjs.org/@toast-ui/calendar/-/calendar-2.1.3.tgz"
-  integrity sha512-QxEf6MhcpqQ3dLSv6pxww1i6Ks/Ejp6mqy8GG7INvNYezmoXeo1IUBN4Cy9zLZeIgQHs02GEfusN5UzB+FyPhg==
-  dependencies:
-    immer "^9.0.15"
-    isomorphic-dompurify "^0.20.0"
-    preact "^10.10.0"
-    preact-render-to-string "^5.2.1"
-    tui-date-picker "^4.0.1"
-    tui-time-picker "^2.0.1"
-
-"@toast-ui/react-calendar@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.npmjs.org/@toast-ui/react-calendar/-/react-calendar-2.1.3.tgz"
-  integrity sha512-3KIPM46SsU26kvol8zKKn6D+hj0czJTCwLdnbaUAGhmiV/t2BbUT0ruj2Y6aYxmPVsEiOHV3JeRe5aBorBb9Lg==
-  dependencies:
-    "@toast-ui/calendar" "^2.1.3"
-
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
@@ -3421,13 +3402,6 @@
   integrity sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==
   dependencies:
     "@types/ms" "*"
-
-"@types/dompurify@^2.3.3":
-  version "2.3.4"
-  resolved "https://registry.npmjs.org/@types/dompurify/-/dompurify-2.3.4.tgz"
-  integrity sha512-EXzDatIb5EspL2eb/xPGmaC8pePcTHrkDCONjeisusLFrVfl38Pjea/R0YJGu3k9ZQadSvMqW0WXPI2hEo2Ajg==
-  dependencies:
-    "@types/trusted-types" "*"
 
 "@types/eslint-scope@^3.7.3":
   version "3.7.4"
@@ -3755,11 +3729,6 @@
   version "4.0.2"
   resolved "https://registry.npmjs.org/@types/tough-cookie/-/tough-cookie-4.0.2.tgz"
   integrity sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==
-
-"@types/trusted-types@*":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.2.tgz"
-  integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
 
 "@types/uglify-js@*":
   version "3.17.1"
@@ -6610,11 +6579,6 @@ domhandler@^4.0.0, domhandler@^4.2.0, domhandler@^4.3.1:
   dependencies:
     domelementtype "^2.2.0"
 
-dompurify@^2.3.8:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.4.0.tgz"
-  integrity sha512-Be9tbQMZds4a3C6xTmz68NlMfeONA//4dOavl/1rNw50E+/QO0KVpbcU0PcaW0nsQxurXls9ZocqFxk8R2mWEA==
-
 domutils@^2.5.2, domutils@^2.8.0:
   version "2.8.0"
   resolved "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz"
@@ -8673,11 +8637,6 @@ ignore@^5.1.1, ignore@^5.2.0:
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
 
-immer@^9.0.15:
-  version "9.0.16"
-  resolved "https://registry.npmjs.org/immer/-/immer-9.0.16.tgz"
-  integrity sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ==
-
 import-fresh@^3.0.0, import-fresh@^3.1.0, import-fresh@^3.2.1:
   version "3.3.0"
   resolved "https://registry.npmjs.org/import-fresh/-/import-fresh-3.3.0.tgz"
@@ -9330,15 +9289,6 @@ isobject@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/isobject/-/isobject-4.0.0.tgz"
   integrity sha512-S/2fF5wH8SJA/kmwr6HYhK/RI/OkhD84k8ntalo0iJjZikgq1XFvR5M8NPT1x5F7fBwCG3qHfnzeP/Vh/ZxCUA==
-
-isomorphic-dompurify@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.npmjs.org/isomorphic-dompurify/-/isomorphic-dompurify-0.20.0.tgz"
-  integrity sha512-ha3GBgVb9faPfGknAkwokYxqvdnh6c+R33LtgoXj4Lttg3b5DN5YH1P3zX1AHFFvTCOL7TER5zwGnUbJcQ85Cw==
-  dependencies:
-    "@types/dompurify" "^2.3.3"
-    dompurify "^2.3.8"
-    jsdom "^20.0.0"
 
 isomorphic-unfetch@^3.1.0:
   version "3.1.0"
@@ -12281,18 +12231,6 @@ postcss@^8.2.15, postcss@^8.4.17, postcss@^8.4.18:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-preact-render-to-string@^5.2.1:
-  version "5.2.6"
-  resolved "https://registry.npmjs.org/preact-render-to-string/-/preact-render-to-string-5.2.6.tgz"
-  integrity sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==
-  dependencies:
-    pretty-format "^3.8.0"
-
-preact@^10.10.0:
-  version "10.11.2"
-  resolved "https://registry.npmjs.org/preact/-/preact-10.11.2.tgz"
-  integrity sha512-skAwGDFmgxhq1DCBHke/9e12ewkhc7WYwjuhHB8HHS8zkdtITXLRmUMTeol2ldxvLwYtwbFeifZ9uDDWuyL4Iw==
-
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -12378,11 +12316,6 @@ pretty-format@^29.0.0, pretty-format@^29.3.1:
     "@jest/schemas" "^29.0.0"
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
-
-pretty-format@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-3.8.0.tgz"
-  integrity sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==
 
 pretty-hrtime@^1.0.3:
   version "1.0.3"
@@ -14714,18 +14647,6 @@ tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz"
   integrity sha512-JVa5ijo+j/sOoHGjw0sxw734b1LhBkQ3bvUGNdxnVXDCX81Yx7TFgnZygxrIIWn23hbfTaMYLwRmAxFyDuFmIw==
-
-tui-date-picker@^4.0.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/tui-date-picker/-/tui-date-picker-4.3.1.tgz"
-  integrity sha512-LMXdiM6cXau4NVw3/1T4ltaLk2PZAn2RbRtVUPN30Zg905t9Ab+OJ8EgeEgLVW9osvLuO9raW63l7YwiT50v6Q==
-  dependencies:
-    tui-time-picker "^2.1.3"
-
-tui-time-picker@^2.0.1, tui-time-picker@^2.1.3:
-  version "2.1.4"
-  resolved "https://registry.npmjs.org/tui-time-picker/-/tui-time-picker-2.1.4.tgz"
-  integrity sha512-gqCasZgniE8slP83h3pUnSXyVWBBi7T+9gi0+RxB6ld6l2hgPuVax8o82ysz02pvQ5bEkfPP3sG1caeU+iH0Sw==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
