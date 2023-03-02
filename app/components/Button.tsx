@@ -1,6 +1,8 @@
+import type { ActionFunction } from '@remix-run/node';
 import { Icon } from '~/types/Icon';
 
 interface ButtonProps {
+  type: 'submit' | 'reset';
   size: 'small' | 'medium' | 'large';
   label: string;
   varient: 'primary' | 'secondary';
@@ -8,12 +10,16 @@ interface ButtonProps {
   handleClick?: () => void;
 }
 
+export const action: ActionFunction = async ({ request, params }) => {
+  console.log('request:', request);
+};
+
 export const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   label,
   varient = 'primary',
   disabled = false,
-  handleClick,
+  type = 'submit',
 }) => (
   <button
     className={`
@@ -21,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
                w-full
                 ${
                   varient === 'primary'
-                    ? 'border-transparent bg-blue-600 text-white hover:bg-blue-800'
+                    ? 'border-transparent bg-stone-900  text-white hover:bg-stone-1100'
                     : 'bg-white border-gray-400 text-gray-900 hover:bg-gray-300'
                 } 
                 ${
@@ -32,7 +38,7 @@ export const Button: React.FC<ButtonProps> = ({
                     : 'px-4 py-2 text-lg gap-3'
                 }
             `}
-    onClick={handleClick}
+    type={type}
     disabled={disabled}
   >
     {label}
