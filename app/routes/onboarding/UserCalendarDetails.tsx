@@ -1,5 +1,5 @@
-import { GoogleCalendar, MicrosoftCalendar } from '../icons';
-import ContentPill from '../common/contentPill';
+import { GoogleCalendar, MicrosoftCalendar } from '../../components/icons';
+import ContentPill from '../../components/common/contentPill';
 
 const UserCalendarDetails = () => (
   <div className="h-full flex flex-col justify-between">
