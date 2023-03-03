@@ -3,6 +3,7 @@ import { Form, useSubmit, useActionData } from '@remix-run/react';
 import { ActionFunction, json, redirect } from '@remix-run/node';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
+import TimezoneSelect from 'react-timezone-select';
 import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
@@ -42,11 +43,10 @@ const isUsernameAvailable = async (host: string, token: string, username: string
 
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = Object.fromEntries(await request.formData());
-  //   console.log('fullname:', formData);
+
   const url = `${process.env.API_HOST}/api/v1/users/self`;
   const { username, firstname, lastname, timezone } = formData;
-  //   const firstname = (fullname as string).split(' ')[0];
-  //   const lastname = (fullname as string).split(' ')[1];
+
   console.log(formData);
 
   const errors = {
@@ -221,12 +221,22 @@ const UserDetails: FC<UserDetailsInterface> = () => {
             </div>
           </div>
           <div>
+            {/* <TimezoneSelect
+          value={userForm.timezone}
+          onChange={setUserForm}
+        /> */}
             <Dropdown placeholder="select timezone" setUserTimezone={setUserForm} />
           </div>
         </div>
       </div>
       <div className=" mx-4 mb-3 basis-1/12">
-        <Button label="Save & Next" size="medium" varient="primary" type={'submit'} />
+        <Button
+          label="Save & Next"
+          size="medium"
+          varient="primary"
+          type={'submit'}
+          disabled={![...Object.values(userForm)].every((ele) => ele.length > 0)}
+        />
       </div>
     </Form>
   );

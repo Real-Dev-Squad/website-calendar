@@ -2,7 +2,7 @@ import type { ActionFunction } from '@remix-run/node';
 import { Icon } from '~/types/Icon';
 
 interface ButtonProps {
-  type: 'submit' | 'reset';
+  type?: 'submit' | 'reset';
   size: 'small' | 'medium' | 'large';
   label: string;
   varient: 'primary' | 'secondary';
@@ -20,6 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   varient = 'primary',
   disabled = false,
   type = 'submit',
+  handleClick = () => {},
 }) => (
   <button
     className={`
@@ -40,6 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
             `}
     type={type}
     disabled={disabled}
+    onClick={handleClick}
   >
     {label}
   </button>
