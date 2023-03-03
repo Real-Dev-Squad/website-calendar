@@ -1,22 +1,43 @@
-import { FC, useEffect, useState } from 'react';
-import { useLoaderData, useActionData } from '@remix-run/react';
-import { json, redirect, ActionFunction } from '@remix-run/node';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { Form, useSubmit, useActionData } from '@remix-run/react';
+import { ActionFunction, json, redirect } from '@remix-run/node';
+import debounce from 'lodash.debounce';
 import axios from 'axios';
-import UserCalendarDetails from './UserCalendarDetails';
-import UserDetails from './UserDetails';
+import UserInput from '../../components/common/userInput';
+import Dropdown from '../../components/common/dropdown';
+import { Button } from '../../components/Button';
 
-interface UserOnboardingInterface {
-  apiHost: string;
-  authToken: string;
+// import { isUsernameAvailable } from '~/models/username.server';
+
+interface UserFormInterface {
+  username: string;
+  firstname: string;
+  lastname: string;
+  timezone: string;
 }
 
-export async function loader() {
-  return json({ apiHost: process.env.API_HOST, authToken: process.env.AUTH_TOKEN });
-}
-
-type LoaderData = {
+interface UserDetailsInterface {
   apiHost: string;
   authToken: string;
+  page: number;
+  formTitlesAndSubtitles: Array<object>;
+}
+
+const isUsernameAvailable = async (host: string, token: string, username: string) => {
+  const url = `${host}/api/v1/users/usernameCheck/${username}`;
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        // Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+    return response.data.data.available;
+  } catch (error) {
+    console.error('err', error);
+    return error;
+  }
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
@@ -50,86 +71,151 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     });
     // if (response) return response;
-    return { page: 1 };
+    return redirect('userCalendarDetails');
   } catch (error) {
     console.log(error);
     return null;
   }
 };
 
-const OnboardingPage: FC<UserOnboardingInterface> = () => {
-  const [page, setPage] = useState<number>(0);
-  const { apiHost, authToken } = useLoaderData<LoaderData>();
-  const data = useActionData();
+const UserDetails: FC<UserDetailsInterface> = ({
+  apiHost,
+  authToken,
+  page,
+  formTitlesAndSubtitles,
+}) => {
+  const errors = useActionData();
+  const initialUserDetails = {
+    username: '',
+    firstname: '',
+    lastname: '',
+    timezone: '',
+  };
+
+  const [userForm, setUserForm] = useState<UserFormInterface>(initialUserDetails);
+  const [usernameAvailable, setUsernameAvailable] = useState<boolean | undefined>();
+  const [query, setQuery] = useState<string>('');
+  const submit = useSubmit();
 
   useEffect(() => {
-    if (data?.page) setPage(data.page);
-  }, [data?.page]);
+    (async () => {
+      if (query !== '') {
+        const res: boolean = await isUsernameAvailable(
+          window.ENV.API_HOST,
+          window.ENV.AUTH_TOKEN,
+          query
+        );
+        setUsernameAvailable(res);
+      }
+    })();
+  }, [query]);
 
-  const FormTitlesAndSubtitles = [
-    {
-      title: 'Welcome to HapDay',
-      subtitle:
-        'Tell us a bit about yourself, we will need this to get your profile setup. You’ll be able to edit this later.',
-    },
-    {
-      title: 'Connect your calendar',
-      subtitle:
-        'Connect your calendar to automatically check for busy times and new events as they’re scheduled.',
-    },
-  ];
+  const checkUsernameAvailability = async () => {
+    setUserForm((f) => {
+      setQuery(f.username);
+      return f;
+    });
+  };
 
-  const PageDisplay = () => {
-    if (page === 0) {
-      return (
-        <UserDetails
-          apiHost={apiHost}
-          authToken={authToken}
-          page={page}
-          formTitlesAndSubtitles={FormTitlesAndSubtitles}
-        />
-      );
+  const debounceRequest = useMemo(() => debounce(checkUsernameAvailability, 400), []);
+
+  const updateUsername = (username: string) => {
+    setUserForm((user) => ({ ...user, username }));
+    setUsernameAvailable(undefined);
+    debounceRequest();
+  };
+
+  const updateFirstName = (firstname: string) => {
+    setUserForm((user) => ({ ...user, firstname }));
+  };
+  const updateLastName = (lastname: string) => {
+    setUserForm((user) => ({ ...user, lastname }));
+  };
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    // let's prevent the default event
+    event.preventDefault();
+
+    // grab the form element
+    const $form = event.currentTarget;
+
+    // get the formData from that form
+    const formData = new FormData($form);
+
+    // save timezone
+    formData.set('timezone', userForm.timezone);
+
+    // and finally submit the form data, re-using the method and action from the form
+    submit(formData, {
+      method: 'patch',
+      action: $form.getAttribute('action') ?? $form.action,
+    });
+  }
+
+  const usernameError = () => {
+    if (usernameAvailable === undefined) {
+      return null;
     }
-    if (page === 1) {
-      return <UserCalendarDetails />;
+    if (!usernameAvailable) {
+      return 'Username is already taken';
     }
-    return '';
+    return null;
   };
 
   return (
-    <main className="max-w-md flex mx-auto">
-      {apiHost && authToken && (
-        <div className="form bg-stone-50 h-screen">
-          <div className="form-container h-full flex flex-col ">
-            <div className="header-pbar-wrapper basis-3/12">
-              <div className="header">
-                <h1 className="text-2x font-semibold text-center pt-10 mb-3">
-                  {FormTitlesAndSubtitles[page].title}
-                </h1>
-                <p className="text-sm text-center mx-12 text-slate-900">
-                  {FormTitlesAndSubtitles[page].subtitle}
-                </p>
-              </div>
-              <div className="progressbar my-4">
-                <p className="text-xs text-stone-500 mx-4 mb-1">Step {page + 1} of 2</p>
-                <div className="flex mx-4">
-                  {FormTitlesAndSubtitles.map((item, index) => (
-                    <div
-                      key={index}
-                      className={`h-2 transition-all ease-in-out duration-300 ${
-                        page === index ? 'basis-4/6' : 'basis-2/6'
-                      } ${page === index ? 'bg-stone-900' : 'bg-stone-300'}  rounded mr-1`}
-                    ></div>
-                  ))}
-                </div>
-              </div>
+    <Form onSubmit={handleSubmit} method="patch" className=" h-full flex flex-col">
+      <div className="basis-10/12">
+        <div className="mx-4">
+          <div>
+            <UserInput
+              label="Username"
+              name="username"
+              placeholder="username here"
+              link="hap.day/"
+              value={userForm.username}
+              setValue={updateUsername}
+              err={usernameError() || errors?.username}
+            />
+          </div>
+
+          <div className="flex justify-between ">
+            <div className="basis-3/6 mx-1">
+              <UserInput
+                label="First name"
+                name="firstname"
+                placeholder="Jane"
+                value={userForm.firstname}
+                setValue={updateFirstName}
+                err={errors?.firstname}
+              />
             </div>
-            <div className="body basis-9/12">{PageDisplay()}</div>
+            <div className="basis-3/6 mx-1">
+              <UserInput
+                label="Last name"
+                name="lastname"
+                placeholder="Doe"
+                value={userForm.lastname}
+                setValue={updateLastName}
+                err={errors?.lastname}
+              />
+            </div>
+          </div>
+          <div>
+            <Dropdown placeholder="select timezone" setUserTimezone={setUserForm} />
           </div>
         </div>
-      )}
-    </main>
+      </div>
+      <div className=" mx-4 mb-3 basis-1/12">
+        <Button
+          label="Save & Next"
+          size="medium"
+          varient="primary"
+          // disabled={page === formTitlesAndSubtitles.length - 1}
+          type={'submit'}
+        />
+      </div>
+    </Form>
   );
 };
 
-export default OnboardingPage;
+export default UserDetails;
