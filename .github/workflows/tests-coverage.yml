@@ -1,16 +1,18 @@
 name: Coverage report
-'on':
-  pull_request:
-    branches:
-      - develop
-      - main
+on:
+    pull_request:
+        branches:
+            - develop
+            - main
+
 jobs:
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Jest coverage report
-      - uses: ArtiomTr/jest-coverage-report-action@v2.2.1
-        with:
-          github_token: '${{ secrets.GITHUB_TOKEN }}'
-          package-manager: yarn
+    coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Branch To Runner
+              uses: actions/checkout@v3
+            - name: Jest coverage report
+              uses: ArtiomTr/jest-coverage-report-action@v2.2.1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  package-manager: yarn
