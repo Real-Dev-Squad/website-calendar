@@ -20,8 +20,10 @@ jobs:
                   test-script: yarn test:ci
                   annotations: all
                   output: comment, report-markdown
-
-            - name: Write to Job Summary
-              run: echo "Adding coverage to GITHUB_STEP_SUMMARY"
-              env:
+               env:
                 GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
+
+            # - name: Write to Job Summary
+            #   run: echo "Adding coverage to GITHUB_STEP_SUMMARY"
+            #   env:
+            #     GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
