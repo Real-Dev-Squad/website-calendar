@@ -22,4 +22,5 @@ jobs:
                   output: comment, report-markdown
 
             - name: Write to Job Summary
-              run: echo ${{ steps.coverage.outputs.report }} >> $GITHUB_STEP_SUMMARY
+              env:
+                GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
