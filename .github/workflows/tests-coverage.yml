@@ -1,4 +1,4 @@
-name: Coverage report
+name: Test with Coverage report
 on:
     pull_request:
         branches:
@@ -22,4 +22,4 @@ jobs:
                   output: comment, report-markdown
 
             - name: Write to Job Summary
-              run: ${{ steps.coverage.outputs.report }} >> $GITHUB_STEP_SUMMARY
+              run: echo ${{ steps.coverage.outputs.report }} >> $GITHUB_STEP_SUMMARY
