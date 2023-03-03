@@ -11,9 +11,15 @@ jobs:
         steps:
             - name: Checkout Branch To Runner
               uses: actions/checkout@v3
+            
             - name: Jest coverage report
               uses: ArtiomTr/jest-coverage-report-action@v2.2.1
+              id: coverage
               with:
                   package-manager: yarn
                   test-script: yarn test:ci
                   annotations: all
+                  output: comment, report-markdown
+
+            - name: Write to Job Summary
+              run: ${{ steps.coverage.outputs.report }} >> $GITHUB_STEP_SUMMARY
