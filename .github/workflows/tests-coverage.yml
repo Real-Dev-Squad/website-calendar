@@ -14,5 +14,6 @@ jobs:
             - name: Jest coverage report
               uses: ArtiomTr/jest-coverage-report-action@v2.2.1
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   package-manager: yarn
+                  test-script: yarn test:ci
+                  annotations: all
