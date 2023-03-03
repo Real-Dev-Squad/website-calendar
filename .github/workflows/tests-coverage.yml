@@ -11,6 +11,7 @@ jobs:
         steps:
             - name: Checkout Branch To Runner
               uses: actions/checkout@v3
+            
             - name: Jest coverage report
               uses: ArtiomTr/jest-coverage-report-action@v2.2.1
               id: coverage
@@ -19,10 +20,7 @@ jobs:
                   test-script: yarn test:ci
                   annotations: all
                   output: comment, report-markdown
-                env:
-                  GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
+              env:
+                GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
 
             # - name: Write to Job Summary
-            #   run: echo "Adding coverage to GITHUB_STEP_SUMMARY"
-            #   env:
-            #     GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
