@@ -226,13 +226,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
         </div>
       </div>
       <div className=" mx-4 mb-3 basis-1/12">
-        <Button
-          label="Save & Next"
-          size="medium"
-          varient="primary"
-          disabled={user}
-          type={'submit'}
-        />
+        <Button label="Save & Next" size="medium" varient="primary" type={'submit'} />
       </div>
     </Form>
   );
