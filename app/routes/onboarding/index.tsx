@@ -71,21 +71,22 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     });
     // if (response) return response;
-    return redirect('userCalendarDetails');
+    return redirect('/onboarding/userCalendarDetails');
   } catch (error) {
     console.log(error);
     return null;
   }
 };
 
-const UserDetails: FC<UserDetailsInterface> = ({
-  apiHost,
-  authToken,
-  page,
-  formTitlesAndSubtitles,
-}) => {
+const UserDetails: FC<UserDetailsInterface> = () => {
   const errors = useActionData();
   const initialUserDetails = {
+    username: '',
+    firstname: '',
+    lastname: '',
+    timezone: '',
+  };
+  const UserDetailErrors = {
     username: '',
     firstname: '',
     lastname: '',
@@ -95,6 +96,7 @@ const UserDetails: FC<UserDetailsInterface> = ({
   const [userForm, setUserForm] = useState<UserFormInterface>(initialUserDetails);
   const [usernameAvailable, setUsernameAvailable] = useState<boolean | undefined>();
   const [query, setQuery] = useState<string>('');
+  const [userErrors, setUserErrors] = useState(UserDetailErrors);
   const submit = useSubmit();
 
   useEffect(() => {
@@ -161,6 +163,18 @@ const UserDetails: FC<UserDetailsInterface> = ({
     }
     return null;
   };
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+
+    setUserErrors({ ...userErrors, [name]: '' });
+  };
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (value.trim() === '') {
+      setUserErrors({ ...userErrors, [name]: `${name} is required` });
+    }
+  };
 
   return (
     <Form onSubmit={handleSubmit} method="patch" className=" h-full flex flex-col">
@@ -174,7 +188,9 @@ const UserDetails: FC<UserDetailsInterface> = ({
               link="hap.day/"
               value={userForm.username}
               setValue={updateUsername}
-              err={usernameError() || errors?.username}
+              err={usernameError() || errors?.username || userErrors.username}
+              handleBlur={handleBlur}
+              handleFocus={handleFocus}
             />
           </div>
 
@@ -186,7 +202,9 @@ const UserDetails: FC<UserDetailsInterface> = ({
                 placeholder="Jane"
                 value={userForm.firstname}
                 setValue={updateFirstName}
-                err={errors?.firstname}
+                err={errors?.firstname || userErrors.firstname}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
               />
             </div>
             <div className="basis-3/6 mx-1">
@@ -196,7 +214,9 @@ const UserDetails: FC<UserDetailsInterface> = ({
                 placeholder="Doe"
                 value={userForm.lastname}
                 setValue={updateLastName}
-                err={errors?.lastname}
+                err={errors?.lastname || userErrors.lastname}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
               />
             </div>
           </div>
@@ -210,7 +230,7 @@ const UserDetails: FC<UserDetailsInterface> = ({
           label="Save & Next"
           size="medium"
           varient="primary"
-          // disabled={page === formTitlesAndSubtitles.length - 1}
+          disabled={user}
           type={'submit'}
         />
       </div>

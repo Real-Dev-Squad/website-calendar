@@ -122,7 +122,7 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="body basis-9/12">{PageDisplay()}</div> */}
+
             <Outlet />
           </div>
         </div>
