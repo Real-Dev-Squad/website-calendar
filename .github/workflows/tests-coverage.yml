@@ -14,13 +14,7 @@ jobs:
             
             - name: Jest coverage report
               uses: ArtiomTr/jest-coverage-report-action@v2.2.1
-              id: coverage
               with:
                   package-manager: yarn
                   test-script: yarn test:ci
                   annotations: all
-                  output: comment, report-markdown
-              env:
-                GITHUB_STEP_SUMMARY: ${{ steps.coverage.outputs.report }}
-
-            # - name: Write to Job Summary
