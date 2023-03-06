@@ -3,7 +3,6 @@ import { Form, useSubmit, useActionData } from '@remix-run/react';
 import { ActionFunction, json, redirect } from '@remix-run/node';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
-import TimezoneSelect from 'react-timezone-select';
 import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
@@ -19,7 +18,7 @@ interface UserFormInterface {
 
 interface UserDetailsInterface {
   apiHost: string;
-  authToken: string;
+
   page: number;
   formTitlesAndSubtitles: Array<object>;
 }

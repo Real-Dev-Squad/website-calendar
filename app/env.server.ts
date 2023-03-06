@@ -2,7 +2,6 @@
 
 export const envObj = {
   API_HOST: process.env.API_HOST || 'http://localhost:3000',
-  AUTH_TOKEN: process.env.AUTH_TOKEN || '',
 };
 
 type ENV = typeof envObj;

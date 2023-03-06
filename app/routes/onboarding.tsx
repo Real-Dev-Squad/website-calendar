@@ -1,20 +1,16 @@
 import { FC, useEffect, useState } from 'react';
 import { useLoaderData, useActionData, Outlet } from '@remix-run/react';
-import { json, redirect, ActionFunction } from '@remix-run/node';
+import { json, redirect, ActionFunction, LoaderFunction } from '@remix-run/node';
 import axios from 'axios';
 
 interface UserOnboardingInterface {
   apiHost: string;
-  authToken: string;
 }
 
-export async function loader() {
-  return json({ apiHost: process.env.API_HOST, authToken: process.env.AUTH_TOKEN });
-}
+export const loader: LoaderFunction = async () => json({ apiHost: process.env.API_HOST });
 
 type LoaderData = {
   apiHost: string;
-  authToken: string;
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
@@ -57,7 +53,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 const OnboardingPage: FC<UserOnboardingInterface> = () => {
   const [page, setPage] = useState<number>(0);
-  const { apiHost, authToken } = useLoaderData<LoaderData>();
+  const { apiHost } = useLoaderData<LoaderData>();
   const data = useActionData();
 
   useEffect(() => {
@@ -77,26 +73,26 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
     },
   ];
 
-  const PageDisplay = () => {
-    if (page === 0) {
-      return (
-        <UserDetails
-          apiHost={apiHost}
-          authToken={authToken}
-          page={page}
-          formTitlesAndSubtitles={FormTitlesAndSubtitles}
-        />
-      );
-    }
-    if (page === 1) {
-      return <UserCalendarDetails />;
-    }
-    return '';
-  };
+  //   const PageDisplay = () => {
+  //     if (page === 0) {
+  //       return (
+  //         <UserDetails
+  //           apiHost={apiHost}
+  //           authToken={authToken}
+  //           page={page}
+  //           formTitlesAndSubtitles={FormTitlesAndSubtitles}
+  //         />
+  //       );
+  //     }
+  //     if (page === 1) {
+  //       return <UserCalendarDetails />;
+  //     }
+  //     return '';
+  //   };
 
   return (
     <main className="max-w-md flex mx-auto">
-      {apiHost && authToken && (
+      {apiHost && (
         <div className="form bg-stone-50 h-screen">
           <div className="form-container h-full flex flex-col ">
             <div className="header-pbar-wrapper basis-3/12">
