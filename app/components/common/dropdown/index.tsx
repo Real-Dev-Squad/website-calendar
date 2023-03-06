@@ -58,6 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder, setUserTimezone }) => 
           data-testid="dropdown-value"
           value={dropdownValue || placeholder}
           className={`${dropdownValue ? 'text-gray-700 ' : 'text-slate-400'}  text-sm`}
+          disabled={true}
         >
           {dropdownValue || placeholder}
         </button>
