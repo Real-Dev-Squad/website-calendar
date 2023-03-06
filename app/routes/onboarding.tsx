@@ -1,26 +1,22 @@
 import { FC, useEffect, useState } from 'react';
-import { useLoaderData, useActionData, Outlet } from '@remix-run/react';
+import { useLoaderData, useActionData, Outlet, useLocation } from '@remix-run/react';
 import { json, redirect, ActionFunction, LoaderFunction } from '@remix-run/node';
 import axios from 'axios';
 
 interface UserOnboardingInterface {
   apiHost: string;
 }
-
-export const loader: LoaderFunction = async () => json({ apiHost: process.env.API_HOST });
-
 type LoaderData = {
   apiHost: string;
 };
 
-export const action: ActionFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async () => json({ apiHost: process.env.API_HOST });
+
+export const action: ActionFunction = async ({ request }) => {
   const formData = Object.fromEntries(await request.formData());
-  //   console.log('fullname:', formData);
+
   const url = `${process.env.API_HOST}/api/v1/users/self`;
   const { username, firstname, lastname, timezone } = formData;
-  //   const firstname = (fullname as string).split(' ')[0];
-  //   const lastname = (fullname as string).split(' ')[1];
-  console.log(formData);
 
   const errors = {
     username: username ? null : 'Username is required',
@@ -35,7 +31,6 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   try {
-    console.log('REQUEST:', request.headers.get('Cookie'));
     const cookieHeader = request.headers.get('Cookie');
     await axios.patch(url, formData, {
       headers: {
@@ -46,19 +41,30 @@ export const action: ActionFunction = async ({ request, params }) => {
     // if (response) return response;
     return { page: 1 };
   } catch (error) {
-    console.log(error);
-    return null;
+    return error;
   }
 };
 
 const OnboardingPage: FC<UserOnboardingInterface> = () => {
   const [page, setPage] = useState<number>(0);
   const { apiHost } = useLoaderData<LoaderData>();
-  const data = useActionData();
+
+  const location = useLocation();
+
+  const pageDisplay = (pathName: string) => {
+    const path = pathName.split('/')[2];
+
+    if (path === 'userDetails') {
+      setPage(0);
+    }
+    if (path === 'userCalendarDetails') {
+      setPage(1);
+    }
+  };
 
   useEffect(() => {
-    if (data?.page) setPage(data.page);
-  }, [data?.page]);
+    if (location.pathname) pageDisplay(location.pathname);
+  }, [location.pathname]);
 
   const FormTitlesAndSubtitles = [
     {
@@ -72,23 +78,6 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
         'Connect your calendar to automatically check for busy times and new events as they’re scheduled.',
     },
   ];
-
-  //   const PageDisplay = () => {
-  //     if (page === 0) {
-  //       return (
-  //         <UserDetails
-  //           apiHost={apiHost}
-  //           authToken={authToken}
-  //           page={page}
-  //           formTitlesAndSubtitles={FormTitlesAndSubtitles}
-  //         />
-  //       );
-  //     }
-  //     if (page === 1) {
-  //       return <UserCalendarDetails />;
-  //     }
-  //     return '';
-  //   };
 
   return (
     <main className="max-w-md flex mx-auto">
