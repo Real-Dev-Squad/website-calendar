@@ -10,10 +10,6 @@ interface ButtonProps {
   handleClick?: () => void;
 }
 
-export const action: ActionFunction = async ({ request, params }) => {
-  console.log('request:', request);
-};
-
 export const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   label,

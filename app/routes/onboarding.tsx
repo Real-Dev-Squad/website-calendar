@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { useLoaderData, useActionData, Outlet, useLocation } from '@remix-run/react';
-import { json, redirect, ActionFunction, LoaderFunction } from '@remix-run/node';
-import axios from 'axios';
+import { useLoaderData, Outlet, useLocation } from '@remix-run/react';
+import { json, LoaderFunction } from '@remix-run/node';
 
 interface UserOnboardingInterface {
   apiHost: string;
@@ -11,39 +10,6 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async () => json({ apiHost: process.env.API_HOST });
-
-export const action: ActionFunction = async ({ request }) => {
-  const formData = Object.fromEntries(await request.formData());
-
-  const url = `${process.env.API_HOST}/api/v1/users/self`;
-  const { username, firstname, lastname, timezone } = formData;
-
-  const errors = {
-    username: username ? null : 'Username is required',
-    firstname: firstname ? null : 'firstname is required',
-    lastname: lastname ? null : 'lastname is required',
-    timezone: timezone ? null : 'Timezone is required',
-  };
-
-  const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
-  if (hasErrors) {
-    return json(errors);
-  }
-
-  try {
-    const cookieHeader = request.headers.get('Cookie');
-    await axios.patch(url, formData, {
-      headers: {
-        Cookie: cookieHeader,
-        'Content-Type': 'application/json',
-      },
-    });
-    // if (response) return response;
-    return { page: 1 };
-  } catch (error) {
-    return error;
-  }
-};
 
 const OnboardingPage: FC<UserOnboardingInterface> = () => {
   const [page, setPage] = useState<number>(0);

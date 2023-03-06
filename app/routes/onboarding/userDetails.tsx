@@ -7,8 +7,6 @@ import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
 
-// import { isUsernameAvailable } from '~/models/username.server';
-
 interface UserFormInterface {
   username: string;
   firstname: string;
@@ -39,18 +37,11 @@ const isUsernameAvailable = async (host: string, username: string) => {
   }
 };
 
-export const loader: LoaderFunction = async ({ request, params }) => {
-  console.log('index', params);
-  return null;
-};
-
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = Object.fromEntries(await request.formData());
 
   const url = `${process.env.API_HOST}/api/v1/users/self`;
   const { username, firstname, lastname, timezone } = formData;
-
-  console.log(formData);
 
   const errors = {
     username: username ? null : 'Username is required',
@@ -72,7 +63,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         'Content-Type': 'application/json',
       },
     });
-    // if (response) return response;
+
     return redirect('/onboarding/userCalendarDetails');
   } catch (error) {
     return error;
