@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Form, useSubmit, useActionData } from '@remix-run/react';
-import { ActionFunction, json, redirect, LoaderFunction } from '@remix-run/node';
+import { ActionFunction, json, redirect } from '@remix-run/node';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
 import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
+import { initialUserDetails } from '~/constants/userOnboarding';
 
 interface UserFormInterface {
   username: string;
@@ -72,12 +73,6 @@ export const action: ActionFunction = async ({ request, params }) => {
 const UserDetails: FC<UserDetailsInterface> = () => {
   const errors = useActionData();
 
-  const initialUserDetails = {
-    username: '',
-    firstname: '',
-    lastname: '',
-    timezone: '',
-  };
   const UserDetailErrors = {
     username: '',
     firstname: '',
