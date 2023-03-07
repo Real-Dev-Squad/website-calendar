@@ -22,7 +22,7 @@ interface UserDetailsInterface {
 }
 
 const isUsernameAvailable = async (host: string, username: string) => {
-  const url = `${host}/api/v1/users/usernameCheck/${username}`;
+  const url = `${host}/users/usernameCheck/${username}`;
   try {
     const response = await axios.get(url, {
       headers: {
@@ -32,7 +32,6 @@ const isUsernameAvailable = async (host: string, username: string) => {
     });
     return response.data.data.available;
   } catch (error) {
-    console.error('err', error);
     return error;
   }
 };
