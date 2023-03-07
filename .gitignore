@@ -3,6 +3,7 @@ node_modules
 /.cache
 /build
 /public/build
+/coverage
 .env
 package-lock.json
 
