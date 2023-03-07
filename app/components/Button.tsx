@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
                 ${
                   varient === 'primary'
                     ? `border-transparent ${
-                        disabled ? 'bg-stone-600' : 'bg-stone-900'
+                        disabled ? 'bg-stone-500' : 'bg-stone-900'
                       }   text-white hover:bg-stone-1100`
                     : 'bg-white border-gray-400 text-gray-900 hover:bg-gray-300'
                 } 

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useLoaderData, Outlet, useLocation } from '@remix-run/react';
 import { json, LoaderFunction } from '@remix-run/node';
+import { FormTitlesAndSubtitles } from '~/constants/userOnboarding';
 
 interface UserOnboardingInterface {
   apiHost: string;
@@ -31,19 +32,6 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
   useEffect(() => {
     if (location.pathname) pageDisplay(location.pathname);
   }, [location.pathname]);
-
-  const FormTitlesAndSubtitles = [
-    {
-      title: 'Welcome to HapDay',
-      subtitle:
-        'Tell us a bit about yourself, we will need this to get your profile setup. You’ll be able to edit this later.',
-    },
-    {
-      title: 'Connect your calendar',
-      subtitle:
-        'Connect your calendar to automatically check for busy times and new events as they’re scheduled.',
-    },
-  ];
 
   return (
     <main className="max-w-md flex mx-auto">
