@@ -33,7 +33,6 @@ const isUsernameAvailable = async (host: string, username: string) => {
     });
     return response.data.data.available;
   } catch (error) {
-    /* add toastify package and wrap this error */
     return error;
   }
 };
@@ -41,7 +40,7 @@ const isUsernameAvailable = async (host: string, username: string) => {
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = Object.fromEntries(await request.formData());
 
-  const url = `${process.env.API_HOST}/api/v1/users/self`;
+  const url = `${process.env.API_HOST}/users/self`;
   const { username, firstname, lastname, timezone } = formData;
 
   const errors = {
