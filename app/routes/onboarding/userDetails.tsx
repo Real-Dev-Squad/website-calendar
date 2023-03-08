@@ -33,6 +33,7 @@ const isUsernameAvailable = async (host: string, username: string) => {
     });
     return response.data.data.available;
   } catch (error) {
+    /* add toastify package and wrap this error */
     return error;
   }
 };
@@ -205,10 +206,6 @@ const UserDetails: FC<UserDetailsInterface> = () => {
             </div>
           </div>
           <div>
-            {/* <TimezoneSelect
-          value={userForm.timezone}
-          onChange={setUserForm}
-        /> */}
             <Dropdown placeholder="select timezone" setUserTimezone={setUserForm} />
           </div>
         </div>
