@@ -1,4 +1,3 @@
-import type { ActionFunction } from '@remix-run/node';
 import { Icon } from '~/types/Icon';
 
 interface ButtonProps {
