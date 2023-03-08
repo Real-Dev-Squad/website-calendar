@@ -6,8 +6,6 @@ import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
 
-// import { isUsernameAvailable } from '~/models/username.server';
-
 interface UserFormInterface {
   username: string;
   firstname: string;
