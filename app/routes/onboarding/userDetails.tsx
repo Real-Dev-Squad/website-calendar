@@ -17,7 +17,6 @@ interface UserFormInterface {
 
 interface UserDetailsInterface {
   apiHost: string;
-
   page: number;
   formTitlesAndSubtitles: Array<object>;
 }
