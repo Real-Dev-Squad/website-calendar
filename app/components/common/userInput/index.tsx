@@ -9,8 +9,8 @@ interface UserInputProps {
   type?: string;
   value: string;
   setValue: (str: string) => void;
-  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  handleFocus: (e: React.FocusEvent<HTMLInputElement>) => void;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  handleFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   description?: string;
   err?: string | null;
   name?: string;
