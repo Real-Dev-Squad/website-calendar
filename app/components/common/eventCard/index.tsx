@@ -1,15 +1,17 @@
 interface EventCardProps {
   date: number;
   month: string;
-  time: any;
+  fromTime: string;
+  toTime: string;
   eventTitle: string;
-  participantCount: any;
+  participantCount: number;
 }
 
 export default function EventCard({
   date,
   month,
-  time,
+  fromTime,
+  toTime,
   eventTitle,
   participantCount,
 }: EventCardProps) {
@@ -22,7 +24,10 @@ export default function EventCard({
         </div>
 
         <div className="ml-6 bottom-4 gap-2 absolute flex flex-col">
-          <div className="text-xs text-gray-700 font-medium"> {time} </div>
+          <div className="text-xs text-gray-700 font-medium">
+            {' '}
+            {fromTime} to {toTime}{' '}
+          </div>
           <div className="text-black font-medium text-lg event-title"> {eventTitle} </div>
           <div className="flex gap-2">
             <div className="flex">
@@ -30,7 +35,7 @@ export default function EventCard({
               <div className="w-5 h-5 rounded-full border border-black inline-block ml-[-8px] bg-gray-300 two"></div>
               <div className="w-5 h-5 rounded-full border border-black inline-block ml-[-8px] bg-gray-300 three"></div>
             </div>
-            <div className="font-medium text-sm"> {participantCount} </div>
+            <div className="font-medium text-sm"> {participantCount} Participants</div>
           </div>
         </div>
       </div>

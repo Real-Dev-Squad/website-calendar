@@ -6,9 +6,10 @@ export default function socialEvents() {
       <EventCard
         date={30}
         month="AUG"
-        time="12AM to 1:30PM"
+        fromTime="12AM"
+        toTime="1:30PM"
         eventTitle="React India Conf"
-        participantCount="100 Participants"
+        participantCount={100}
       />
     </>
   );
