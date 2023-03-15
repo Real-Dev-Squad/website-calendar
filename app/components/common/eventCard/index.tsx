@@ -1,20 +1,18 @@
-interface EventCardProps {
+interface EventDetails {
   date: number;
   month: string;
   fromTime: string;
   toTime: string;
+}
+interface EventCardProps {
   eventTitle: string;
   participantCount: number;
+  eventDetails: EventDetails;
 }
 
-export default function EventCard({
-  date,
-  month,
-  fromTime,
-  toTime,
-  eventTitle,
-  participantCount,
-}: EventCardProps) {
+export default function EventCard({ eventDetails, eventTitle, participantCount }: EventCardProps) {
+  const { date, month, fromTime, toTime } = eventDetails;
+  console.log(eventDetails);
   return (
     <>
       <div className="border-2 w-64 h-72 bg-gray-200 rounded-3xl m-auto relative">
@@ -25,8 +23,7 @@ export default function EventCard({
 
         <div className="ml-6 bottom-4 gap-2 absolute flex flex-col">
           <div className="text-xs text-gray-700 font-medium">
-            {' '}
-            {fromTime} to {toTime}{' '}
+            {fromTime} to {toTime}
           </div>
           <div className="text-black font-medium text-lg event-title"> {eventTitle} </div>
           <div className="flex gap-2">
