@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 //for passing props creating interface
