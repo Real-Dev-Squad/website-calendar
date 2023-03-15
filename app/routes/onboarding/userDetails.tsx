@@ -214,6 +214,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
           size="medium"
           varient="primary"
           type={'submit'}
+          style={'my-2'}
           disabled={![...Object.values(userForm)].every((ele) => ele.length > 0)}
         />
       </div>

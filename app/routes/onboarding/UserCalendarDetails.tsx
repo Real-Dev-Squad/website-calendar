@@ -11,7 +11,13 @@ const UserCalendarDetails = () => (
     <div className="flex flex-col ">
       <button className="text-sm pb-3">I&apos;ll connect my calendar later</button>
       <div className=" mx-4 mb-3 ">
-        <Button label="Save & Next" size="medium" varient="primary" type={'submit'} />
+        <Button
+          label="Save & Next"
+          size="medium"
+          varient="primary"
+          type={'submit'}
+          style={'my-2'}
+        />
       </div>
     </div>
   </div>

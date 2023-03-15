@@ -6,6 +6,7 @@ interface ButtonProps {
   label: string;
   varient: 'primary' | 'secondary';
   disabled?: boolean;
+  style?: string;
   handleClick?: () => void;
 }
 
@@ -15,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
   varient = 'primary',
   disabled = false,
   type = 'submit',
+  style,
   handleClick = () => {},
 }) => (
   <button
@@ -32,8 +34,8 @@ export const Button: React.FC<ButtonProps> = ({
                   size === 'small'
                     ? 'py-1 px-2 my-2 text-sm gap-1'
                     : size === 'medium'
-                    ? 'px-4 py-2 my-2 gap-2'
-                    : 'px-4 py-2  my-2 text-lg gap-3'
+                    ? `${style} px-4 py-2 gap-2`
+                    : `${style}  px-4 py-2 text-lg gap-3`
                 }
             `}
     type={type}
