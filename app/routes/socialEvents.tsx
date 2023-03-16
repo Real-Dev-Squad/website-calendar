@@ -1,9 +1,26 @@
 import EventCard from '~/components/common/eventCard';
-import { eventDetails } from '../components/common/eventCard/utils/eventDetailsObject';
 export default function socialEvents() {
-  return (
-    <>
-      <EventCard eventTitle="React India Conf" participantCount={100} eventDetails={eventDetails} />
-    </>
-  );
+  const dummyEvent = {
+    id: 11,
+    name: 'NEW',
+    description: 'SOME',
+    location: 'sad',
+    startTime: '2023-03-02T14:59:16.114Z',
+    endTime: '2023-03-02T14:59:28.578Z',
+    ownerId: 1,
+    eventTypeId: 1,
+    calendarId: 1,
+    isDeleted: false,
+    Attendees: [
+      {
+        attendee: {
+          email: 'ankur@rcal.com',
+        },
+      },
+    ],
+    EventType: {
+      name: 'event',
+    },
+  };
+  return <EventCard event={dummyEvent} />;
 }
