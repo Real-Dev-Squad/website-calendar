@@ -22,5 +22,5 @@ export default function socialEvents() {
       name: 'event',
     },
   };
-  return <EventCard event={dummyEvent} />;
+  return <EventCard {...dummyEvent} />;
 }
