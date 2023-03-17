@@ -30,20 +30,20 @@ const event = {
 };
 
 describe('EventCard', () => {
-  test('renders the event title', () => {
-    render(<EventCard event={event} />);
-    const title = screen.getByText(event.EventType.name);
-    expect(title).toBeInTheDocument();
-  });
-
   test('renders the number of participants', () => {
-    render(<EventCard event={event} />);
+    render(<EventCard {...event} />);
     const count = screen.getByText(`${event.Attendees.length} Participants`);
     expect(count).toBeInTheDocument();
   });
 
+  test('renders the event title', () => {
+    render(<EventCard {...event} />);
+    const title = screen.getByText(event.name);
+    expect(title).toBeInTheDocument();
+  });
+
   test('renders the date and month', () => {
-    render(<EventCard event={event} />);
+    render(<EventCard {...event} />);
     const date = screen.getByText('30');
     const month = screen.getByText('AUG');
     expect(date).toBeInTheDocument();
@@ -51,7 +51,7 @@ describe('EventCard', () => {
   });
 
   test('renders the start and end time', () => {
-    render(<EventCard event={event} />);
+    render(<EventCard {...event} />);
     const startTime = screen.getByText('12AM to 1:30AM');
     expect(startTime).toBeInTheDocument();
   });
