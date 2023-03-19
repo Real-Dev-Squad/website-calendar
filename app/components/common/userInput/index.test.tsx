@@ -56,16 +56,19 @@ describe('UserInput', () => {
   });
 
   it('should render error', () => {
-    render(
+    const { getByText } = render(
       <UserInput
         label="Username"
         placeholder="enter your name"
         value=""
         setValue={() => {}}
         err="error"
+        link="random string"
       />
     );
-    const error = screen.getByText('error');
+    const error = getByText('error');
     expect(error).toBeInTheDocument();
+    const button = screen.getByTestId('url-btn');
+    expect(button).toHaveClass('border-red-600');
   });
 });

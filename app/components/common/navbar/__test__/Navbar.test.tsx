@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import Slider from '../../slider';
 
 import Navbar, { DynamicHeroIcon } from '../index';
@@ -56,7 +57,9 @@ describe('Navbar', () => {
 
     const li = getByText(navbarElements.navbarPages[0].text);
     expect(li).toBeInTheDocument();
-    fireEvent.click(li);
+    act(() => {
+      fireEvent.click(li);
+    });
 
     const listItems = document.querySelectorAll('li');
     expect(listItems.length).toBe(6);
@@ -65,6 +68,26 @@ describe('Navbar', () => {
     expect(listItems[3].classList.contains('md:hidden')).toBeTruthy();
 
     expect(listItems[0].classList.contains('md:flex-row')).toBeTruthy();
-    fireEvent.click(listItems[5]);
+    act(() => {
+      fireEvent.click(listItems[5]);
+    });
+  });
+
+  it('should render list elements', () => {
+    const navbarElements = {
+      navbarSettings: [
+        {
+          icon: 'QuestionMarkCircle',
+          text: 'Help',
+          href: '/',
+          id: 4,
+          visibleOnDesktop: false,
+        },
+      ],
+    };
+    const { getByText } = render(<Navbar />);
+    // found last text
+    const li = getByText(navbarElements.navbarSettings[0].text);
+    expect(li).toBeInTheDocument();
   });
 });

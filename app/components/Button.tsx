@@ -1,9 +1,9 @@
 import { Icon } from '~/types/Icon';
 
 interface ButtonProps {
-  size: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large';
   label: string;
-  varient: 'primary' | 'secondary';
+  varient?: 'primary' | 'secondary';
   disabled?: boolean;
   handleClick?: () => void;
 }

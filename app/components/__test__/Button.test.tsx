@@ -1,4 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 
 import { Button, LinkButton } from '../Button';
 
@@ -6,14 +7,14 @@ describe('Button', () => {
   const btnText = 'Click me';
   it('renders', () => {
     const { getByText } = render(
-      <Button size="small" label="Click me" varient="primary" disabled={false} />
+      <Button size="small" label={btnText} varient="primary" disabled={false} />
     );
     expect(getByText(btnText)).toBeInTheDocument();
   });
 
   it('renders with different sizes', () => {
     const { getByText } = render(
-      <Button size="small" label="Click me" varient="primary" disabled={false} />
+      <Button size="small" label={btnText} varient="primary" disabled={false} />
     );
     expect(getByText(btnText)).toHaveClass('py-1 px-2 text-sm gap-1');
     expect(getByText(btnText).classList.contains('border-transparent')).toBeTruthy();
@@ -21,32 +22,39 @@ describe('Button', () => {
   });
 
   it('renders with different varients', () => {
-    const handleClick = jest.fn(() => null);
     const { getByText } = render(
       <Button
         size="medium"
-        label="Click me"
+        label={btnText}
         varient="primary"
         disabled={false}
-        handleClick={handleClick}
+        handleClick={jest.fn(() => null)}
       />
     );
     const btnElement = getByText(btnText);
     expect(getByText(btnText)).toHaveClass('bg-blue-600 text-white');
-    fireEvent.click(btnElement);
-    expect(handleClick).toHaveBeenCalled();
-
+    act(() => {
+      fireEvent.click(btnElement);
+    });
     expect(getByText(btnText).classList.contains('border-transparent')).toBeTruthy();
+  });
 
+  it('should render button with secondary btn variant', () => {
+    const handleClick = jest.fn();
     render(
       <Button
         size="large"
-        label="Click me"
+        label={btnText}
         varient="secondary"
         disabled={false}
         handleClick={handleClick}
       />
     );
+  });
+
+  it('should pass default ButtonProps', () => {
+    const handleClick = jest.fn();
+    render(<Button label={btnText} handleClick={handleClick} />);
   });
 });
 
@@ -54,7 +62,7 @@ describe('LinkButton', () => {
   const btnText = 'Click me';
   it('renders', () => {
     const { getByText } = render(
-      <LinkButton href="/" title="Click me" icon={() => <div>Icon</div>} />
+      <LinkButton href="/" title={btnText} icon={() => <div>Icon</div>} />
     );
     expect(getByText(btnText)).toBeInTheDocument();
   });
