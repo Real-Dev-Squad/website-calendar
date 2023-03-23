@@ -20,7 +20,7 @@
     "start": "remix-serve build",
     "prepare": "husky install",
     "test": "jest",
-    "test:ci": "jest --coverage --silent --ci",
+    "test:ci": "jest --coverage --silent --ci --collectCoverage=true --coverageDirectory='./'",
     "sb": "start-storybook -p 6006",
     "build-sb": "build-storybook"
   },
