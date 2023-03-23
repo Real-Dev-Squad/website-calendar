@@ -2,7 +2,10 @@ name: Coverage Report CI
 
 on:
   pull_request:
-    branches: ['main', 'develop']
+    branches:
+      - develop
+      - main
+
 
 jobs:
   build:
