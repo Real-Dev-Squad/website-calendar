@@ -24,6 +24,6 @@ jobs:
       id: testCoverage
       uses: anuraag016/Jest-Coverage-Diff@master
       with:
-        fullCoverageDiff: false // defaults to false, if made true whole coverage report is commented with the diff
-        runCommand: "npx jest --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit --detectOpenHandles test/.*test.*"
+        fullCoverageDiff: true
+        runCommand: "npx jest --collectCoverageFrom='[\"app/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit --detectOpenHandles app/**/*.*test.*"
         delta: 0.5
