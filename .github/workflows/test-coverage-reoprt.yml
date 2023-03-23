@@ -9,8 +9,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - uses: artiomtr/jest-coverage-report-action@v1.3
+            - name: Jest Coverage Diff
+              uses: anuraag016/Jest-Coverage-Diff@V1.4
                 with:
-                    threshold: 80 
-                    annotations: all
-                    package-manager: yarn
+                    delta: 1
+                    fullCoverageDiff: true
+                    runCommand: "npx jest --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit"
