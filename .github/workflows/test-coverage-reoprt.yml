@@ -4,10 +4,26 @@ on:
         branches:
             - develop
             - main
+
 jobs:
     coverage:
         runs-on: ubuntu-latest
+    
+        strategy:
+            matrix:
+              node-version: [16.x]
+            
         steps:
+            - name: Checkout Branch To Runner
+              uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ matrix.node-version }}
+                cache: 'yarn'
+            - name: Install Yarn
+              run: yarn install --prefer-offline --immutable
+            - name: Run Coverage Tests
             - uses: actions/checkout@v2
             - name: Jest Coverage Diff
               uses: anuraag016/Jest-Coverage-Diff@V1.4
