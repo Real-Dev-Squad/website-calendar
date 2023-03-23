@@ -9,13 +9,13 @@ on:
 
 jobs:
   build:
+    name: Run Coverage Tests
     strategy:
       matrix:
         node-version: [16.x]
         platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-    - name: Code coverage report    
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
