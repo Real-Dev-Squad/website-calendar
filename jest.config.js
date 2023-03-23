@@ -6,13 +6,13 @@ module.exports = {
     '^.+\\.(t|j)sx?$': 'ts-jest',
   },
   setupFilesAfterEnv: ['./jest.setup.js'],
-  coverageReporters: ['cobertura', 'json', 'html'],
+  coverageReporters: ['cobertura', 'json-summary', 'html'],
   coverageThreshold: {
     global: {
-      branches: 50,
-      functions: 50,
-      lines: 50,
-      statements: 50,
+      branches: 85,
+      functions: 85,
+      lines: 85,
+      statements: 85,
     },
   },
 };

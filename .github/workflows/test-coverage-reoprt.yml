@@ -26,8 +26,8 @@ jobs:
       run: yarn install --prefer-offline --immutable
     - name: TestCoverage
       id: testCoverage
-      uses: anuraag016/Jest-Coverage-Diff@master
+      uses: anuraag016/Jest-Coverage-Diff@V1.4
       with:
         fullCoverageDiff: true
-        runCommand: "npx jest --collectCoverageFrom='[\"app/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit --detectOpenHandles app/**/*.*test.*"
+        runCommand: "yarn test:ci"
         delta: 0.5
