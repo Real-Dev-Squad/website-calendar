@@ -10,3 +10,10 @@ export const FormTitlesAndSubtitles = [
       'Connect your calendar to automatically check for busy times and new events as they’re scheduled.',
   },
 ];
+
+export const initialUserDetails = {
+  username: '',
+  firstname: '',
+  lastname: '',
+  timezone: '',
+};

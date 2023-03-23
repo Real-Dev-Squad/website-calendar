@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 interface UserInputProps {
@@ -9,6 +9,8 @@ interface UserInputProps {
   type?: string;
   value: string;
   setValue: (str: string) => void;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  handleFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   description?: string;
   err?: string | null;
   name?: string;
@@ -22,6 +24,8 @@ const UserInput: FC<UserInputProps> = ({
   type,
   value,
   setValue,
+  handleBlur,
+  handleFocus,
   description,
   err,
   name,
@@ -65,6 +69,8 @@ const UserInput: FC<UserInputProps> = ({
             placeholder={placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             name={name}
           />
           {type === 'password' && (

@@ -3,6 +3,7 @@ import OTPInput from '.';
 
 it('render otp input ', () => {
   render(<OTPInput otpLength={4} />);
+  /* need to change getAllByTestId to getByTestId */
   const otpInput = screen.getAllByTestId('otp-input');
   expect(otpInput).toHaveLength(4);
 });

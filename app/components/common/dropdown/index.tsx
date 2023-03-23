@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
+interface UserFormInterface {
+  username: string;
+  firstname: string;
+  lastname: string;
+  timezone: string;
+}
 interface DropdownProps {
   placeholder: string;
+  setUserTimezone: Dispatch<SetStateAction<UserFormInterface>>;
 }
-const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
+
+const Dropdown: React.FC<DropdownProps> = ({ placeholder, setUserTimezone }) => {
   const [dropdownValue, setDropdownValue] = useState<string>('');
   const [dropdownStatus, setDropdownStatus] = useState<boolean>(false);
 
@@ -33,6 +41,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
 
   const setDropdown = (e: React.MouseEvent<Element, MouseEvent>) => {
     const element = e.target as HTMLElement;
+    setUserTimezone((prev) => ({ ...prev, timezone: element.innerText }));
     setDropdownValue(element.innerText);
     setDropdownStatus(false);
   };
@@ -49,6 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder }) => {
           data-testid="dropdown-value"
           value={dropdownValue || placeholder}
           className={`${dropdownValue ? 'text-gray-700 ' : 'text-slate-400'}  text-sm`}
+          disabled={true}
         >
           {dropdownValue || placeholder}
         </button>
