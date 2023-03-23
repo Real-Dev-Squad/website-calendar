@@ -24,10 +24,11 @@ jobs:
         cache: 'yarn'
     - name: Install packages
       run: yarn install --prefer-offline --immutable
-    - name: TestCoverage
+    - name: Run Tests
+      run: yarn run test:ci
+    - name: Test Coverage report
       id: testCoverage
       uses: anuraag016/Jest-Coverage-Diff@V1.4
       with:
         fullCoverageDiff: true
-        runCommand: "yarn test:ci"
         delta: 0.5
