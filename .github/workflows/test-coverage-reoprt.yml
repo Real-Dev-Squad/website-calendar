@@ -1,31 +1,29 @@
-name: Coverage report
+name: Coverage Report CI
+
 on:
-    pull_request:
-        branches:
-            - develop
-            - main
+  pull_request:
+    branches: ['main', 'develop']
 
 jobs:
-    coverage:
-        runs-on: ubuntu-latest
-    
-        strategy:
-            matrix:
-              node-version: [16.x]
-            
-        steps:
-            - name: Run Coverage Tests
-              uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                node-version: ${{ matrix.node-version }}
-                cache: 'yarn'
-            - name: Install Yarn
-              run: yarn install --prefer-offline --immutable
-            - name: Jest Coverage Diff
-              uses: anuraag016/Jest-Coverage-Diff@V1.4
-              with:
-                delta: 1
-                fullCoverageDiff: true
-                runCommand: "npx jest --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit"
+  build:
+    strategy:
+      matrix:
+        node-version: [16.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+    - name: Install packages
+      run: yarn install --prefer-offline --immutable
+    - name: TestCoverage
+      id: testCoverage
+      uses: anuraag016/Jest-Coverage-Diff@master
+      with:
+        fullCoverageDiff: false // defaults to false, if made true whole coverage report is commented with the diff
+        runCommand: "npx jest --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit --detectOpenHandles test/.*test.*"
+        delta: 0.5
