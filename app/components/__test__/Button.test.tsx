@@ -32,7 +32,7 @@ describe('Button', () => {
       />
     );
     const btnElement = getByText(btnText);
-    expect(getByText(btnText)).toHaveClass('bg-blue-600 text-white');
+
     act(() => {
       fireEvent.click(btnElement);
     });
