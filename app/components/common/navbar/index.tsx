@@ -106,19 +106,19 @@ const Navbar = () => {
         <ul
           className={`${classShortHands.flexDesktopCol} justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarPages.map((navIntem: NavItemType) => (
+          {navbarElements.navbarPages.map((navItem: NavItemType) => (
             <li
-              key={navIntem.id}
-              className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'} ${
+              key={navItem.id}
+              className={`${navItem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
-              onClick={() => toggle(navIntem.id)}
+              onClick={() => toggle(navItem.id)}
             >
               <div className="h-5 w-5">
                 <DynamicHeroIcon
-                  name={navIntem.icon}
+                  name={navItem.icon}
                   className={`${
-                    myColor(navIntem.id)
+                    myColor(navItem.id)
                       ? `${classShortHands.headingSelectedColor}`
                       : `${classShortHands.headingColor}`
                   } group-hover:${classShortHands.headingSelectedColor}`}
@@ -128,12 +128,12 @@ const Navbar = () => {
                 className={`p-0 md:p-0 md:pl-2   ${classShortHands.fontSize}  hover:${
                   classShortHands.headingSelectedColor
                 } ${
-                  myColor(navIntem.id)
+                  myColor(navItem.id)
                     ? `${classShortHands.headingSelectedColor}`
                     : `${classShortHands.headingColor}`
                 }`}
               >
-                {navIntem.text}
+                {navItem.text}
               </p>
             </li>
           ))}
@@ -144,19 +144,19 @@ const Navbar = () => {
         <ul
           className={`hidden md:flex flex-col ${classShortHands.padding} mt-4 md:mt-0 md:text-sm md:font-medium md:border-0 ${classShortHands.navbarBackgroundColor}`}
         >
-          {navbarElements.navbarSettings.map((navIntem: NavItemType) => (
+          {navbarElements.navbarSettings.map((navItem: NavItemType) => (
             <li
-              key={navIntem.id}
-              className={`${navIntem.visibleOnDesktop ? '' : 'md:hidden'}  ${
+              key={navItem.id}
+              className={`${navItem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                 classShortHands.flexDesktopRow
               } items-center mb-0 md:mb-8 cursor-pointer group`}
-              onClick={() => toggle(navIntem.id)}
+              onClick={() => toggle(navItem.id)}
             >
               <div className="h-5 w-5">
                 <DynamicHeroIcon
-                  name={navIntem.icon}
+                  name={navItem.icon}
                   className={`${
-                    myColor(navIntem.id)
+                    myColor(navItem.id)
                       ? `$${classShortHands.headingSelectedColor}`
                       : `${classShortHands.headingColor}`
                   } group-hover:stroke-slate-900`}
@@ -166,12 +166,12 @@ const Navbar = () => {
                 className={`p-0 md:pl-2   ${classShortHands.fontSize}   hover:${
                   classShortHands.headingSelectedColor
                 } ${
-                  myColor(navIntem.id)
+                  myColor(navItem.id)
                     ? `${classShortHands.headingSelectedColor}`
                     : `${classShortHands.headingColor}`
                 }`}
               >
-                {navIntem.text}
+                {navItem.text}
               </p>
             </li>
           ))}

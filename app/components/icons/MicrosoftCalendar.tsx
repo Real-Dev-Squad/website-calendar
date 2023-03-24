@@ -41,8 +41,8 @@ export const MicrosoftCalendar = () => {
         y2="36.024"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#31abec" />
-        <stop offset="1" stop-color="#1582d5" />
+        <stop offset="0" stopColor="#31abec" />
+        <stop offset="1" stopColor="#1582d5" />
       </linearGradient>
       <path
         fill="url(#Qf7015RosYe_HpjKeG0QTa)"
@@ -56,8 +56,8 @@ export const MicrosoftCalendar = () => {
         y2="9.074"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".042" stop-color="#076db4" />
-        <stop offset=".85" stop-color="#0461af" />
+        <stop offset=".042" stopColor="#076db4" />
+        <stop offset=".85" stopColor="#0461af" />
       </linearGradient>
       <path
         fill="url(#Qf7015RosYe_HpjKeG0QTb)"
@@ -71,8 +71,8 @@ export const MicrosoftCalendar = () => {
         y2="41.1"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#33acee" />
-        <stop offset="1" stop-color="#1b8edf" />
+        <stop offset="0" stopColor="#33acee" />
+        <stop offset="1" stopColor="#1b8edf" />
       </linearGradient>
       <path
         fill="url(#Qf7015RosYe_HpjKeG0QTc)"
@@ -98,8 +98,8 @@ export const MicrosoftCalendar = () => {
         y2="33.41"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#1784d8" />
-        <stop offset="1" stop-color="#0864c5" />
+        <stop offset="0" stopColor="#1784d8" />
+        <stop offset="1" stopColor="#0864c5" />
       </linearGradient>
       <path
         fill="url(#Qf7015RosYe_HpjKeG0QTd)"
