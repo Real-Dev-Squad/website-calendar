@@ -596,6 +596,7 @@ video {
   margin-right: 0.5rem;
 }
 
+
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -605,6 +606,7 @@ video {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+
 
 .mx-12 {
   margin-left: 3rem;
@@ -616,9 +618,15 @@ video {
   margin-bottom: 1rem;
 }
 
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+
 }
 
 .mt-8 {
@@ -1288,12 +1296,12 @@ video {
   text-decoration-line: underline;
 }
 
-.underline-offset-4 {
-  text-underline-offset: 4px;
-}
-
 .underline-offset-2 {
   text-underline-offset: 2px;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
 }
 
 .opacity-100 {
