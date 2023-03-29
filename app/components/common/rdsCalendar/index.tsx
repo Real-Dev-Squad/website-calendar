@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import dayjs from 'dayjs';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 
@@ -11,6 +12,7 @@ interface RdsCalendarProps {
   updateEvent: ({ event, start, end }: UpdateEvent) => void;
 }
 
+// TODO: localize with dayjs instead of moment
 const localizer = momentLocalizer(moment);
 
 const RdsCalendar = ({
@@ -29,14 +31,26 @@ const RdsCalendar = ({
       events={eventsList}
       defaultView="week"
       style={{ height: '100vh' }}
-      onSelectEvent={(event) => setCalendarEvent((e) => ({ ...e, event, show: true, new: false }))}
+      onSelectEvent={(event) =>
+        setCalendarEvent((e) => ({
+          ...e,
+          event,
+          show: true,
+          new: false,
+        }))
+      }
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
       selectable={true}
-      scrollToTime={moment(currentEvent?.start).toDate()}
+      scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={({ start }) => {
-        const event: CalEvent = { title: '', start, end: moment(start).add(1, 'hour').toDate() };
-        setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
+        const event: CalEvent = { title: '', start, end: dayjs(start).add(1, 'hour').toDate() };
+        setCalendarEvent((e) => ({
+          ...e,
+          event,
+          show: true,
+          new: true,
+        }));
       }}
     />
   );

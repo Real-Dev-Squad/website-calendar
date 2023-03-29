@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { CalEvent, UpdateEvent } from '~/utils/interfaces';
 import UserInput from '../userInput';
@@ -41,15 +41,15 @@ export default function EventModal({
               label={''}
               placeholder={'Enter start date and time'}
               type="datetime-local"
-              value={moment(eventDetail?.start).format('YYYY-MM-DDTHH:mm') ?? ''}
-              setValue={(start) => setEventDetail((e) => ({ ...e, start: moment(start).toDate() }))}
+              value={dayjs(eventDetail?.start).format('YYYY-MM-DDTHH:mm') ?? ''}
+              setValue={(start) => setEventDetail((e) => ({ ...e, start: dayjs(start).toDate() }))}
             />
             <UserInput
               label={''}
               placeholder={'Enter start date and time'}
               type="datetime-local"
-              value={moment(eventDetail?.end).format('YYYY-MM-DDTHH:mm') ?? ''}
-              setValue={(end) => setEventDetail((e) => ({ ...e, end: moment(end).toDate() }))}
+              value={dayjs(eventDetail?.end).format('YYYY-MM-DDTHH:mm') ?? ''}
+              setValue={(end) => setEventDetail((e) => ({ ...e, end: dayjs(end).toDate() }))}
             />
           </div>
           <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>

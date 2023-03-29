@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useState, useCallback } from 'react';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 import EventModal from '~/components/common/eventModal';
@@ -8,20 +8,20 @@ const initialEventsList: CalEvent[] = [
   {
     id: '1',
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
   },
   {
     id: '2',
     title: 'Some title',
-    start: moment().add(1, 'day').toDate(),
-    end: moment().add(1, 'day').add(2, 'hour').toDate(),
+    start: dayjs().add(1, 'day').toDate(),
+    end: dayjs().add(1, 'day').add(2, 'hour').toDate(),
   },
   {
     id: '3',
     title: 'Another title',
-    start: moment().add(1, 'day').add(8, 'hours').toDate(),
-    end: moment().add(1, 'day').add(9, 'hours').toDate(),
+    start: dayjs().add(1, 'day').add(8, 'hours').toDate(),
+    end: dayjs().add(1, 'day').add(9, 'hours').toDate(),
   },
 ];
 
@@ -35,8 +35,8 @@ const Calendar = () => {
       events.map((e) => {
         if (e.id === event.id) {
           e.title = event.title;
-          e.start = moment(start).toDate();
-          e.end = moment(end).toDate();
+          e.start = dayjs(start).toDate();
+          e.end = dayjs(end).toDate();
         }
         return e;
       }),
