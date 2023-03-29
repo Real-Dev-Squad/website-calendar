@@ -7,9 +7,13 @@ module.exports = {
       borderRadius: {
         16: '4rem',
       },
+      borderWidth: {
+        1: '1px',
+      },
       colors: {
         grey: {
           DEFAULT: '#D6D3D1',
+          light: '#E7E5E4',
           med: '#78716C',
           dark: '#44403C',
         },
@@ -23,7 +27,6 @@ module.exports = {
         18: '4.5rem',
       },
       spacing: {
-        1: '0.25rem',
         2: '0.5rem',
         4: '1rem',
         8: '2rem',
