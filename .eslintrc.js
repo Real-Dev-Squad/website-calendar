@@ -12,6 +12,8 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    'function-paren-newline': 'off',
+    'implicit-arrow-linebreak': 'off',
     'import/no-unresolved': 'off', // TODO: throws an unexpected error need to fix this later.
     'import/extensions': 0,
     'import/no-extraneous-dependencies': [

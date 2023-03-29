@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as Icons from '@heroicons/react/24/outline';
+import { Link } from 'remix';
 import Slider from '../slider';
 
 interface DynamicHeroIconType {
@@ -49,7 +50,7 @@ const Navbar = () => {
       {
         icon: 'Calendar',
         text: 'Events',
-        href: '/',
+        href: '/events',
         id: 1,
         visibleOnDesktop: true,
       },
@@ -107,7 +108,8 @@ const Navbar = () => {
           className={`${classShortHands.flexDesktopCol} justify-evenly ${classShortHands.padding} py-2  mt-0 md:mt-7 md:text-sm md:font-medium ${classShortHands.navbarBackgroundColor}`}
         >
           {navbarElements.navbarPages.map((navItem: NavItemType) => (
-            <li
+            <Link
+              to={navItem.href}
               key={navItem.id}
               className={`${navItem.visibleOnDesktop ? '' : 'md:hidden'} ${
                 classShortHands.flexDesktopRow
@@ -135,7 +137,7 @@ const Navbar = () => {
               >
                 {navItem.text}
               </p>
-            </li>
+            </Link>
           ))}
         </ul>
       </div>

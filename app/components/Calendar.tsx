@@ -39,7 +39,7 @@ const Calendar = () => {
           e.end = moment(end).toDate();
         }
         return e;
-      })
+      }),
     );
   };
 
@@ -58,7 +58,7 @@ const Calendar = () => {
         updateEvent={updateEventState}
       />
     ),
-    [eventsList]
+    [eventsList],
   );
 
   return (
