@@ -3,7 +3,7 @@ import { SetStateAction } from 'react';
 import Dropdown from '.';
 
 it('renders a dropwdown element', () => {
-  render(<Dropdown placeholder="select timezone" />);
+  render(<Dropdown setUserTimezone={jest.fn()} placeholder="select timezone" />);
   const dropdown = screen.getByTestId('dropdown');
 
   expect(dropdown).toBeInTheDocument();
