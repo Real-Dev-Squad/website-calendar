@@ -1,4 +1,4 @@
-export default async function register(data) {
+export async function register(data) {
   const baseUrl = process.env.API_HOST;
   const token = process.env.AUTH_TOKEN;
   const query = '/api/v1/users/self';

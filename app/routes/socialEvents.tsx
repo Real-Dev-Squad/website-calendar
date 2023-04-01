@@ -2,7 +2,7 @@ import EventCard from '~/components/common/eventCard';
 export default function socialEvents() {
   const dummyEvent = {
     id: 11,
-    name: 'NEW',
+    name: 'React Day',
     description: 'SOME',
     location: 'sad',
     startTime: '2023-03-02T14:59:16.114Z',
@@ -11,14 +11,14 @@ export default function socialEvents() {
     eventTypeId: 1,
     calendarId: 1,
     isDeleted: false,
-    Attendees: [
+    attendees: [
       {
         attendee: {
           email: 'ankur@rcal.com',
         },
       },
     ],
-    EventType: {
+    eventType: {
       name: 'event',
     },
   };

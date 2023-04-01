@@ -539,12 +539,12 @@ video {
   position: relative;
 }
 
-.left-52 {
-  left: 13rem;
-}
-
 .top-4 {
   top: 1rem;
+}
+
+.right-1 {
+  right: 0.25rem;
 }
 
 .bottom-4 {

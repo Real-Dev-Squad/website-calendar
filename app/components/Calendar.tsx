@@ -1,8 +1,9 @@
 import moment from 'moment';
 import { useState, useCallback } from 'react';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
-import EventModal from '~/components/common/eventModal';
-import RdsCalendar from '~/components/common/rdsCalendar';
+import EventModal from '../components/common/eventModal';
+import RdsCalendar from '../components/common/rdsCalendar';
+// tilde operator not working so used relative imports
 
 const initialEventsList: CalEvent[] = [
   {

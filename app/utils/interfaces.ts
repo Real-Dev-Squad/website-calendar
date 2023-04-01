@@ -16,6 +16,12 @@ export interface UpdateEvent {
   end: stringOrDate;
 }
 
+export interface Attendees {
+  attendee: {
+    email: string;
+  };
+}
+
 export interface Event {
   id: number;
   name: string;
@@ -27,12 +33,8 @@ export interface Event {
   eventTypeId: number;
   calendarId: number;
   isDeleted: boolean;
-  Attendees: {
-    attendee: {
-      email: string;
-    };
-  }[];
-  EventType: {
+  attendees: Attendees[];
+  eventType: {
     name: string;
   };
 }

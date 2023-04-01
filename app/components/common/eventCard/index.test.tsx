@@ -12,7 +12,7 @@ const event = {
   eventTypeId: 3,
   calendarId: 4,
   isDeleted: false,
-  Attendees: [
+  attendees: [
     {
       attendee: {
         email: 'example1@example.com',
@@ -24,7 +24,7 @@ const event = {
       },
     },
   ],
-  EventType: {
+  eventType: {
     name: 'Example Type',
   },
 };
@@ -32,7 +32,7 @@ const event = {
 describe('EventCard', () => {
   test('renders the number of participants', () => {
     render(<EventCard {...event} />);
-    const count = screen.getByText(`${event.Attendees.length} Participants`);
+    const count = screen.getByText(`${event.attendees.length} Participants`);
     expect(count).toBeInTheDocument();
   });
 

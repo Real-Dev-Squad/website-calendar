@@ -1,4 +1,4 @@
-const FormTitlesAndSubtitles = [
+export const FormTitlesAndSubtitles = [
   {
     title: 'Welcome to HapDay',
     subtitle:
@@ -10,5 +10,3 @@ const FormTitlesAndSubtitles = [
       'Connect your calendar to automatically check for busy times and new events as they’re scheduled.',
   },
 ];
-
-export default FormTitlesAndSubtitles;
