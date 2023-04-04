@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { FC, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
@@ -14,6 +15,10 @@ interface UserInputProps {
   description?: string;
   err?: string | null;
   name?: string;
+  minDate?: string;
+  maxDate?: string;
+  labelClassnames?: string;
+  inputClassnames?: string;
 }
 
 const UserInput: FC<UserInputProps> = ({
@@ -29,6 +34,10 @@ const UserInput: FC<UserInputProps> = ({
   description,
   err,
   name,
+  minDate,
+  maxDate,
+  labelClassnames,
+  inputClassnames,
 }) => {
   const [showPassword, setShowPasword] = useState(false);
   const Icon = showPassword ? EyeIcon : EyeSlashIcon;
@@ -45,7 +54,7 @@ const UserInput: FC<UserInputProps> = ({
 
   return (
     <main className="mb-6">
-      <p className="text-sm text-black mb-2">{label}</p>
+      <p className={`text-sm text-black mb-2 ${labelClassnames}`}>{label}</p>
 
       <div className="flex" data-testid="user-input-wrapper">
         {link && (
@@ -63,15 +72,19 @@ const UserInput: FC<UserInputProps> = ({
             aria-describedby="desc"
             type={inputType()}
             data-testid={dataTestId ?? 'user-input'}
-            className={` bg-stone-50 text-sm p-3  focus:outline-none ${
+            className={`bg-stone-50 text-sm p-3  focus:outline-none ${
               link ? 'basis-full border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
-            }   border-solid border  ${err ? 'border-red-600' : 'border-stone-400'}`}
+            }   border-solid border  ${
+              err ? 'border-red-600' : 'border-stone-400'
+            } ${inputClassnames}`}
             placeholder={placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onBlur={handleBlur}
             onFocus={handleFocus}
             name={name}
+            min={minDate}
+            max={maxDate}
           />
           {type === 'password' && (
             <Icon

@@ -1,34 +1,46 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable object-curly-newline */
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { Calendar, momentLocalizer, View } from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 
 interface RdsCalendarProps {
+  height?: string;
+  view?: View;
   eventsList: CalEvent[];
+  defaultDate?: Date;
   currentEvent: CalEvent | undefined;
-  setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps | undefined>>;
-  updateEvent: ({ event, start, end }: UpdateEvent) => void;
+  setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
+  updateEvent: (event: CalEvent) => void;
 }
 
 const localizer = momentLocalizer(moment);
 
 const RdsCalendar = ({
+  height,
+  view,
   eventsList,
+  defaultDate,
   currentEvent,
   setCalendarEvent,
   updateEvent,
 }: RdsCalendarProps) => {
   const RbcCalendar = withDragAndDrop(Calendar);
-  const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) => updateEvent(ev);
-  const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) => updateEvent(ev);
+  const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
+    updateEvent({ ...ev.event, start: moment(ev.start).toDate(), end: moment(ev.end).toDate() });
+  const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
+    updateEvent({ ...ev.event, start: moment(ev.start).toDate(), end: moment(ev.end).toDate() });
 
   return (
     <RbcCalendar
       localizer={localizer}
       events={eventsList}
-      defaultView="week"
-      style={{ height: '100vh' }}
+      defaultDate={defaultDate}
+      defaultView={view ?? 'week'}
+      style={{ height: height ?? '100vh' }}
       onSelectEvent={(event) => setCalendarEvent((e) => ({ ...e, event, show: true, new: false }))}
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
