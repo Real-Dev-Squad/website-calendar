@@ -4,9 +4,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import React from 'react';
-import { render, fireEvent, createEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
+import { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 import { View, CalendarProps } from 'react-big-calendar';
 import RdsCalendar from '.';
