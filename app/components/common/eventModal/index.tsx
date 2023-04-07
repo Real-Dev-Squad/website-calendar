@@ -1,3 +1,4 @@
+// TODO: remove all eslint-disable when eslint-prettier issue is fixed
 /* eslint-disable comma-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable object-curly-newline */

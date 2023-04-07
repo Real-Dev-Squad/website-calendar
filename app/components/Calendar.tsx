@@ -1,3 +1,4 @@
+// TODO: remove all eslint-disable when eslint-prettier issue is fixed
 /* eslint-disable function-paren-newline */
 /* eslint-disable comma-dangle */
 /* eslint-disable implicit-arrow-linebreak */

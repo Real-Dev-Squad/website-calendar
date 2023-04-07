@@ -1,5 +1,7 @@
+// TODO: remove all eslint-disable when eslint-prettier issue is fixed
 /* eslint-disable comma-dangle */
 import { fireEvent, render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import EmailChipsInput from '.';
 
 describe('EmailChipsInput', () => {
@@ -44,8 +46,10 @@ describe('EmailChipsInput', () => {
       />
     );
     const input = screen.getByPlaceholderText('Enter email');
-    fireEvent.change(input, { target: { value: 'example@example.com' } });
-    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'example@example.com' } });
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
     expect(setAttendeesMock).toHaveBeenCalledWith(['example@example.com']);
   });
@@ -60,8 +64,10 @@ describe('EmailChipsInput', () => {
       />
     );
     const input = screen.getByPlaceholderText('Enter email');
-    fireEvent.change(input, { target: { value: 'example@example.com' } });
-    fireEvent.keyDown(input, { key: 'Tab', code: 'Tab' });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'example@example.com' } });
+      fireEvent.keyDown(input, { key: 'Tab', code: 'Tab' });
+    });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
     expect(setAttendeesMock).toHaveBeenCalledWith(['example@example.com']);
   });
@@ -76,8 +82,10 @@ describe('EmailChipsInput', () => {
       />
     );
     const input = screen.getByPlaceholderText('Enter email');
-    fireEvent.change(input, { target: { value: 'example@example.com' } });
-    fireEvent.keyDown(input, { key: ',', code: 'Comma' });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'example@example.com' } });
+      fireEvent.keyDown(input, { key: ',', code: 'Comma' });
+    });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
     expect(setAttendeesMock).toHaveBeenCalledWith(['example@example.com']);
   });
@@ -92,8 +100,10 @@ describe('EmailChipsInput', () => {
       />
     );
     const input = screen.getByPlaceholderText('Enter email');
-    fireEvent.change(input, { target: { value: 'invalid-email' } });
-    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'invalid-email' } });
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    });
     expect(setAttendeesMock).not.toHaveBeenCalled();
   });
 
@@ -107,8 +117,10 @@ describe('EmailChipsInput', () => {
       />
     );
     const input = screen.getByPlaceholderText('Enter email');
-    fireEvent.change(input, { target: { value: 'example@example.com' } });
-    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'example@example.com' } });
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    });
     expect(setAttendeesMock).not.toHaveBeenCalled();
   });
 
@@ -122,7 +134,9 @@ describe('EmailChipsInput', () => {
       />
     );
     const deleteButton = screen.getByText('×');
-    fireEvent.click(deleteButton);
+    act(() => {
+      fireEvent.click(deleteButton);
+    });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
     expect(setAttendeesMock).toHaveBeenCalledWith([]);
   });

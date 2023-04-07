@@ -1,3 +1,4 @@
+// TODO: remove all eslint-disable when eslint-prettier issue is fixed
 /* eslint-disable no-unused-vars */
 import { GlobeAltIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';

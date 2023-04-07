@@ -1,3 +1,4 @@
+// TODO: remove all eslint-disable when eslint-prettier issue is fixed
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 import React, { FC, useState } from 'react';
@@ -18,14 +19,14 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
   const [value, setValue] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const isInList = (email: string) => attendees.includes(email);
+  const isEmailInList = (email: string) => attendees.includes(email);
 
   const isEmail = (email: string) => /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
 
-  const isValid = (email: string) => {
+  const isEmailValid = (email: string) => {
     let err = null;
 
-    if (isInList(email)) {
+    if (isEmailInList(email)) {
       err = `${email} has already been added.`;
     }
 
@@ -47,7 +48,7 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
 
       const val: string = value.trim();
 
-      if (val && isValid(val)) {
+      if (val && isEmailValid(val)) {
         setAttendees([...attendees, val]);
         setValue('');
         setError('');
@@ -66,7 +67,7 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
     const ems = paste.match(/[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/g);
 
     if (ems) {
-      const toBeAdded = ems.filter((email) => !isInList(email));
+      const toBeAdded = ems.filter((email) => !isEmailInList(email));
 
       if (toBeAdded.length > 0) {
         setAttendees([...attendees, ...toBeAdded]);

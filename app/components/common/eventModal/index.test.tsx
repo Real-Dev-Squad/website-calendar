@@ -1,6 +1,8 @@
+// TODO: remove all eslint-disable when eslint-prettier issue is fixed
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
 import { render, fireEvent, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import { CalEvent } from '~/utils/interfaces';
 import EventModal from '.';
 
@@ -57,7 +59,9 @@ describe('EventModal', () => {
       />
     );
     const input = screen.getByTestId('modal-title');
-    fireEvent.change(input, { target: { value: 'updated title' } });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'updated title' } });
+    });
     expect(input).toHaveValue('updated title');
   });
 
@@ -74,7 +78,9 @@ describe('EventModal', () => {
     );
 
     const closeButton = screen.getByTestId('modal-close-btn');
-    fireEvent.click(closeButton);
+    act(() => {
+      fireEvent.click(closeButton);
+    });
     expect(mockSetIsOpen).toHaveBeenCalledWith(false);
   });
 
@@ -90,7 +96,9 @@ describe('EventModal', () => {
       />
     );
     const saveButton = screen.getByTestId('modal-save-btn');
-    fireEvent.click(saveButton);
+    act(() => {
+      fireEvent.click(saveButton);
+    });
     expect(mockUpdateEvent).toHaveBeenCalledWith(mockEvent);
   });
 
@@ -106,7 +114,9 @@ describe('EventModal', () => {
       />
     );
     const visibilityButton = screen.getByTestId('modal-visibility') as HTMLButtonElement;
-    fireEvent.click(visibilityButton);
+    act(() => {
+      fireEvent.click(visibilityButton);
+    });
     expect(visibilityButton).toHaveTextContent('Public');
   });
 
@@ -122,7 +132,9 @@ describe('EventModal', () => {
       />
     );
     const startDateInput = getByPlaceholderText('from-date');
-    fireEvent.change(startDateInput, { target: { value: new Date('2023-03-30T13:00:00.000Z') } });
+    act(() => {
+      fireEvent.change(startDateInput, { target: { value: new Date('2023-03-30T13:00:00.000Z') } });
+    });
     expect(startDateInput).toHaveValue(new Date('2023-03-30T13:00:00.000Z').toString());
   });
 
@@ -138,7 +150,9 @@ describe('EventModal', () => {
       />
     );
     const endDateInput = getByPlaceholderText('to-date');
-    fireEvent.change(endDateInput, { target: { value: new Date('2023-03-30T15:00:00.000Z') } });
+    act(() => {
+      fireEvent.change(endDateInput, { target: { value: new Date('2023-03-30T15:00:00.000Z') } });
+    });
     expect(endDateInput).toHaveValue(new Date('2023-03-30T15:00:00.000Z').toString());
   });
 
@@ -154,7 +168,9 @@ describe('EventModal', () => {
       />
     );
     const attendeesInput = screen.getByTestId('email-chip-input') as HTMLInputElement;
-    fireEvent.change(attendeesInput, { target: { value: 'jane@doe.com' } });
+    act(() => {
+      fireEvent.change(attendeesInput, { target: { value: 'jane@doe.com' } });
+    });
     expect(attendeesInput.value).toBe('jane@doe.com');
   });
 
@@ -170,7 +186,9 @@ describe('EventModal', () => {
       />
     );
     const locationInput = screen.getByTestId('modal-location') as HTMLInputElement;
-    fireEvent.change(locationInput, { target: { value: 'Central Park' } });
+    act(() => {
+      fireEvent.change(locationInput, { target: { value: 'Central Park' } });
+    });
     expect(locationInput.value).toBe('Central Park');
   });
 });
