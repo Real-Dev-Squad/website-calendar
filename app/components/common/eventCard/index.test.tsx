@@ -3,13 +3,18 @@ import moment from 'moment';
 import EventCard from './index';
 
 describe('EventCard', () => {
+  const date = moment().format('D');
+  const month = moment().format('MMM');
+  const startTime = moment().format('h:mm A');
+  const endTime = moment().add(2, 'hours').format('h:mm A');
+
   const dummyevent1 = {
     id: 11,
     name: 'React Day',
     description: 'SOME',
     location: 'sad',
-    startTime: '2023-03-02T14:59:16.114Z',
-    endTime: '2023-03-02T14:59:28.578Z',
+    startTime: startTime,
+    endTime: endTime,
     ownerId: 1,
     eventTypeId: 1,
     calendarId: 1,
@@ -31,8 +36,8 @@ describe('EventCard', () => {
     name: 'React Day',
     description: 'SOME',
     location: 'sad',
-    startTime: '2023-03-02T14:59:16.114Z',
-    endTime: '2023-03-02T14:59:28.578Z',
+    startTime: startTime,
+    endTime: endTime,
     ownerId: 1,
     eventTypeId: 1,
     calendarId: 1,
@@ -53,10 +58,6 @@ describe('EventCard', () => {
       name: 'event',
     },
   };
-
-  const date = moment().format('D');
-  const month = moment().format('MMM');
-  const time = moment().format('h:mm A');
 
   it('should render the event name', () => {
     const { getByText } = render(<EventCard {...dummyevent1} />);
@@ -98,7 +99,7 @@ describe('EventCard', () => {
 
   it('should render the correct time', () => {
     const { getByText } = render(<EventCard {...dummyevent1} />);
-    const timeText = `${time}`;
+    const timeText = `${dummyevent1.startTime} to ${dummyevent1.endTime}`;
     const eventTime = getByText(timeText);
     expect(eventTime).toBeInTheDocument();
   });

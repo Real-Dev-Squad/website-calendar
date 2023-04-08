@@ -1,11 +1,10 @@
 import { Event } from '~/utils/interfaces';
 import moment from 'moment';
 
-const date = moment().format('D');
-const month = moment().format('MMM');
-const time = moment().format('h:mm A');
+export default function EventCard({ name, attendees, startTime, endTime }: Event) {
+  const date = moment().format('D');
+  const month = moment().format('MMM');
 
-export default function EventCard({ name, attendees }: Event) {
   return (
     <>
       <div className="border-2 w-64 h-72 bg-gray-200 rounded-3xl m-auto p-4 flex flex-col justify-between">
@@ -16,7 +15,9 @@ export default function EventCard({ name, attendees }: Event) {
           </div>
         </div>
         <div className="gap-2 flex flex-col justify-end p-2">
-          <div className="text-xs text-gray-700 font-medium"> {time} </div>
+          <div className="text-xs text-gray-700 font-medium">
+            {startTime} to {endTime}
+          </div>
           <div className="text-black font-medium text-lg event-title"> {name} </div>
           <div className="flex gap-2">
             <div className="flex">
