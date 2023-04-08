@@ -14,7 +14,17 @@ export default function socialEvents() {
     attendees: [
       {
         attendee: {
-          email: 'ankur@rcal.com',
+          email: 'samyak@rcal.com',
+        },
+      },
+      {
+        attendee: {
+          email: 'samyak2@rcal.com',
+        },
+      },
+      {
+        attendee: {
+          email: 'samyak3@rcal.com',
         },
       },
     ],

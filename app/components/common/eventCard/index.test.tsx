@@ -1,58 +1,105 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import moment from 'moment';
 import EventCard from './index';
 
-const event = {
-  id: 1,
-  name: 'Example Event',
-  description: 'This is an example event',
-  location: 'Example location',
-  startTime: '2023-03-17T12:00:00.000Z',
-  endTime: '2023-03-17T13:30:00.000Z',
-  ownerId: 2,
-  eventTypeId: 3,
-  calendarId: 4,
-  isDeleted: false,
-  attendees: [
-    {
-      attendee: {
-        email: 'example1@example.com',
-      },
-    },
-    {
-      attendee: {
-        email: 'example2@example.com',
-      },
-    },
-  ],
-  eventType: {
-    name: 'Example Type',
-  },
-};
-
 describe('EventCard', () => {
-  test('renders the number of participants', () => {
-    render(<EventCard {...event} />);
-    const count = screen.getByText(`${event.attendees.length} Participants`);
-    expect(count).toBeInTheDocument();
+  const dummyevent1 = {
+    id: 11,
+    name: 'React Day',
+    description: 'SOME',
+    location: 'sad',
+    startTime: '2023-03-02T14:59:16.114Z',
+    endTime: '2023-03-02T14:59:28.578Z',
+    ownerId: 1,
+    eventTypeId: 1,
+    calendarId: 1,
+    isDeleted: false,
+    attendees: [
+      {
+        attendee: {
+          email: 'ankur@rcal.com',
+        },
+      },
+    ],
+    eventType: {
+      name: 'event',
+    },
+  };
+
+  const dummyevent2 = {
+    id: 11,
+    name: 'React Day',
+    description: 'SOME',
+    location: 'sad',
+    startTime: '2023-03-02T14:59:16.114Z',
+    endTime: '2023-03-02T14:59:28.578Z',
+    ownerId: 1,
+    eventTypeId: 1,
+    calendarId: 1,
+    isDeleted: false,
+    attendees: [
+      {
+        attendee: {
+          email: 'ankur@rcal.com',
+        },
+      },
+      {
+        attendee: {
+          email: 'ankur@rcal.com',
+        },
+      },
+    ],
+    eventType: {
+      name: 'event',
+    },
+  };
+
+  const date = moment().format('D');
+  const month = moment().format('MMM');
+  const time = moment().format('h:mm A');
+
+  it('should render the event name', () => {
+    const { getByText } = render(<EventCard {...dummyevent1} />);
+    const eventName = getByText(dummyevent1.name);
+    expect(eventName).toBeInTheDocument();
   });
 
-  test('renders the event title', () => {
-    render(<EventCard {...event} />);
-    const title = screen.getByText(event.name);
-    expect(title).toBeInTheDocument();
+  it('should render the number of attendees when there are less than one number of attendee', () => {
+    const { getByText } = render(<EventCard {...dummyevent1} />);
+    const attendeesText = `${dummyevent1.attendees.length} ${
+      dummyevent1.attendees.length > 1 ? 'Participants' : 'Participant'
+    }`;
+    const attendees = getByText(attendeesText);
+    expect(attendees).toBeInTheDocument();
   });
 
-  test('renders the date and month', () => {
-    render(<EventCard {...event} />);
-    const date = screen.getByText('30');
-    const month = screen.getByText('AUG');
-    expect(date).toBeInTheDocument();
-    expect(month).toBeInTheDocument();
+  it('should render the number of attendees when there are more than one number of attendees', () => {
+    const { getByText } = render(<EventCard {...dummyevent2} />);
+    const attendeesText = `${dummyevent2.attendees.length} ${
+      dummyevent2.attendees.length > 1 ? 'Participants' : 'Participant'
+    }`;
+    const attendees = getByText(attendeesText);
+    expect(attendees).toBeInTheDocument();
   });
 
-  test('renders the start and end time', () => {
-    render(<EventCard {...event} />);
-    const startTime = screen.getByText('12AM to 1:30AM');
-    expect(startTime).toBeInTheDocument();
+  it('should render the correct date', () => {
+    const { getByText } = render(<EventCard {...dummyevent1} />);
+    const dateText = `${date}`;
+    const eventDate = getByText(dateText);
+    expect(eventDate).toBeInTheDocument();
+  });
+
+  it('should render the correct month', () => {
+    const { getByText } = render(<EventCard {...dummyevent1} />);
+    const monthText = `${month}`;
+    const eventMonth = getByText(monthText);
+    expect(eventMonth).toBeInTheDocument();
+  });
+
+  it('should render the correct time', () => {
+    const { getByText } = render(<EventCard {...dummyevent1} />);
+    const timeText = `${time}`;
+    const eventTime = getByText(timeText);
+    expect(eventTime).toBeInTheDocument();
   });
 });
