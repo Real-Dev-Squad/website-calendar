@@ -62,7 +62,7 @@ export default function EventModal({
         <Dialog.Overlay className="fixed inset-0 z-20 bg-black bg-opacity-40 animate-overlayShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1" />
         <Dialog.Content className="z-30 fixed top-0 left-0 w-screen h-[95vh] my-6 box-border bg-white rounded-lg shadow-lg animate-contentShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1 focus:outline-none">
           <div className="h-full w-full flex">
-            <div className="p-4 h-full w-[400px] border-r-[1px] border-stone-50 overflow-auto">
+            <div className="p-4 h-full w-full md:w-[400px] border-r-[1px] border-stone-50 overflow-auto">
               <Dialog.Close asChild>
                 <button
                   data-testid="modal-close-btn"
@@ -183,7 +183,7 @@ export default function EventModal({
               </div>
             </div>
 
-            <div className="flex-auto">
+            <div className="flex-auto hidden md:block">
               <RdsCalendar
                 height="100%"
                 view="day"

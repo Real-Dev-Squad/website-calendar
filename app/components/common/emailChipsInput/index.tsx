@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 import React, { FC, useState } from 'react';
+import { isEmail } from '../../../utils/email.utils';
 
 interface EmailChipsInputProps {
   label: string;
@@ -20,8 +21,6 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const isEmailInList = (email: string) => attendees.includes(email);
-
-  const isEmail = (email: string) => /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
 
   const isEmailValid = (email: string) => {
     let err = null;
