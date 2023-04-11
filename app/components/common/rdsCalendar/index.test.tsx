@@ -29,14 +29,14 @@ jest.mock('react-big-calendar/lib/addons/dragAndDrop', () => {
 
 const mockEventsList: CalEvent[] = [
   {
-    id: '1',
+    id: 1,
     title: 'Event 1',
     start: moment().add(1, 'hour').toDate(),
     end: moment().add(2, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',
-    attendees: ['a@b.c', 'alpha@beta.gamma'],
+    attendees: [{ attendee: { email: 'a@b.c' } }, { attendee: { email: 'alpha@beta.gamma' } }],
   },
 ];
 

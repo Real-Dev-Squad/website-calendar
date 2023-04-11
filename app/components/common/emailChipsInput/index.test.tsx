@@ -29,7 +29,7 @@ describe('EmailChipsInput', () => {
       <EmailChipsInput
         label="To"
         placeholder="Enter email"
-        attendees={['example@example.com']}
+        attendees={[{ attendee: { email: 'example@example.com' } }]}
         setAttendees={setAttendeesMock}
       />
     );
@@ -51,7 +51,7 @@ describe('EmailChipsInput', () => {
       fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
     });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
-    expect(setAttendeesMock).toHaveBeenCalledWith(['example@example.com']);
+    expect(setAttendeesMock).toHaveBeenCalledWith([{ attendee: { email: 'example@example.com' } }]);
   });
 
   test('adds an email chip when valid email is entered with Tab key', () => {
@@ -69,7 +69,7 @@ describe('EmailChipsInput', () => {
       fireEvent.keyDown(input, { key: 'Tab', code: 'Tab' });
     });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
-    expect(setAttendeesMock).toHaveBeenCalledWith(['example@example.com']);
+    expect(setAttendeesMock).toHaveBeenCalledWith([{ attendee: { email: 'example@example.com' } }]);
   });
 
   test('adds an email chip when valid email is entered with , key', () => {
@@ -87,7 +87,7 @@ describe('EmailChipsInput', () => {
       fireEvent.keyDown(input, { key: ',', code: 'Comma' });
     });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
-    expect(setAttendeesMock).toHaveBeenCalledWith(['example@example.com']);
+    expect(setAttendeesMock).toHaveBeenCalledWith([{ attendee: { email: 'example@example.com' } }]);
   });
 
   test('does not add an email chip when invalid email is entered', () => {
@@ -112,7 +112,7 @@ describe('EmailChipsInput', () => {
       <EmailChipsInput
         label="To"
         placeholder="Enter email"
-        attendees={['example@example.com']}
+        attendees={[{ attendee: { email: 'example@example.com' } }]}
         setAttendees={setAttendeesMock}
       />
     );
@@ -129,7 +129,7 @@ describe('EmailChipsInput', () => {
       <EmailChipsInput
         label="To"
         placeholder="Enter email"
-        attendees={['example@example.com']}
+        attendees={[{ attendee: { email: 'example@example.com' } }]}
         setAttendees={setAttendeesMock}
       />
     );
@@ -155,6 +155,9 @@ describe('EmailChipsInput', () => {
       clipboardData: { getData: () => 'example1@example.com, example2@example.com' },
     });
     expect(setAttendeesMock).toHaveBeenCalledTimes(1);
-    expect(setAttendeesMock).toHaveBeenCalledWith(['example1@example.com', 'example2@example.com']);
+    expect(setAttendeesMock).toHaveBeenCalledWith([
+      { attendee: { email: 'example1@example.com' } },
+      { attendee: { email: 'example2@example.com' } },
+    ]);
   });
 });

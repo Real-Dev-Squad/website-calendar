@@ -1,11 +1,19 @@
 import { Event, stringOrDate } from 'react-big-calendar';
 
+export interface Attendees {
+  attendee: {
+    email: string;
+  };
+}
+
 export interface CalEvent extends Event {
-  id?: string;
+  id?: number;
   description?: string;
   location?: string;
   visibility?: string;
-  attendees?: string[];
+  ownerId?: number;
+  calendarId?: number;
+  attendees?: Attendees[];
 }
 
 export interface CalendarEventProps {

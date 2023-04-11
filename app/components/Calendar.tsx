@@ -11,34 +11,37 @@ import RdsCalendar from '~/components/common/rdsCalendar';
 
 const initialEventsList: CalEvent[] = [
   {
-    id: '1',
+    id: 1,
     title: 'timed event',
     start: moment().add(1, 'hour').toDate(),
     end: moment().add(2, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',
-    attendees: ['a@b.c', 'alpha@beta.gamma'],
+    attendees: [{ attendee: { email: 'a@b.c' } }, { attendee: { email: 'alpha@beta.gamma' } }],
   },
   {
-    id: '2',
+    id: 2,
     title: 'Some title',
     start: moment().add(1, 'day').toDate(),
     end: moment().add(1, 'day').add(2, 'hour').toDate(),
     description: '',
     location: '',
     visibility: 'public',
-    attendees: ['alpha@beta.gamma', 'admin@rds.com'],
+    attendees: [
+      { attendee: { email: 'alpha@beta.gamma' } },
+      { attendee: { email: 'admin@rds.com' } },
+    ],
   },
   {
-    id: '3',
+    id: 3,
     title: 'Another title',
     start: moment().add(1, 'day').add(8, 'hours').toDate(),
     end: moment().add(1, 'day').add(9, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',
-    attendees: ['admin@rds.com'],
+    attendees: [{ attendee: { email: 'admin@rds.com' } }],
   },
 ];
 

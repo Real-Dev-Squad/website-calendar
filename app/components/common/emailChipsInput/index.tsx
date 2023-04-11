@@ -1,14 +1,16 @@
 // TODO: remove all eslint-disable when eslint-prettier issue is fixed
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 import React, { FC, useState } from 'react';
 import { isEmail } from '../../../utils/email.utils';
+import { Attendees } from '~/utils/interfaces';
 
 interface EmailChipsInputProps {
   label: string;
   placeholder: string;
-  attendees: string[];
-  setAttendees: (att: string[]) => void;
+  attendees: Attendees[];
+  setAttendees: (att: Attendees[]) => void;
 }
 
 const EmailChipsInput: FC<EmailChipsInputProps> = ({
@@ -20,7 +22,8 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
   const [value, setValue] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const isEmailInList = (email: string) => attendees.includes(email);
+  const isEmailInList = (email: string) =>
+    attendees.findIndex((em) => em.attendee.email === email) !== -1;
 
   const isEmailValid = (email: string) => {
     let err = null;
@@ -45,10 +48,10 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
     if (['Enter', 'Tab', ','].includes(e.key)) {
       e.preventDefault();
 
-      const val: string = value.trim();
+      const email: string = value.trim();
 
-      if (val && isEmailValid(val)) {
-        setAttendees([...attendees, val]);
+      if (email && isEmailValid(email)) {
+        setAttendees([...attendees, { attendee: { email } }]);
         setValue('');
         setError('');
       }
@@ -56,20 +59,20 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
   };
 
   const handleDelete = (email: string) => {
-    setAttendees(attendees.filter((e) => e !== email));
+    setAttendees(attendees.filter(({ attendee }) => attendee.email !== email));
   };
 
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
 
     const paste = e.clipboardData.getData('text');
-    const ems = paste.match(/[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/g);
+    const emails = paste.match(/[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/g);
 
-    if (ems) {
-      const toBeAdded = ems.filter((email) => !isEmailInList(email));
+    if (emails) {
+      const toBeAdded = emails.filter((email) => !isEmailInList(email));
 
       if (toBeAdded.length > 0) {
-        setAttendees([...attendees, ...toBeAdded]);
+        setAttendees([...attendees, ...toBeAdded.map((email) => ({ attendee: { email } }))]);
       }
     }
   };
@@ -77,16 +80,16 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
   return (
     <div className="mb-6" data-testid="email-chip-wrapper">
       <p className="text-sm text-black mb-2">{label}</p>
-      {attendees.map((email) => (
+      {attendees.map(({ attendee }) => (
         <div
           className="text-sm bg-gray-300 rounded-full h-8 px-4 inline-flex items-center mr-1 mb-1"
-          key={email}
+          key={attendee.email}
         >
-          {email}
+          {attendee.email}
           <button
             type="button"
             className="bg-white w-5 h-5 rounded-full border-0 cursor-pointer font-bold ml-2 p-0 leading-none flex items-center justify-center"
-            onClick={() => handleDelete(email)}
+            onClick={() => handleDelete(attendee.email)}
           >
             &times;
           </button>

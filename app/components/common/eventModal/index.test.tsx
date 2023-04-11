@@ -7,14 +7,14 @@ import { CalEvent } from '~/utils/interfaces';
 import EventModal from '.';
 
 const mockEvent: CalEvent = {
-  id: '1',
+  id: 1,
   title: 'Mock Event',
   start: new Date('2023-03-30T12:00:00.000Z'),
   end: new Date('2023-03-30T14:00:00.000Z'),
   description: '',
   location: '',
   visibility: 'private',
-  attendees: ['a@b.c', 'alpha@beta.gamma'],
+  attendees: [{ attendee: { email: 'a@b.c' } }, { attendee: { email: 'alpha@beta.gamma' } }],
 };
 
 const mockUpdateEvent = jest.fn();
