@@ -94,7 +94,7 @@ describe('EventCard', () => {
 
   it('should render the correct month', () => {
     const { getByText } = render(<EventCard {...dummyevent1} />);
-    const monthText = `${month}`;
+    const monthText = month;
     const eventMonth = getByText(monthText);
     expect(eventMonth).toBeInTheDocument();
   });
