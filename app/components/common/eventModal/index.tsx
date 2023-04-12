@@ -62,7 +62,7 @@ export default function EventModal({
                 onClick={() => {
                   if (eventDetail) {
                     if (createEvent && newEvent) {
-                      createEvent({ ...eventDetail, id: '4' });
+                      createEvent({ ...eventDetail, id: 4 });
                     } else if (updateEvent) {
                       updateEvent({
                         event: eventDetail,
