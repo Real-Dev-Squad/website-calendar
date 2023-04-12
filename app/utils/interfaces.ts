@@ -1,7 +1,17 @@
-import { Event as RBCEvent, stringOrDate } from 'react-big-calendar';
+import { Event, stringOrDate } from 'react-big-calendar';
 
-export interface CalEvent extends RBCEvent {
-  id?: string;
+export interface Attendees {
+  attendee: {
+    email: string;
+  };
+}
+export interface CalEvent extends Event {
+  id?: number;
+  description?: string;
+  location?: string;
+  ownerId?: number;
+  calendarId?: number;
+  attendees?: Attendees[];
 }
 
 export interface CalendarEventProps {
@@ -14,27 +24,4 @@ export interface UpdateEvent {
   event: CalEvent;
   start: stringOrDate;
   end: stringOrDate;
-}
-
-export interface Attendees {
-  attendee: {
-    email: string;
-  };
-}
-
-export interface Event {
-  id: number;
-  name: string;
-  description: string;
-  location: string;
-  startTime: string;
-  endTime: string;
-  ownerId: number;
-  eventTypeId: number;
-  calendarId: number;
-  isDeleted: boolean;
-  attendees: Attendees[];
-  eventType: {
-    name: string;
-  };
 }
