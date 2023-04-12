@@ -87,7 +87,7 @@ describe('EventCard', () => {
 
   it('should render the correct date', () => {
     const { getByText } = render(<EventCard {...dummyevent1} />);
-    const dateText = `${date}`;
+    const dateText = date;
     const eventDate = getByText(dateText);
     expect(eventDate).toBeInTheDocument();
   });
