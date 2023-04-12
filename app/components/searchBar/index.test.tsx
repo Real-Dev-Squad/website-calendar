@@ -64,4 +64,3 @@ describe('checking placeholder', () => {
     expect(inputBox).toBeDefined();
   });
 });
-  
