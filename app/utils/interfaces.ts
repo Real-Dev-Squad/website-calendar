@@ -5,10 +5,12 @@ export interface Attendees {
     email: string;
   };
 }
+
 export interface CalEvent extends Event {
   id?: number;
   description?: string;
   location?: string;
+  visibility?: string;
   ownerId?: number;
   calendarId?: number;
   attendees?: Attendees[];

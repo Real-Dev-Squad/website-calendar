@@ -1,9 +1,9 @@
+/* eslint-disable comma-dangle */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { SetStateAction } from 'react';
 import Dropdown from '.';
 
 it('renders a dropwdown element', () => {
-  render(<Dropdown setUserTimezone={jest.fn()} placeholder="select timezone" />);
+  render(<Dropdown placeholder="select timezone" setUserTimezone={jest.fn()} />);
   const dropdown = screen.getByTestId('dropdown');
 
   expect(dropdown).toBeInTheDocument();

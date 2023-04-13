@@ -37,6 +37,7 @@
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-big-calendar": "^1.5.2",
+    "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
     "react-toastify": "^9.1.1",
     "remix": "^1.7.4"
@@ -62,6 +63,7 @@
     "@types/lodash.debounce": "^4.0.7",
     "@types/react": "^18.0.24",
     "@types/react-big-calendar": "^0.38.2",
+    "@types/react-datepicker": "^4.10.0",
     "@types/react-dom": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",

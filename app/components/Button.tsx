@@ -9,6 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   style?: string;
   handleClick?: () => void;
+  dataTestId?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,8 +20,10 @@ export const Button: React.FC<ButtonProps> = ({
   type = 'submit',
   style,
   handleClick = () => {},
+  dataTestId,
 }) => (
   <button
+    data-testid={dataTestId}
     className={`
                 flex items-center justify-center border rounded-lg transition 
                w-full

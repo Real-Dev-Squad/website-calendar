@@ -1,7 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
+import styles from 'react-datepicker/dist/react-datepicker.css';
 import Calendar from '~/components/Calendar';
 import Navbar from '~/components/common/navbar';
-import styles from '~/components/common/eventModal/styles.css';
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
