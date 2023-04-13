@@ -2,6 +2,10 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+
+The staging site is deployed at
+https://staging-calendar.realdevsquad.com/
+
 ## Development
 
 This project uses [Yarn](https://yarnpkg.com/getting-started) and [Volta](https://docs.volta.sh/guide/) for package management and version switching.
@@ -88,6 +92,3 @@ import { iconName } from '@heroicons/react/24/solid';
 ```js
 import { iconName } from '@heroicons/react/24/outline';
 ```
-
-The project is temporarily deployed at
-https://rds-website-calendar.fly.dev/
