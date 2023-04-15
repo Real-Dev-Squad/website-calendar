@@ -1,6 +1,6 @@
+import { GlobeIcon } from '@radix-ui/react-icons';
 import moment from 'moment';
 import React from 'react';
-import Globe from '~/components/icons/Globe';
 import { CalEvent } from '~/utils/interfaces';
 
 interface DrawerProps {
@@ -13,6 +13,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
   <div className={`w-full h-full fixed inset-0 ${isDrawerVisible ? '' : 'invisible'}`}>
     <div
       onClick={toggleDrawer}
+      data-testid="drawer-background"
       className={`w-full h-full duration-500 ease-out transition-all inset-0 absolute bg-gray-900 ${
         isDrawerVisible ? 'opacity-50' : 'opacity-0'
       }`}
@@ -31,7 +32,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
         </div>
         <h1 className=" font-semibold text-3xl leading-10 capitalize">{event.title}</h1>
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 my-2">
-          <Globe />
+          <GlobeIcon style={{ color: '#737373' }} />
           <p className="px-1">{event.type}</p>
         </span>
         <p className="py-2 text-base font-normal leading-5 text-left">
@@ -42,7 +43,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
         <h3 className="font-medium text-lg">People</h3>
         <div>
           {event.attendees?.map(({ attendee }) => (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4" key={attendee.name}>
               <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
               <p className="py-2 font-normal text-base">{attendee.name}</p>
             </div>
