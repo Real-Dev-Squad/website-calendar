@@ -5,27 +5,81 @@ import EventModal from '../components/common/eventModal';
 import RdsCalendar from '../components/common/rdsCalendar';
 // tilde operator not working so used relative imports
 
-const initialEventsList: CalEvent[] = [
+export const initialEventsList: CalEvent[] = [
   {
     id: 1,
     title: 'timed event',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
+    location: 'Nashville, Tennessee. U.S.',
+    type: 'public',
     start: moment().add(1, 'hour').toDate(),
     end: moment().add(2, 'hours').toDate(),
+    attendees: [
+      {
+        attendee: {
+          name: 'Ankush Dharkar',
+          email: 'attendee1@example.com',
+        },
+      },
+      {
+        attendee: {
+          name: 'Harshith Venkatesh',
+          email: 'attendee2@example.com',
+        },
+      },
+      {
+        attendee: {
+          name: 'Yash Raj',
+          email: 'attendee10@example.com',
+        },
+      },
+    ],
     calendarId: 1,
   },
   {
     id: 2,
-    title: 'Some title',
-    start: moment().add(1, 'day').toDate(),
-    end: moment().add(1, 'day').add(2, 'hour').toDate(),
-    calendarId: 1,
+    title: 'Day Event',
+    type: 'public',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
+    location: 'Remote',
+    start: moment().add(1, 'hour').toDate(),
+    end: moment().add(2, 'hours').toDate(),
+    calendarId: 2,
+    attendees: [
+      {
+        attendee: {
+          name: 'Something',
+          email: 'attendee3@example.com',
+        },
+      },
+    ],
   },
   {
     id: 3,
-    title: 'Another title',
-    start: moment().add(1, 'day').add(8, 'hours').toDate(),
-    end: moment().add(1, 'day').add(9, 'hours').toDate(),
-    calendarId: 1,
+    title: 'Recurring Event',
+    type: 'public',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
+    location: 'Online',
+    start: moment().add(1, 'hour').toDate(),
+    end: moment().add(2, 'hours').toDate(),
+    calendarId: 3,
+    attendees: [
+      {
+        attendee: {
+          name: 'Prerana Nawar',
+          email: 'attendee4@example.com',
+        },
+      },
+      {
+        attendee: {
+          name: 'Something',
+          email: 'attendee5@example.com',
+        },
+      },
+    ],
   },
 ];
 

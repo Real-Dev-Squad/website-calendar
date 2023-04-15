@@ -2,6 +2,7 @@ import { Event, stringOrDate } from 'react-big-calendar';
 
 export interface Attendees {
   attendee: {
+    name: string;
     email: string;
   };
 }
@@ -9,6 +10,7 @@ export interface CalEvent extends Event {
   id?: number;
   description?: string;
   location?: string;
+  type?: 'public' | 'private';
   ownerId?: number;
   calendarId?: number;
   attendees?: Attendees[];
