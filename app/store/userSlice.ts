@@ -1,23 +1,12 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
-import { create } from 'zustand';
 
-export type User = {
-  firstname: string;
-  lastname: string;
-  bio: string;
-  username: string;
-  timezone: string;
-  onboarding: boolean;
-};
+import { StateCreator } from 'zustand';
+import { EventState, UserState } from '~/utils/interfaces';
+import { updateUserKey } from '~/types/GlobalState';
 
-type updateUserKey = 'firstname' | 'lastname' | 'bio' | 'username' | 'timezone';
-
-export type UserState = {
-  user: User;
-  updateUser: (data: Record<updateUserKey, string>) => void;
-};
-
-export const createUserSlice = create<UserState>()((set) => ({
+export const createUserSlice: StateCreator<EventState & UserState, [], [], UserState> = (set) => ({
   user: {
     firstname: '',
     lastname: '',
@@ -28,4 +17,4 @@ export const createUserSlice = create<UserState>()((set) => ({
   },
   updateUser: (data: Record<updateUserKey, string>) =>
     set((state) => ({ user: { ...state.user, ...data } })),
-}));
+});

@@ -2,12 +2,12 @@ import { LinksFunction } from '@remix-run/node';
 import styles from 'react-datepicker/dist/react-datepicker.css';
 import Calendar from '~/components/Calendar';
 import Navbar from '~/components/common/navbar';
-import { useBoundStore } from '~/store/eventSlice';
+import { useBoundStore } from '~/store/useStore';
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 export default function Index() {
-  const events = useBoundStore((state: { bears: any }) => state.events);
+  const events = useBoundStore((state: any) => state.events);
   console.log(events);
 
   return (
