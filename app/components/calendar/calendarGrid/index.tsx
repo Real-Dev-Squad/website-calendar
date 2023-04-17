@@ -1,5 +1,5 @@
 import React from 'react';
-import CalendarEventCard from '~/components/calendar/CalendarEventCard';
+import CalendarEventCard from '~/components/calendar/calendarEventCard';
 
 const CalendarGrid = () => (
   <>

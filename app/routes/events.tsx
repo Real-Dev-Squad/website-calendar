@@ -1,7 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import Navbar from '~/components/common/navbar';
 import styles from '~/components/common/eventModal/styles.css';
-import CalendarGrid from '~/components/calendar/CalendarGrid';
+import CalendarGrid from '~/components/calendar/calendarGrid';
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 

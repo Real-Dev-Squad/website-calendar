@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
+import CalendarEventCard from '~/components/calendar/calendarEventCard';
 
 interface RdsCalendarProps {
   eventsList: CalEvent[];
@@ -29,14 +30,29 @@ const RdsCalendar = ({
       events={eventsList}
       defaultView="week"
       style={{ height: '100vh' }}
-      onSelectEvent={(event) => setCalendarEvent((e) => ({ ...e, event, show: true, new: false }))}
+      onSelectEvent={(event) =>
+        setCalendarEvent((e) => ({
+          ...e,
+          event,
+          show: true,
+          new: false,
+        }))
+      }
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
       selectable={true}
       scrollToTime={moment(currentEvent?.start).toDate()}
       onSelectSlot={({ start }) => {
         const event: CalEvent = { title: '', start, end: moment(start).add(1, 'hour').toDate() };
-        setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
+        setCalendarEvent((e) => ({
+          ...e,
+          event,
+          show: true,
+          new: true,
+        }));
+      }}
+      components={{
+        event: CalendarEventCard,
       }}
     />
   );

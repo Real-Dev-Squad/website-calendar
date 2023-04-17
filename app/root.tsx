@@ -11,10 +11,12 @@ import {
 import { envObj } from './env.server';
 import styles from './styles/tailwind.css';
 import globalstyles from './styles/global.css';
+import rbcstyles from './styles/rbc.css';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
   { rel: 'stylesheet', href: globalstyles },
+  { rel: 'stylesheet', href: rbcstyles },
   { rel: 'icon', href: '/icons/favicon.ico' },
 ];
 

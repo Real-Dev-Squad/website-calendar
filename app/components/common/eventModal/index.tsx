@@ -55,7 +55,7 @@ export default function EventModal({
           <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
             <div className="mt-2 flex gap-2">
               <button className="Button red" onClick={() => setIsOpen(false)}>
-                cancel
+                Cancel
               </button>
               <button
                 className="Button green"
