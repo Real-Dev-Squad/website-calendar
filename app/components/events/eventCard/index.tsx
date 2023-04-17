@@ -19,24 +19,35 @@ const EventCard = ({
   meetLink?: string;
 }) => (
   <>
-    <div className="w-full rounded-xl px-4 py-3 border-2 border-grey grid grid-cols-[auto,1fr] items-center gap-6">
-      <div className="w-18 grid grid-cols-1 gap-1">
+    <div
+      data-testid="event-card-box"
+      className="w-full rounded-xl px-4 py-3 border-2 border-grey grid grid-cols-[auto,1fr] items-center gap-6"
+    >
+      <div data-testid="event-card-dates" className="w-18 grid grid-cols-1 gap-1">
         <div className="text-xs text-grey-med">{dateFrom}</div>
         <div className="w-full flex justify-center">
           <div className="border-l-2 border-grey h-2"></div>
         </div>
         <div className="text-xs text-grey-med">{dateTo}</div>
       </div>
-      <div className="w-full grid grid-cols-1 gap-1.5">
-        <div className="text-lg font-semibold text-grey-dark leading-5 truncate overflow-ellipsis">
+      <div data-testid="event-card-content" className="w-full grid grid-cols-1 gap-1.5">
+        <div
+          data-testid="event-card-title"
+          className="text-lg font-semibold text-grey-dark leading-5 truncate overflow-ellipsis"
+        >
           {title}
         </div>
         <div className="w-full">
           {participants && (
-            <div className="w-full text-sm text-grey-dark">{participants.join(', ')}</div>
+            <div data-testid="event-card-participants" className="w-full text-sm text-grey-dark">
+              {participants.join(', ')}
+            </div>
           )}
           {!participants && location && (
-            <div className="w-full grid grid-cols-[auto,1fr] items-center gap-1">
+            <div
+              data-testid="event-card-location"
+              className="w-full grid grid-cols-[auto,1fr] items-center gap-1"
+            >
               <div className="w-4 h-4 flex items-center pt-0.5">
                 <DynamicHeroIcon name={'MapPin'} className={'text-grey-dark text-lg'} />
               </div>
@@ -47,6 +58,7 @@ const EventCard = ({
             <Link
               target={'blank'}
               to={meetLink}
+              data-testid="event-card-meet"
               className="w-full grid grid-cols-[auto,1fr] items-center gap-1"
             >
               <div className="w-3 h-4 flex items-center mr-1 pt-0.5">
@@ -72,7 +84,9 @@ const EventCard = ({
             </Link>
           )}
           {!participants && !location && !meetLink && (
-            <div className="w-full text-sm text-grey-dark">No details provided</div>
+            <div data-testid="event-card-no-details" className="w-full text-sm text-grey-dark">
+              No details provided
+            </div>
           )}
         </div>
       </div>

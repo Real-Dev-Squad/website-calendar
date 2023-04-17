@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import Slider from '../../slider';
+import Slider from '../slider';
 
-import Navbar, { DynamicHeroIcon } from '../index';
+import Navbar, { DynamicHeroIcon } from '.';
 
 describe('Navbar', () => {
   it('renders', () => {

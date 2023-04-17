@@ -18,10 +18,6 @@ module.exports = {
         feijoa: '#96D882',
         fern: '#6DB470',
       },
-      fontSize: {
-        14: '3.5rem',
-        18: '4.5rem',
-      },
       spacing: {
         1: '0.25rem',
         2: '0.5rem',

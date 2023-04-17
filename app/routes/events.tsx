@@ -1,7 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import Navbar from '~/components/common/navbar';
 import styles from '~/components/common/eventModal/styles.css';
-import EventCard from '~/components/events/EventCard';
+import EventCard from '~/components/events/eventCard';
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
@@ -24,7 +24,7 @@ export default function Index() {
                 title={'Marketing meet with John'}
                 dateFrom={'12:00 PM'}
                 dateTo={'1:00 PM'}
-                location={'1:00 PM'}
+                location={'Amsterdam'}
               />
               <EventCard
                 title={'Marketing meet with John'}

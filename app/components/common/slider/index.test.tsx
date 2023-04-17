@@ -5,7 +5,7 @@ describe('Testing working of the slider component', () => {
   it('Opens and closes the slider', () => {
     render(<Navbar />);
 
-    const slider_component = screen.getByTestId('slider');
+    const sliderComponent = screen.getByTestId('slider');
 
     // opens the slider
     // const slider_button = screen.getByTitle('slider');
@@ -13,8 +13,8 @@ describe('Testing working of the slider component', () => {
     // expect(slider_component).toHaveClass('right-0');
 
     // closes the slider
-    const slider_close_button = screen.getByTestId('slider-close-button');
-    fireEvent.click(slider_close_button);
-    expect(slider_component).toHaveClass('right-[-20rem]');
+    const sliderCloseButton = screen.getByTestId('slider-close-button');
+    fireEvent.click(sliderCloseButton);
+    expect(sliderComponent).toHaveClass('right-[-20rem]');
   });
 });

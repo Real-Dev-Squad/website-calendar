@@ -1,9 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { SetStateAction } from 'react';
 import Dropdown from '.';
 
 it('renders a dropwdown element', () => {
-  render(<Dropdown placeholder="select timezone" />);
+  render(<Dropdown placeholder="select timezone" setUserTimezone={jest.fn()} />);
   const dropdown = screen.getByTestId('dropdown');
 
   expect(dropdown).toBeInTheDocument();
@@ -32,7 +31,7 @@ it('checks if all options are rendered', () => {
 
 it('checks if the click on any option changes the value of dropdown', async () => {
   const { getByTestId } = render(
-    <Dropdown placeholder="select timezone" setUserTimezone={jest.fn()} />
+    <Dropdown placeholder="select timezone" setUserTimezone={jest.fn()} />,
   );
   const dropdownController = getByTestId('dropdown-controller');
   const option = getByTestId('option-1');
