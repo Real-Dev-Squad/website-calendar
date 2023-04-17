@@ -9,7 +9,6 @@ export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 export default function Index() {
   const events = useBoundStore((state: EventState & UserState) => state.events);
-  console.log(events);
 
   return (
     <div className="">

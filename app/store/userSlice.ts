@@ -4,7 +4,7 @@
 
 import { StateCreator } from 'zustand';
 import { EventState, UserState } from '~/utils/interfaces';
-import { updateUserKey } from '~/types/GlobalState';
+import { UpdateUserKey } from '~/types/GlobalState';
 
 export const createUserSlice: StateCreator<EventState & UserState, [], [], UserState> = (set) => ({
   user: {
@@ -15,6 +15,6 @@ export const createUserSlice: StateCreator<EventState & UserState, [], [], UserS
     timezone: '',
     onboarding: false,
   },
-  updateUser: (data: Record<updateUserKey, string>) =>
+  updateUser: (data: Record<UpdateUserKey, string>) =>
     set((state) => ({ user: { ...state.user, ...data } })),
 });

@@ -1,1 +1,1 @@
-export type updateUserKey = 'firstname' | 'lastname' | 'bio' | 'username' | 'timezone';
+export type UpdateUserKey = 'firstname' | 'lastname' | 'bio' | 'username' | 'timezone';
