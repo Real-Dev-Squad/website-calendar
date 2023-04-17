@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import CalendarGrid from '.';
 
-describe('render grid', () => {
-  it('renders a input field', () => {
+describe('render', () => {
+  it('renders events grid', () => {
     render(<CalendarGrid />);
 
     const gridBox = screen.getByTestId('grid-box');

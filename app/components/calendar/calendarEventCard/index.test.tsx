@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import CalendarEventCard from '.';
 
-describe('render event', () => {
-  it('renders a input field', () => {
+describe('render', () => {
+  it('renders a calendar event card', () => {
     render(<CalendarEventCard />);
 
     const eventBox = screen.getByTestId('event-box');
