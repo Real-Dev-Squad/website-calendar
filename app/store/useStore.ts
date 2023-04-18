@@ -5,7 +5,7 @@ import { createEventSlice } from './eventSlice';
 import { createUserSlice } from './userSlice';
 import { EventState, UserState } from '~/utils/interfaces';
 
-export const useBoundStore = create<EventState & UserState>()((...a) => ({
+export const useStore = create<EventState & UserState>()((...a) => ({
   ...createEventSlice(...a),
   ...createUserSlice(...a),
 }));
