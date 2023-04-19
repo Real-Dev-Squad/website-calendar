@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { FC, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 

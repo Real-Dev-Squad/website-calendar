@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 import { render, screen, fireEvent } from '@testing-library/react';
 import Dropdown from '.';
 
@@ -32,7 +31,7 @@ it('checks if all options are rendered', () => {
 
 it('checks if the click on any option changes the value of dropdown', async () => {
   const { getByTestId } = render(
-    <Dropdown placeholder="select timezone" setUserTimezone={jest.fn()} />
+    <Dropdown placeholder="select timezone" setUserTimezone={jest.fn()} />,
   );
   const dropdownController = getByTestId('dropdown-controller');
   const option = getByTestId('option-1');
