@@ -1,8 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable comma-dangle */
-/* eslint-disable no-unused-vars */
-/* eslint-disable object-curly-newline */
-/* eslint-disable implicit-arrow-linebreak */
 import * as Dialog from '@radix-ui/react-dialog';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -102,7 +97,7 @@ export default function EventModal({
                       timeIntervals={5}
                       excludeTimes={dateRange(
                         maxDate.toDate(),
-                        moment(maxDate).endOf('day').toDate()
+                        moment(maxDate).endOf('day').toDate(),
                       )}
                       onChange={(start) => {
                         if (moment(start) < maxDate) {
@@ -124,7 +119,7 @@ export default function EventModal({
                       timeIntervals={5}
                       excludeTimes={dateRange(
                         moment(minDate).startOf('day').toDate(),
-                        minDate.toDate()
+                        minDate.toDate(),
                       )}
                       onChange={(end) => {
                         if (minDate < moment(end)) {

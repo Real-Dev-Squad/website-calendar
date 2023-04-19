@@ -1,6 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable object-curly-newline */
-/* eslint-disable comma-dangle */
 import { render, fireEvent, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { CalEvent } from '~/utils/interfaces';
@@ -31,7 +28,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     expect(screen.getByTestId('modal-close-btn')).toBeInTheDocument();
     expect(screen.getByTestId('modal-title')).toHaveValue('Mock Event');
@@ -41,7 +38,7 @@ describe('EventModal', () => {
     expect(screen.getByTestId('email-chip-wrapper')).toHaveTextContent('a@b.c');
     expect(screen.getByTestId('email-chip-wrapper')).toHaveTextContent('alpha@beta.gamma');
     expect(
-      (getByPlaceholderText('Enter URL or Address for the event') as HTMLInputElement).value
+      (getByPlaceholderText('Enter URL or Address for the event') as HTMLInputElement).value,
     ).toBe('');
     expect((getByPlaceholderText('Event Description') as HTMLTextAreaElement).value).toBe('');
     expect(screen.getByTestId('modal-save-btn')).toBeInTheDocument();
@@ -56,7 +53,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const input = screen.getByTestId('modal-title');
     act(() => {
@@ -74,7 +71,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
 
     const closeButton = screen.getByTestId('modal-close-btn');
@@ -93,7 +90,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const saveButton = screen.getByTestId('modal-save-btn');
     act(() => {
@@ -111,7 +108,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const visibilityButton = screen.getByTestId('modal-visibility') as HTMLButtonElement;
     act(() => {
@@ -129,7 +126,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const startDateInput = getByPlaceholderText('from-date');
     act(() => {
@@ -147,7 +144,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const endDateInput = getByPlaceholderText('to-date');
     act(() => {
@@ -165,7 +162,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const attendeesInput = screen.getByTestId('email-chip-input') as HTMLInputElement;
     act(() => {
@@ -183,7 +180,7 @@ describe('EventModal', () => {
         setIsOpen={mockSetIsOpen}
         updateEvent={mockUpdateEvent}
         setCalendarEvent={mockSetCalendarEvent}
-      />
+      />,
     );
     const locationInput = screen.getByTestId('modal-location') as HTMLInputElement;
     act(() => {

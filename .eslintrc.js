@@ -4,7 +4,12 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ['airbnb-base', 'plugin:storybook/recommended'],
+  extends: [
+    'airbnb-base',
+    'plugin:storybook/recommended',
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -14,6 +19,7 @@ module.exports = {
   rules: {
     'import/no-unresolved': 'off', // TODO: throws an unexpected error need to fix this later.
     'import/extensions': 0,
+    'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
