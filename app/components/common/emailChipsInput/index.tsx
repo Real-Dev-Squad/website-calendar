@@ -1,7 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-useless-escape */
 import React, { FC, useState } from 'react';
 import { isEmail } from '../../../utils/email.utils';
 import { Attendees } from '~/utils/interfaces';
@@ -66,7 +62,7 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
     e.preventDefault();
 
     const paste = e.clipboardData.getData('text');
-    const emails = paste.match(/[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/g);
+    const emails = paste.match(/[\w\d\\.-]+@[\w\d\\.-]+\.[\w\d\\.-]+/g);
 
     if (emails) {
       const toBeAdded = emails.filter((email) => !isEmailInList(email));

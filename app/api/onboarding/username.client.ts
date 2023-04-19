@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 
 export const isUsernameAvailable = async (host: string, token: string, username: string) => {
