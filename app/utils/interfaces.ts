@@ -27,3 +27,23 @@ export interface UpdateEvent {
   start: stringOrDate;
   end: stringOrDate;
 }
+
+export interface EventState {
+  events: CalEvent[];
+  addEvent: (event: CalEvent) => void;
+  removeEvent: (event: CalEvent) => void;
+}
+
+export interface User {
+  firstname: string;
+  lastname: string;
+  bio: string;
+  username: string;
+  timezone: string;
+  onboarding: boolean;
+}
+
+export interface UserState {
+  user: User;
+  updateUser: (data: Record<updateUserKey, string>) => void;
+}

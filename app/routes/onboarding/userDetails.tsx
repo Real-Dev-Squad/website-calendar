@@ -36,7 +36,7 @@ const isUsernameAvailable = async (host: string, username: string) => {
   }
 };
 
-export const action: ActionFunction = async ({ request, params }) => {
+export const action: ActionFunction = async ({ request }) => {
   const formData = Object.fromEntries(await request.formData());
 
   const url = `${process.env.API_HOST}/users/self`;

@@ -37,10 +37,11 @@
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-big-calendar": "^1.5.2",
-    "react-datepicker": "^4.10.0",
+    "react-datepicker": "4.10.0",
     "react-dom": "^18.2.0",
     "react-toastify": "^9.1.1",
-    "remix": "^1.7.4"
+    "remix": "^1.7.4",
+    "zustand": "^4.3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
