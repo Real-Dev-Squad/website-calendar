@@ -8,7 +8,7 @@ import { EventState, UserState } from '~/utils/interfaces';
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 export default function Index() {
-  const events = useStore((state: EventState & UserState) => state.events);
+ 
 
   return (
     <div className="">
