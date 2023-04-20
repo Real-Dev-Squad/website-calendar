@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import { create } from 'zustand';
 import { createEventSlice } from './eventSlice';
 import { createUserSlice } from './userSlice';
