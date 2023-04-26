@@ -9,7 +9,7 @@ const Events = () => {
 
   const toggleDrawer = (event?: CalEvent) => {
     setSelectedEvent(event || null);
-    setIsDrawerVisible(!isDrawerVisible);
+    setIsDrawerVisible((isDrawerOpen) => !isDrawerOpen);
   };
 
   return (

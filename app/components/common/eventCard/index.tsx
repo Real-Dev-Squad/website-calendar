@@ -1,5 +1,5 @@
-import { CalEvent } from '~/utils/interfaces';
 import moment from 'moment';
+import { CalEvent } from '~/utils/interfaces';
 
 export default function EventCard({ title, attendees, start, end }: CalEvent) {
   const startDate = moment(start);

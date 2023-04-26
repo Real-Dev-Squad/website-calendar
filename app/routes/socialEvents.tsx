@@ -1,5 +1,5 @@
-import EventCard from '~/components/common/eventCard';
 import moment from 'moment';
+import EventCard from '~/components/common/eventCard';
 
 const startTime = moment().format('h:mm A');
 const endTime = moment().add(2, 'hours').format('h:mm A');

@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { useState, useCallback } from 'react';
-import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
-import EventModal from '../components/common/eventModal';
-import RdsCalendar from '../components/common/rdsCalendar';
-// tilde operator not working so used relative imports
+import { View } from 'react-big-calendar';
+import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
+import EventModal from '~/components/common/eventModal';
+import RdsCalendar from '~/components/common/rdsCalendar';
 
 export const initialEventsList: CalEvent[] = [
   {
@@ -12,92 +12,71 @@ export const initialEventsList: CalEvent[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
     location: 'Nashville, Tennessee. U.S.',
-    type: 'public',
     start: moment().add(1, 'hour').toDate(),
     end: moment().add(2, 'hours').toDate(),
-    attendees: [
-      {
-        attendee: {
-          name: 'Ankush Dharkar',
-          email: 'attendee1@example.com',
-        },
-      },
-      {
-        attendee: {
-          name: 'Harshith Venkatesh',
-          email: 'attendee2@example.com',
-        },
-      },
-      {
-        attendee: {
-          name: 'Yash Raj',
-          email: 'attendee10@example.com',
-        },
-      },
-    ],
-    calendarId: 1,
+    visibility: 'private',
+    attendees: [{ attendee: { email: 'a@b.c' } }, { attendee: { email: 'alpha@beta.gamma' } }],
   },
   {
     id: 2,
-    title: 'Day Event',
-    type: 'public',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
-    location: 'Remote',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
-    calendarId: 2,
+    title: 'Some title',
+    start: moment().add(1, 'day').toDate(),
+    end: moment().add(1, 'day').add(2, 'hour').toDate(),
+    description: '',
+    location: '',
+    visibility: 'public',
     attendees: [
-      {
-        attendee: {
-          name: 'Something',
-          email: 'attendee3@example.com',
-        },
-      },
+      { attendee: { email: 'alpha@beta.gamma' } },
+      { attendee: { email: 'admin@rds.com' } },
     ],
   },
   {
     id: 3,
-    title: 'Recurring Event',
-    type: 'public',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
-    location: 'Online',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
-    calendarId: 3,
-    attendees: [
-      {
-        attendee: {
-          name: 'Prerana Nawar',
-          email: 'attendee4@example.com',
-        },
-      },
-      {
-        attendee: {
-          name: 'Something',
-          email: 'attendee5@example.com',
-        },
-      },
-    ],
+    title: 'Another title',
+    start: moment().add(1, 'day').add(8, 'hours').toDate(),
+    end: moment().add(1, 'day').add(9, 'hours').toDate(),
+    description: '',
+    location: '',
+    visibility: 'private',
+    attendees: [{ attendee: { email: 'admin@rds.com' } }],
   },
 ];
 
-const Calendar = () => {
-  const [eventsList, setEventsList] = useState<CalEvent[]>(initialEventsList);
-  const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>();
+interface CalendarProps {
+  view?: View;
+}
 
-  const updateEventState = ({ event, start, end }: UpdateEvent) => {
+const Calendar = ({ view }: CalendarProps) => {
+  const [eventsList, setEventsList] = useState<CalEvent[]>(initialEventsList);
+  const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
+    event: initialEventsList[0],
+    show: false,
+    new: false,
+  });
+
+  const updateEventState = (event: CalEvent) => {
     setCalendarEvent((e) => ({ ...e, event }));
     setEventsList((events) =>
       events.map((e) => {
         if (e.id === event.id) {
           e.title = event.title;
-          e.start = moment(start).toDate();
-          e.end = moment(end).toDate();
+          e.start = moment(event.start).toDate();
+          e.end = moment(event.end).toDate();
         }
         return e;
-      })
+      }),
+    );
+  };
+
+  const updateEventStateFromModal = (event: CalEvent) => {
+    setCalendarEvent((e) => ({ ...e, event }));
+    setEventsList((events) =>
+      events.map((e) => {
+        if (e.id === event.id) {
+          return event;
+        }
+        return e;
+      }),
     );
   };
 
@@ -110,13 +89,14 @@ const Calendar = () => {
   const memoizedRdsCalendar = useCallback(
     () => (
       <RdsCalendar
+        view={view}
         eventsList={eventsList}
         currentEvent={calendarEvent?.event}
         setCalendarEvent={setCalendarEvent}
         updateEvent={updateEventState}
       />
     ),
-    [eventsList]
+    [eventsList],
   );
 
   return (
@@ -125,10 +105,13 @@ const Calendar = () => {
       {calendarEvent?.show && (
         <EventModal
           event={calendarEvent.event}
+          eventsList={eventsList}
+          currentEvent={calendarEvent?.event}
           createEvent={addEvent}
-          updateEvent={updateEventState}
+          updateEvent={updateEventStateFromModal}
           setIsOpen={setShowEvent}
           newEvent={calendarEvent.new}
+          setCalendarEvent={setCalendarEvent}
         />
       )}
     </>

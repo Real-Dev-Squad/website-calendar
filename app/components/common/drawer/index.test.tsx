@@ -10,25 +10,22 @@ describe('Drawer', () => {
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
     location: 'Nashville, Tennessee. U.S.',
-    type: 'public',
+    visibility: 'Public',
     start: moment().add(1, 'hour').toDate(),
     end: moment().add(2, 'hours').toDate(),
     attendees: [
       {
         attendee: {
-          name: 'Ankush Dharkar',
           email: 'attendee1@example.com',
         },
       },
       {
         attendee: {
-          name: 'Harshith Venkatesh',
           email: 'attendee2@example.com',
         },
       },
       {
         attendee: {
-          name: 'Yash Raj',
           email: 'attendee10@example.com',
         },
       },
@@ -39,11 +36,10 @@ describe('Drawer', () => {
   it('renders the event details correctly', () => {
     const toggleDrawerMock = jest.fn();
     render(
-      <Drawer event={event as CalEvent} isDrawerVisible={true} toggleDrawer={toggleDrawerMock} />
+      <Drawer event={event as CalEvent} isDrawerVisible={true} toggleDrawer={toggleDrawerMock} />,
     );
 
     expect(screen.getByText(event.title)).toBeInTheDocument();
-    expect(screen.getByText(event.type)).toBeInTheDocument();
     expect(screen.getByText(event.location)).toBeInTheDocument();
     expect(screen.getByText(event.description)).toBeInTheDocument();
 
@@ -59,20 +55,20 @@ describe('Drawer', () => {
     expect(toggleDrawerMock).toHaveBeenCalledTimes(1);
 
     const eventTime = screen.getByText(
-      `${moment(event.start).format('MMMM DD, YYYY h A')} - ${moment(event.end).format('h A')}`
+      `${moment(event.start).format('MMMM DD, YYYY h A')} - ${moment(event.end).format('h A')}`,
     );
     expect(eventTime).toBeInTheDocument();
 
     event.attendees?.forEach(({ attendee }) => {
-      const attendeeName = screen.getByText(attendee.name);
-      expect(attendeeName).toBeInTheDocument();
+      const attendeeEmail = screen.getByText(attendee.email);
+      expect(attendeeEmail).toBeInTheDocument();
     });
   });
 
   it('toggles the drawer visibility when clicking the background', () => {
     const toggleDrawerMock = jest.fn();
     render(
-      <Drawer event={event as CalEvent} isDrawerVisible={true} toggleDrawer={toggleDrawerMock} />
+      <Drawer event={event as CalEvent} isDrawerVisible={true} toggleDrawer={toggleDrawerMock} />,
     );
 
     const background = screen.getByTestId('drawer-background');
@@ -84,7 +80,7 @@ describe('Drawer', () => {
   it('calls the toggleDrawer function when clicking the close button', () => {
     const toggleDrawerMock = jest.fn();
     render(
-      <Drawer event={event as CalEvent} isDrawerVisible={true} toggleDrawer={toggleDrawerMock} />
+      <Drawer event={event as CalEvent} isDrawerVisible={true} toggleDrawer={toggleDrawerMock} />,
     );
 
     const closeButton = screen.getByText('Close');
