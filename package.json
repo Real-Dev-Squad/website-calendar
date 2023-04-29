@@ -7,6 +7,8 @@
     "build": "run-s build:*",
     "build:css": "yarn generate:css --minify",
     "build:remix": "remix build",
+    "msw:cleanup": "rm public/mockServiceWorker.js",
+    "prebuild": "yarn msw:cleanup",
     "dev": "run-p dev:*",
     "dev:css": "yarn generate:css --watch",
     "dev:remix": "remix dev",
