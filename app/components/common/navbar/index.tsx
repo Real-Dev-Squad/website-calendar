@@ -49,7 +49,7 @@ const Navbar = () => {
       {
         icon: 'Calendar',
         text: 'Events',
-        href: '/',
+        href: '/events',
         id: 1,
         visibleOnDesktop: true,
       },

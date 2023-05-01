@@ -18,7 +18,7 @@ const Events = () => {
         {initialEventsList.map((event) => (
           <div
             key={event.id}
-            className="shadow-xl min-w-fit w-1/3 max-w-lg px-6 pt-10 pb-9 rounded-2xl cursor-pointer my-20"
+            className="shadow-xl min-w-fit max-w-lg px-6 pt-10 pb-9 rounded-2xl cursor-pointer my-20"
             onClick={() => toggleDrawer(event)}
           >
             <h2>{event.title}</h2>
