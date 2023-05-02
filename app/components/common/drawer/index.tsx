@@ -21,7 +21,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
       ></div>
       <div
         onClick={toggleDrawer}
-        className={`pt-20 pb-12 px-12 sm:w-full md:w-1/2 lg:w-1/4 bg-white h-full absolute right-0 duration-300 ease-out transition-all flex flex-col justify-between ${
+        className={`pt-20 pb-12 px-12 sm:w-full md:w-1/2 lg:w-1/4 bg-white h-full absolute right-0 duration-300 ease-out transition-all flex flex-col justify-between overflow-scroll ${
           isDrawerVisible ? '' : 'translate-x-full'
         }`}
       >
@@ -42,8 +42,10 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
           <div>
             {event.attendees?.map(({ attendee }) => (
               <div className="flex items-center gap-4" key={attendee.email}>
-                <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                <p className="py-2 font-normal text-base">{attendee.email}</p>
+                <div className="w-6 h-6 bg-gray-300 rounded-full flex-shrink-0"></div>
+                <p className="py-2 font-normal text-base truncate overflow-hidden">
+                  {attendee.email}
+                </p>
               </div>
             ))}
           </div>
