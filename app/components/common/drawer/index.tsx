@@ -21,7 +21,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
       ></div>
       <div
         onClick={toggleDrawer}
-        className={`pt-20 pb-12 px-12 sm:w-full md:w-1/2 lg:w-1/4 bg-white h-full absolute right-0 duration-300 ease-out transition-all flex flex-col justify-between overflow-scroll ${
+        className={`pt-20 pb-12 px-12 min-w-[300px] sm:w-full md:w-1/2 lg:w-1/4 bg-white h-full absolute right-0 duration-300 ease-out transition-all flex flex-col justify-between  overflow-scroll ${
           isDrawerVisible ? '' : 'translate-x-full'
         }`}
       >

@@ -928,6 +928,10 @@ video {
   min-width: fit-content;
 }
 
+.min-w-\[300px\] {
+  min-width: 300px;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
@@ -1088,10 +1092,6 @@ video {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.text-ellipsis {
-  text-overflow: ellipsis;
 }
 
 .rounded-lg {
