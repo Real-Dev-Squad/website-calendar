@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-const URL = window.ENV.API_HOST;
+const URL = process.env.API_HOST;
 
 export const handlers = [
   // Handles a POST /login request
