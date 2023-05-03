@@ -8,5 +8,4 @@ module.exports = {
   serverBuildDirectory: 'build',
   devServerPort: 8002,
   ignoredRouteFiles: ['.*'],
-  serverDependenciesToBundle: [/^rehype.*/, /^remark.*/, /^unified.*/, '@sindresorhus/slugify'],
 };
