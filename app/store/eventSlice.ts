@@ -1,11 +1,10 @@
 import { StateCreator } from 'zustand';
-import { EventState, UserState } from '~/utils/interfaces';
+import { EventState } from '~/utils/interfaces';
 
-export const createEventSlice: StateCreator<EventState & UserState, [], [], EventState> = (
-  set,
-) => ({
+export const createEventSlice: StateCreator<EventState, [], [], EventState> = (set) => ({
   events: [],
+  setEvents: (events) => set((state) => ({ events: [...events] })),
   addEvent: (event) => set((state) => ({ events: [...state.events, event] })),
-  removeEvent: (id) =>
-    set((state) => ({ events: state.events.filter((event) => event.id !== id) })),
+  removeEvent: (event) =>
+    set((state) => ({ events: state.events.filter(({ id }) => id !== event.id) })),
 });

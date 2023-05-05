@@ -1,4 +1,5 @@
 import { Event, stringOrDate } from 'react-big-calendar';
+import { UpdateUserKey } from '~/types/GlobalState';
 
 export interface Attendees {
   attendee: {
@@ -30,6 +31,7 @@ export interface UpdateEvent {
 
 export interface EventState {
   events: CalEvent[];
+  setEvents: (events: CalEvent[]) => void;
   addEvent: (event: CalEvent) => void;
   removeEvent: (event: CalEvent) => void;
 }
@@ -45,5 +47,5 @@ export interface User {
 
 export interface UserState {
   user: User;
-  updateUser: (data: Record<updateUserKey, string>) => void;
+  updateUser: (data: Record<UpdateUserKey, string>) => void;
 }
