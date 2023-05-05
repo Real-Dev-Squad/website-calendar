@@ -7,6 +7,7 @@ import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
 import { initialUserDetails } from '~/constants/userOnboarding';
+import { checkUsername } from '~/constants/urls.constants';
 
 interface UserFormInterface {
   username: string;
@@ -22,7 +23,7 @@ interface UserDetailsInterface {
 }
 
 const isUsernameAvailable = async (host: string, username: string) => {
-  const url = `${host}/users/usernameCheck/${username}`;
+  const url = checkUsername(host, username);
   try {
     const response = await axios.get(url, {
       headers: {
@@ -69,7 +70,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
-const UserDetails: FC<UserDetailsInterface> = () => {
+const UserDetails = () => {
   const errors = useActionData();
 
   const UserDetailErrors = {
@@ -85,7 +86,6 @@ const UserDetails: FC<UserDetailsInterface> = () => {
   const [userErrors, setUserErrors] = useState(UserDetailErrors);
 
   const submit = useSubmit();
-
   useEffect(() => {
     (async () => {
       if (query !== '') {
@@ -165,6 +165,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
         <div className="mx-4">
           <div>
             <UserInput
+              data-testid="username"
               label="Username"
               name="username"
               placeholder="username here"
@@ -180,6 +181,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
           <div className="flex justify-between ">
             <div className="basis-3/6 mx-1">
               <UserInput
+                data-testid="firstname"
                 label="First name"
                 name="firstname"
                 placeholder="Jane"
@@ -192,6 +194,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
             </div>
             <div className="basis-3/6 mx-1">
               <UserInput
+                data-testid="lastname"
                 label="Last name"
                 name="lastname"
                 placeholder="Doe"
@@ -210,6 +213,7 @@ const UserDetails: FC<UserDetailsInterface> = () => {
       </div>
       <div className=" mx-4 mb-3 basis-1/12">
         <Button
+          dataTestId="submitButton"
           label="Save & Next"
           size="medium"
           varient="primary"
