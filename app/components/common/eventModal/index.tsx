@@ -1,8 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable comma-dangle */
-/* eslint-disable no-unused-vars */
-/* eslint-disable object-curly-newline */
-/* eslint-disable implicit-arrow-linebreak */
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -125,6 +120,7 @@ export default function EventModal({
                       excludeTimes={dateRange(
                         dayjs(minDate).startOf('day').toDate(),
                         minDate.toDate()
+
                       )}
                       onChange={(end) => {
                         if (minDate < dayjs(end)) {

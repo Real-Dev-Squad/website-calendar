@@ -1,9 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable object-curly-newline */
-/* eslint-disable comma-dangle */
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -82,7 +76,7 @@ describe('RdsCalendar', () => {
         event: mockEventsList[0],
         show: true,
         new: false,
-      })
+      }),
     );
   });
 
@@ -215,7 +209,7 @@ describe('RdsCalendar', () => {
         }),
         show: true,
         new: true,
-      })
+      }),
     );
   });
 });

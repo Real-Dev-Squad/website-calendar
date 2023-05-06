@@ -1,7 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable function-paren-newline */
-/* eslint-disable comma-dangle */
-/* eslint-disable implicit-arrow-linebreak */
 import dayjs from 'dayjs';
 import { useState, useCallback } from 'react';
 import { View } from 'react-big-calendar';
@@ -67,7 +63,7 @@ const Calendar = ({ view }: CalendarProps) => {
           e.end = dayjs(event.end).toDate();
         }
         return e;
-      })
+      }),
     );
   };
 
@@ -79,7 +75,7 @@ const Calendar = ({ view }: CalendarProps) => {
           return event;
         }
         return e;
-      })
+      }),
     );
   };
 
@@ -99,7 +95,7 @@ const Calendar = ({ view }: CalendarProps) => {
         updateEvent={updateEventState}
       />
     ),
-    [eventsList]
+    [eventsList],
   );
 
   return (

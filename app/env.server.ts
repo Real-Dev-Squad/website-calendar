@@ -1,10 +1,6 @@
-/* eslint-disable no-var */
-
 export const envObj = {
   API_HOST: process.env.API_HOST || 'http://localhost:3000',
 };
-
-type ENV = typeof envObj;
 
 /*
   global_variables (https://developer.mozilla.org/en-US/docs/Glossary/Global_variable)
@@ -14,9 +10,9 @@ type ENV = typeof envObj;
   */
 
 declare global {
-  var ENV: ENV;
+  const ENV: typeof envObj;
 
   interface Window {
-    ENV: ENV;
+    ENV: typeof envObj;
   }
 }

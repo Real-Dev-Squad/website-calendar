@@ -1,5 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable comma-dangle */
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import EmailChipsInput from '.';
@@ -18,7 +16,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     expect(screen.getByText('To')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter email')).toBeInTheDocument();
@@ -31,7 +29,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[{ attendee: { email: 'example@example.com' } }]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     expect(screen.getByText('example@example.com')).toBeInTheDocument();
   });
@@ -43,7 +41,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const input = screen.getByPlaceholderText('Enter email');
     act(() => {
@@ -61,7 +59,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const input = screen.getByPlaceholderText('Enter email');
     act(() => {
@@ -79,7 +77,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const input = screen.getByPlaceholderText('Enter email');
     act(() => {
@@ -97,7 +95,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const input = screen.getByPlaceholderText('Enter email');
     act(() => {
@@ -114,7 +112,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[{ attendee: { email: 'example@example.com' } }]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const input = screen.getByPlaceholderText('Enter email');
     act(() => {
@@ -131,7 +129,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[{ attendee: { email: 'example@example.com' } }]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const deleteButton = screen.getByText('×');
     act(() => {
@@ -148,7 +146,7 @@ describe('EmailChipsInput', () => {
         placeholder="Enter email"
         attendees={[]}
         setAttendees={setAttendeesMock}
-      />
+      />,
     );
     const input = screen.getByPlaceholderText('Enter email');
     fireEvent.paste(input, {

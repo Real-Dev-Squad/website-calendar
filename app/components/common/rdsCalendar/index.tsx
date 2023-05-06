@@ -1,7 +1,3 @@
-// TODO: remove all eslint-disable when eslint-prettier issue is fixed
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable object-curly-newline */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Calendar, momentLocalizer, View } from 'react-big-calendar';
 import dayjs from 'dayjs';
