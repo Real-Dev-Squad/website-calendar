@@ -2,7 +2,7 @@
 /* eslint-disable function-paren-newline */
 /* eslint-disable comma-dangle */
 /* eslint-disable implicit-arrow-linebreak */
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useState, useCallback } from 'react';
 import { View } from 'react-big-calendar';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
@@ -13,8 +13,8 @@ const initialEventsList: CalEvent[] = [
   {
     id: 1,
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',
@@ -23,8 +23,8 @@ const initialEventsList: CalEvent[] = [
   {
     id: 2,
     title: 'Some title',
-    start: moment().add(1, 'day').toDate(),
-    end: moment().add(1, 'day').add(2, 'hour').toDate(),
+    start: dayjs().add(1, 'day').toDate(),
+    end: dayjs().add(1, 'day').add(2, 'hour').toDate(),
     description: '',
     location: '',
     visibility: 'public',
@@ -36,8 +36,8 @@ const initialEventsList: CalEvent[] = [
   {
     id: 3,
     title: 'Another title',
-    start: moment().add(1, 'day').add(8, 'hours').toDate(),
-    end: moment().add(1, 'day').add(9, 'hours').toDate(),
+    start: dayjs().add(1, 'day').add(8, 'hours').toDate(),
+    end: dayjs().add(1, 'day').add(9, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',
@@ -63,8 +63,8 @@ const Calendar = ({ view }: CalendarProps) => {
       events.map((e) => {
         if (e.id === event.id) {
           e.title = event.title;
-          e.start = moment(event.start).toDate();
-          e.end = moment(event.end).toDate();
+          e.start = dayjs(event.start).toDate();
+          e.end = dayjs(event.end).toDate();
         }
         return e;
       })

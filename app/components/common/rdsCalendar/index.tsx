@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Calendar, momentLocalizer, View } from 'react-big-calendar';
+import dayjs from 'dayjs';
 import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
@@ -31,9 +32,9 @@ const RdsCalendar = ({
 }: RdsCalendarProps) => {
   const RbcCalendar = withDragAndDrop(Calendar);
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
-    updateEvent({ ...ev.event, start: moment(ev.start).toDate(), end: moment(ev.end).toDate() });
+    updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
   const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
-    updateEvent({ ...ev.event, start: moment(ev.start).toDate(), end: moment(ev.end).toDate() });
+    updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
 
   return (
     <RbcCalendar
@@ -46,9 +47,9 @@ const RdsCalendar = ({
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
       selectable={true}
-      scrollToTime={moment(currentEvent?.start).toDate()}
+      scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={({ start }) => {
-        const event: CalEvent = { title: '', start, end: moment(start).add(1, 'hour').toDate() };
+        const event: CalEvent = { title: '', start, end: dayjs(start).add(1, 'hour').toDate() };
         setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
       }}
     />

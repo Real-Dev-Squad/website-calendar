@@ -1,12 +1,12 @@
 import { CalEvent } from '~/utils/interfaces';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export default function EventCard({ title, attendees, start, end }: CalEvent) {
-  const startDate = moment(start);
+  const startDate = dayjs(start);
   const date = startDate.format('D');
   const month = startDate.format('MMM');
   const startTime = startDate.format('h:mm A');
-  const endTime = moment(end).format('h:mm A');
+  const endTime = dayjs(end).format('h:mm A');
   const numberOfAttendees = attendees ? attendees.length : 0;
   return (
     <>

@@ -2,7 +2,6 @@
 
 - [Remix Docs](https://remix.run/docs)
 
-
 The staging site is deployed at
 https://staging-calendar.realdevsquad.com/
 
