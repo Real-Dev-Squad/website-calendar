@@ -1,12 +1,12 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { CalEvent } from '~/utils/interfaces';
 
 export const mockEvents: CalEvent[] = [
   {
     id: 1,
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',
@@ -15,8 +15,8 @@ export const mockEvents: CalEvent[] = [
   {
     id: 2,
     title: 'Some title',
-    start: moment().add(1, 'day').toDate(),
-    end: moment().add(1, 'day').add(2, 'hour').toDate(),
+    start: dayjs().add(1, 'day').toDate(),
+    end: dayjs().add(1, 'day').add(2, 'hour').toDate(),
     description: '',
     location: '',
     visibility: 'public',
@@ -28,8 +28,8 @@ export const mockEvents: CalEvent[] = [
   {
     id: 3,
     title: 'Another title',
-    start: moment().add(1, 'day').add(8, 'hours').toDate(),
-    end: moment().add(1, 'day').add(9, 'hours').toDate(),
+    start: dayjs().add(1, 'day').add(8, 'hours').toDate(),
+    end: dayjs().add(1, 'day').add(9, 'hours').toDate(),
     description: '',
     location: '',
     visibility: 'private',

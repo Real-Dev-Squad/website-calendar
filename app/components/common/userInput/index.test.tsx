@@ -10,7 +10,7 @@ describe('UserInput', () => {
         link="hap.day/"
         value=""
         setValue={() => {}}
-      />
+      />,
     );
     const userInput = screen.getByTestId('user-input');
     expect(userInput).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe('UserInput', () => {
         link="hap.day/"
         value=""
         setValue={() => {}}
-      />
+      />,
     );
     const userInputWrapper = screen.getByTestId('user-input-wrapper');
     const button = screen.getByTestId('url-btn');
@@ -33,7 +33,7 @@ describe('UserInput', () => {
 
   it('checks input value to be empty', () => {
     render(
-      <UserInput label="Username" placeholder="enter your name" value="" setValue={() => {}} />
+      <UserInput label="Username" placeholder="enter your name" value="" setValue={() => {}} />,
     );
     const inputElement = screen.getByTestId('user-input');
     expect(inputElement).toHaveValue('');
@@ -47,7 +47,7 @@ describe('UserInput', () => {
         description="Password must be 8 characters"
         value=""
         setValue={() => {}}
-      />
+      />,
     );
     const passwordInput = screen.getByTestId('user-input');
     const eyeIcon = screen.getByTestId('icon');
@@ -64,7 +64,7 @@ describe('UserInput', () => {
         setValue={() => {}}
         err="error"
         link="random string"
-      />
+      />,
     );
     const error = getByText('error');
     expect(error).toBeInTheDocument();

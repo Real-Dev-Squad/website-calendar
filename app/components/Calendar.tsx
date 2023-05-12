@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { View } from 'react-big-calendar';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import EventModal from '~/components/common/eventModal';
@@ -11,7 +11,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({ view }: CalendarProps) => {
-  const events = useStore((state) => state.events);
+  const events = useStore((state: { events: any }) => state.events);
 
   const [eventsList, setEventsList] = useState<CalEvent[]>(events);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({

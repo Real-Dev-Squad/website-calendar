@@ -97,7 +97,7 @@ export default function EventModal({
                       timeIntervals={5}
                       excludeTimes={dateRange(
                         maxDate.toDate(),
-                        dayjs(maxDate).endOf('day').toDate()
+                        dayjs(maxDate).endOf('day').toDate(),
                       )}
                       onChange={(start) => {
                         if (dayjs(start) < maxDate) {
@@ -119,8 +119,7 @@ export default function EventModal({
                       timeIntervals={5}
                       excludeTimes={dateRange(
                         dayjs(minDate).startOf('day').toDate(),
-                        minDate.toDate()
-
+                        minDate.toDate(),
                       )}
                       onChange={(end) => {
                         if (minDate < dayjs(end)) {
