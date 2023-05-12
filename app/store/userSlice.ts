@@ -1,8 +1,8 @@
 import { StateCreator } from 'zustand';
-import { EventState, UserState } from '~/utils/interfaces';
+import { UserState } from '~/utils/interfaces';
 import { UpdateUserKey } from '~/types/GlobalState';
 
-export const createUserSlice: StateCreator<EventState & UserState, [], [], UserState> = (set) => ({
+export const createUserSlice: StateCreator<UserState, [], [], UserState> = (set) => ({
   user: {
     firstname: '',
     lastname: '',

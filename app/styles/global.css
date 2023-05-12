@@ -1,6 +1,7 @@
 /* This is a global CSS file  */
 @import url('react-big-calendar/lib/css/react-big-calendar.css');
 @import url('react-big-calendar/lib/addons/dragAndDrop/styles.css');
+@import url('react-toastify/dist/ReactToastify.css');
 
 /* overriding react-big-calendar's css properties */
 .rbc-event {
