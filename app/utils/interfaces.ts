@@ -34,6 +34,7 @@ export interface EventState {
   setEvents: (events: CalEvent[]) => void;
   addEvent: (event: CalEvent) => void;
   removeEvent: (event: CalEvent) => void;
+  updateEvent: (event: CalEvent) => void;
 }
 
 export interface User {
