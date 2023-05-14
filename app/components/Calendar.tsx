@@ -1,17 +1,20 @@
 import moment from 'moment';
+import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react';
 import { View } from 'react-big-calendar';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import EventModal from '~/components/common/eventModal';
 import RdsCalendar from '~/components/common/rdsCalendar';
 import { useStore } from '~/store/useStore';
+import { patchEvent } from '~/constants/urls.constants';
 
 interface CalendarProps {
   view?: View;
+  HOST: string;
 }
 
-const Calendar = ({ view }: CalendarProps) => {
-  const events = useStore((state) => state.events);
+const Calendar = ({ view, HOST }: CalendarProps) => {
+  const { events, updateEvent } = useStore((state) => state);
 
   const [eventsList, setEventsList] = useState<CalEvent[]>(events);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
@@ -39,7 +42,14 @@ const Calendar = ({ view }: CalendarProps) => {
   };
 
   const updateEventStateFromModal = (event: CalEvent) => {
+    console.log(event);
+
     setCalendarEvent((e) => ({ ...e, event }));
+    axios(patchEvent(HOST, event.id as number), {
+      method: 'patch',
+      data: { ...event, start: moment(event.start).valueOf(), end: moment(event.end).valueOf() },
+      withCredentials: true,
+    });
     setEventsList((events) =>
       events.map((e) => {
         if (e.id === event.id) {
@@ -48,6 +58,7 @@ const Calendar = ({ view }: CalendarProps) => {
         return e;
       }),
     );
+    updateEvent(event);
   };
 
   const addEvent = (event: CalEvent) => setEventsList((events) => [...events, event]);
