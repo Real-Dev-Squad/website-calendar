@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Form, useSubmit, useActionData } from '@remix-run/react';
 import { ActionFunction, json, redirect } from '@remix-run/node';
 import debounce from 'lodash.debounce';
@@ -14,12 +14,6 @@ interface UserFormInterface {
   firstname: string;
   lastname: string;
   timezone: string;
-}
-
-interface UserDetailsInterface {
-  apiHost: string;
-  page: number;
-  formTitlesAndSubtitles: Array<object>;
 }
 
 const isUsernameAvailable = async (host: string, username: string) => {
