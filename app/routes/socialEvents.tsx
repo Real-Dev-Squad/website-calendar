@@ -1,15 +1,15 @@
 import EventCard from '~/components/common/eventCard';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
-const startTime = moment().format('h:mm A');
-const endTime = moment().add(2, 'hours').format('h:mm A');
+const startTime = dayjs().format('h:mm A');
+const endTime = dayjs().add(2, 'hours').format('h:mm A');
 
 export default function socialEvents() {
   const dummyEvent = {
     id: 1,
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
     attendees: [
       {
         attendee: {

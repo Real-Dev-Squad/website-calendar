@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useState, useCallback, useEffect } from 'react';
 import { View } from 'react-big-calendar';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
@@ -11,7 +11,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({ view }: CalendarProps) => {
-  const events = useStore((state) => state.events);
+  const events = useStore((state: { events: any }) => state.events);
 
   const [eventsList, setEventsList] = useState<CalEvent[]>(events);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
@@ -30,8 +30,8 @@ const Calendar = ({ view }: CalendarProps) => {
       events.map((e) => {
         if (e.id === event.id) {
           e.title = event.title;
-          e.start = moment(event.start).toDate();
-          e.end = moment(event.end).toDate();
+          e.start = dayjs(event.start).toDate();
+          e.end = dayjs(event.end).toDate();
         }
         return e;
       }),

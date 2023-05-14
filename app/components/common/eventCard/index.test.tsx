@@ -1,15 +1,15 @@
 import { render } from '@testing-library/react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import EventCard from './index';
 
 describe('EventCard', () => {
-  const date = moment().format('D');
-  const month = moment().format('MMM');
+  const date = dayjs().format('D');
+  const month = dayjs().format('MMM');
   const dummyevent1 = {
     id: 1,
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
     attendees: [
       {
         attendee: {
@@ -22,8 +22,8 @@ describe('EventCard', () => {
   const dummyevent2 = {
     id: 1,
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
     attendees: [
       {
         attendee: {
@@ -46,13 +46,13 @@ describe('EventCard', () => {
   const dummyevent3 = {
     id: 1,
     title: 'timed event',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
   };
 
-  const startDate = moment(dummyevent1.start);
+  const startDate = dayjs(dummyevent1.start);
   const startTime = startDate.format('h:mm A');
-  const endTime = moment(dummyevent1.end).format('h:mm A');
+  const endTime = dayjs(dummyevent1.end).format('h:mm A');
 
   it('should render the event name', () => {
     const { getByText } = render(<EventCard {...dummyevent1} />);
