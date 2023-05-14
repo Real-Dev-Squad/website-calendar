@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 // parse event objs from backend to frontend format
 export const parseEvents = (events: any[]) =>
@@ -9,8 +9,8 @@ export const parseEvents = (events: any[]) =>
       {
         ...remainingEventDetails,
         title: name,
-        start: moment(startTime).toDate(),
-        end: moment(endTime).toDate(),
+        start: dayjs(startTime).toDate(),
+        end: dayjs(endTime).toDate(),
         attendees: Attendees,
       },
     ];

@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import { LinksFunction, LoaderFunction, json } from '@remix-run/node';
 import { toast, ToastContainer } from 'react-toastify';
 import styles from 'react-datepicker/dist/react-datepicker.css';
 import Calendar from '~/components/Calendar';
 import Navbar from '~/components/common/navbar';
 import axios from 'axios';
-import moment from 'moment';
-import { useEffect } from 'react';
+import dayjs from 'dayjs';
 import { useStore } from '~/store/useStore';
 import { useLoaderData } from '@remix-run/react';
 import { parseEvents } from '~/utils/event.utils';
@@ -22,8 +22,9 @@ export let loader: LoaderFunction = async ({ request }) => {
   const baseUrls = await getUrls();
 
   const cookie = request.headers.get('cookie');
-  const startTime = moment().subtract(1, 'months').startOf('month').unix() * 1000;
-  const endTime = moment().add(1, 'months').endOf('month').unix() * 1000;
+
+  const startTime = dayjs().subtract(1, 'months').startOf('month').unix() * 1000;
+  const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
 
   try {
     const response = await axios.get(getEvents(process.env.API_HOST ?? '', startTime, endTime), {

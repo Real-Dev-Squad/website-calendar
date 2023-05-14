@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
@@ -34,19 +34,19 @@ export default function EventModal({
 }: EventModalProps) {
   const [eventDetail, setEventDetail] = useState<CalEvent | undefined>(event);
 
-  const minDate = moment(eventDetail?.start);
-  const maxDate = moment(eventDetail?.end);
+  const minDate = dayjs(eventDetail?.start);
+  const maxDate = dayjs(eventDetail?.end);
 
   useEffect(() => {
     setEventDetail({ ...eventDetail, title: event?.title, start: event?.start, end: event?.end });
   }, [event]);
 
   const dateRange = (startDate: Date, endDate: Date) => {
-    const difference = moment(endDate).diff(startDate, 'minutes');
+    const difference = dayjs(endDate).diff(startDate, 'minutes');
     const resultArray: Date[] = [startDate];
 
     for (let minute = 1; minute <= difference; minute += 1) {
-      resultArray.push(moment(startDate).add(minute, 'minutes').toDate());
+      resultArray.push(dayjs(startDate).add(minute, 'minutes').toDate());
     }
     return resultArray;
   };
@@ -97,11 +97,11 @@ export default function EventModal({
                       timeIntervals={5}
                       excludeTimes={dateRange(
                         maxDate.toDate(),
-                        moment(maxDate).endOf('day').toDate(),
+                        dayjs(maxDate).endOf('day').toDate(),
                       )}
                       onChange={(start) => {
-                        if (moment(start) < maxDate) {
-                          setEventDetail((e) => ({ ...e, start: moment(start).toDate() }));
+                        if (dayjs(start) < maxDate) {
+                          setEventDetail((e) => ({ ...e, start: dayjs(start).toDate() }));
                         }
                       }}
                       showTimeSelect
@@ -118,12 +118,12 @@ export default function EventModal({
                       selected={maxDate.toDate()}
                       timeIntervals={5}
                       excludeTimes={dateRange(
-                        moment(minDate).startOf('day').toDate(),
+                        dayjs(minDate).startOf('day').toDate(),
                         minDate.toDate(),
                       )}
                       onChange={(end) => {
-                        if (minDate < moment(end)) {
-                          setEventDetail((e) => ({ ...e, end: moment(end).toDate() }));
+                        if (minDate < dayjs(end)) {
+                          setEventDetail((e) => ({ ...e, end: dayjs(end).toDate() }));
                         }
                       }}
                       showTimeSelect

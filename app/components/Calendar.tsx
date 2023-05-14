@@ -1,5 +1,5 @@
-import moment from 'moment';
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { useState, useCallback, useEffect } from 'react';
 import { View } from 'react-big-calendar';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
@@ -33,8 +33,8 @@ const Calendar = ({ view, HOST }: CalendarProps) => {
       events.map((e) => {
         if (e.id === event.id) {
           e.title = event.title;
-          e.start = moment(event.start).toDate();
-          e.end = moment(event.end).toDate();
+          e.start = dayjs(event.start).toDate();
+          e.end = dayjs(event.end).toDate();
         }
         return e;
       }),
@@ -47,7 +47,7 @@ const Calendar = ({ view, HOST }: CalendarProps) => {
     setCalendarEvent((e) => ({ ...e, event }));
     axios(patchEvent(HOST, event.id as number), {
       method: 'patch',
-      data: { ...event, start: moment(event.start).valueOf(), end: moment(event.end).valueOf() },
+      data: { ...event, start: dayjs(event.start).valueOf(), end: dayjs(event.end).valueOf() },
       withCredentials: true,
     });
     setEventsList((events) =>
