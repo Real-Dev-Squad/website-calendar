@@ -10,7 +10,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({ view }: CalendarProps) => {
-  const { events } = useStore((state) => state);
+  const events = useStore((state: { events: any }) => state.events);
 
   const [eventsList, setEventsList] = useState<CalEvent[]>(events);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
