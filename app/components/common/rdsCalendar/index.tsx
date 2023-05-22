@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, momentLocalizer, View } from 'react-big-calendar';
+import { useNavigate } from '@remix-run/react';
 import dayjs from 'dayjs';
 import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -31,6 +32,7 @@ const RdsCalendar = ({
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
   const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
+  const navigate = useNavigate();
 
   return (
     <RbcCalendar
@@ -39,7 +41,10 @@ const RdsCalendar = ({
       defaultDate={defaultDate}
       defaultView={view ?? 'week'}
       style={{ height: height ?? '100vh' }}
-      onSelectEvent={(event) => setCalendarEvent((e) => ({ ...e, event, show: true, new: false }))}
+      onSelectEvent={(event: CalEvent) => {
+        setCalendarEvent((e) => ({ ...e, event, show: true, new: false }));
+        navigate(`/calendar/${event?.id}`);
+      }}
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
       selectable={true}
