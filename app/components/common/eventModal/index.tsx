@@ -67,7 +67,6 @@ export default function EventModal({
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(transition.state);
     e.preventDefault();
     // grab the form element
     const $form = e.currentTarget;
