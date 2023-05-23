@@ -31,7 +31,7 @@ const Calendar = ({ view, events }: CalendarProps) => {
       <RdsCalendar
         view={view}
         eventsList={events}
-        currentEvent={events[0]}
+        currentEvent={events[0] ? events[0] : {}}
         updateEvent={updateEventState}
       />
     ),
