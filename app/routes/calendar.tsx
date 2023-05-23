@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { LinksFunction, LoaderFunction, json } from '@remix-run/node';
 import { Outlet } from '@remix-run/react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import styles from 'react-datepicker/dist/react-datepicker.css';
 import Calendar from '~/components/Calendar';
 import Navbar from '~/components/common/navbar';
@@ -63,6 +63,7 @@ function CalendarPage() {
       <div className="flex flex-col-reverse md:flex-row ">
         <Navbar />
         <div className="flex justify-center flex-grow">
+          <ToastContainer />
           <Calendar />
           <Outlet />
         </div>

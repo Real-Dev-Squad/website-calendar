@@ -16,7 +16,6 @@ interface EventModalProps {
   currentEvent: CalEvent | undefined;
   createEvent?: (event: CalEvent) => void;
   isOpen?: boolean;
-  setIsOpen: (show: boolean) => void;
   newEvent?: boolean;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
 }

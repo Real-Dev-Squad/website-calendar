@@ -52,6 +52,7 @@ const RdsCalendar = ({
       onSelectSlot={({ start }) => {
         const event: CalEvent = { title: '', start, end: dayjs(start).add(1, 'hour').toDate() };
         setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
+        navigate('/calendar/new');
       }}
     />
   );

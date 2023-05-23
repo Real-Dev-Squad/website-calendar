@@ -1,6 +1,6 @@
 import React from 'react';
 import { redirect, ActionArgs } from '@remix-run/node';
-import { useMatches, useParams, useActionData } from '@remix-run/react';
+import { useMatches, useParams, useActionData, useNavigate } from '@remix-run/react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import EventModal from '~/components/common/eventModal';
@@ -9,7 +9,6 @@ import { parseEvents } from '~/utils/event.utils';
 import { patchEvent } from '~/constants/urls.constants';
 
 export async function action({ request }: ActionArgs) {
-  // console.log({ request });
   const cookie = request.headers.get('cookie');
 
   const formData = await request.formData();
@@ -25,16 +24,12 @@ export async function action({ request }: ActionArgs) {
   };
 
   try {
-    const response = await axios.patch(
-      patchEvent(process.env.API_HOST ?? '', parseInt(id)),
-      payload,
-      {
-        headers: {
-          Cookie: cookie,
-          'Content-Type': 'application/json',
-        },
+    await axios.patch(patchEvent(process.env.API_HOST ?? '', parseInt(id)), payload, {
+      headers: {
+        Cookie: cookie,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     return redirect('/calendar');
   } catch (error) {
@@ -46,33 +41,42 @@ const EventDetails = () => {
   const matches = useMatches();
   const params = useParams();
   const actData = useActionData();
-  const [openModal, setOpenModal] = React.useState<boolean>(false);
   const [calendarEvent, setCalendarEvent] = React.useState<any>();
-
+  const navigate = useNavigate();
   const { data } = matches[1];
   const { events: eventsList } = data;
+  console.log({ data });
 
   React.useEffect(() => {
-    const calEvent = data.events.find(
-      (event: CalEvent) => event.id === parseInt(params.eventId as string),
-    );
+    if (params.eventId !== 'new') {
+      const calEvent = data.events.find(
+        (event: CalEvent) => event.id === parseInt(params.eventId as string),
+      );
 
-    setCalendarEvent({
-      title: calEvent.name,
-      start: calEvent.startTime,
-      end: calEvent.endTime,
-      location: calEvent.location,
-      description: calEvent.description,
-      attendees: calEvent.Attendees,
-    });
+      setCalendarEvent({
+        title: calEvent.name,
+        start: calEvent.startTime,
+        end: calEvent.endTime,
+        location: calEvent.location,
+        description: calEvent.description,
+        attendees: calEvent.Attendees,
+      });
+    }
+
+    if (actData?.error) {
+      toast.error('Unable to update event!!', {
+        toastId: 'events_error',
+      });
+      navigate(-1);
+    }
   }, []);
+
   return (
     <div>
       <EventModal
         event={calendarEvent}
         eventsList={parseEvents(eventsList)}
         currentEvent={calendarEvent}
-        setIsOpen={setOpenModal}
         newEvent={false}
         setCalendarEvent={setCalendarEvent}
       />
