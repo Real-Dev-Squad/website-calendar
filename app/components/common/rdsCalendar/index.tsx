@@ -12,7 +12,7 @@ interface RdsCalendarProps {
   eventsList: CalEvent[];
   defaultDate?: Date;
   currentEvent: CalEvent | undefined;
-  setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
+  setCalendarEvent?: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
   updateEvent: (event: CalEvent) => void;
 }
 
@@ -24,7 +24,6 @@ const RdsCalendar = ({
   eventsList,
   defaultDate,
   currentEvent,
-  setCalendarEvent,
   updateEvent,
 }: RdsCalendarProps) => {
   const RbcCalendar = withDragAndDrop(Calendar);
@@ -42,7 +41,6 @@ const RdsCalendar = ({
       defaultView={view ?? 'week'}
       style={{ height: height ?? '100vh' }}
       onSelectEvent={(event: CalEvent) => {
-        updateEvent((e) => ({ ...e, event, show: true, new: false }));
         navigate(`/calendar/${event?.id}`);
       }}
       onEventDrop={onEventDrop}
@@ -50,8 +48,6 @@ const RdsCalendar = ({
       selectable={true}
       scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={({ start }) => {
-        const event: CalEvent = { title: '', start, end: dayjs(start).add(1, 'hour').toDate() };
-        // setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
         navigate('/calendar/new');
       }}
     />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTransition, useSubmit, Form, useNavigate } from '@remix-run/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
@@ -11,7 +11,6 @@ import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
 
 interface EventModalProps {
-  event?: CalEvent;
   events: CalEvent[];
   currentEvent: CalEvent | undefined;
   createEvent?: (event: CalEvent) => void;
@@ -20,14 +19,11 @@ interface EventModalProps {
 }
 
 export default function EventModal({
-  event,
   events,
   currentEvent,
   isOpen = true,
   setCalendarEvent,
 }: EventModalProps) {
-  // const [eventDetail, setEventDetail] = useState<CalEvent | undefined>();
-  const [eventsList, setEventsList] = useState<CalEvent[]>();
   const submit = useSubmit();
   const transition = useTransition();
   const navigate = useNavigate();
@@ -39,10 +35,6 @@ export default function EventModal({
       : transition.state === 'loading'
       ? 'Saved!'
       : 'submit';
-
-  useEffect(() => {
-    setEventsList(events);
-  }, []);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
