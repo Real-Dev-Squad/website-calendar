@@ -42,7 +42,7 @@ const RdsCalendar = ({
       defaultView={view ?? 'week'}
       style={{ height: height ?? '100vh' }}
       onSelectEvent={(event: CalEvent) => {
-        setCalendarEvent((e) => ({ ...e, event, show: true, new: false }));
+        updateEvent((e) => ({ ...e, event, show: true, new: false }));
         navigate(`/calendar/${event?.id}`);
       }}
       onEventDrop={onEventDrop}
@@ -51,7 +51,7 @@ const RdsCalendar = ({
       scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={({ start }) => {
         const event: CalEvent = { title: '', start, end: dayjs(start).add(1, 'hour').toDate() };
-        setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
+        // setCalendarEvent((e) => ({ ...e, event, show: true, new: true }));
         navigate('/calendar/new');
       }}
     />

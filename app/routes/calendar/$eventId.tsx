@@ -45,14 +45,12 @@ const EventDetails = () => {
   const navigate = useNavigate();
   const { data } = matches[1];
   const { events: eventsList } = data;
-  console.log({ data });
 
   React.useEffect(() => {
     if (params.eventId !== 'new') {
-      const calEvent = data.events.find(
+      const calEvent = eventsList.find(
         (event: CalEvent) => event.id === parseInt(params.eventId as string),
       );
-
       setCalendarEvent({
         title: calEvent.name,
         start: calEvent.startTime,
@@ -63,6 +61,7 @@ const EventDetails = () => {
       });
     }
 
+    // show error on mount
     if (actData?.error) {
       toast.error('Unable to update event!!', {
         toastId: 'events_error',
@@ -74,10 +73,8 @@ const EventDetails = () => {
   return (
     <div>
       <EventModal
-        event={calendarEvent}
-        eventsList={parseEvents(eventsList)}
+        events={parseEvents(eventsList)}
         currentEvent={calendarEvent}
-        newEvent={false}
         setCalendarEvent={setCalendarEvent}
       />
     </div>

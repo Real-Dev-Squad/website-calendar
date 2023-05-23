@@ -4,15 +4,16 @@ import { View } from 'react-big-calendar';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import RdsCalendar from '~/components/common/rdsCalendar';
 import { useStore } from '~/store/useStore';
-
+import { useMatches } from '@remix-run/react';
 interface CalendarProps {
   view?: View;
+  events: CalEvent[];
 }
 
-const Calendar = ({ view }: CalendarProps) => {
-  const events = useStore((state: { events: any }) => state.events);
+const Calendar = ({ view, events }: CalendarProps) => {
+  const matches = useMatches();
 
-  const [eventsList, setEventsList] = useState<CalEvent[]>(events);
+  const [eventsList, setEventsList] = useState<CalEvent[]>([]);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
     event: events[0],
     show: false,
@@ -31,6 +32,17 @@ const Calendar = ({ view }: CalendarProps) => {
           e.title = event.title;
           e.start = dayjs(event.start).toDate();
           e.end = dayjs(event.end).toDate();
+        }
+        return e;
+      }),
+    );
+  };
+
+  const updateEventStateFromModal = (event: CalEvent) => {
+    setEventsList((events) =>
+      events.map((e) => {
+        if (e.id === event.id) {
+          return event;
         }
         return e;
       }),

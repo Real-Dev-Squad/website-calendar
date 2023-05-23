@@ -12,27 +12,27 @@ import { Button } from '../../Button';
 
 interface EventModalProps {
   event?: CalEvent;
-  eventsList: CalEvent[];
+  events: CalEvent[];
   currentEvent: CalEvent | undefined;
   createEvent?: (event: CalEvent) => void;
   isOpen?: boolean;
-  newEvent?: boolean;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
 }
 
 export default function EventModal({
   event,
-  eventsList,
+  events,
   currentEvent,
   isOpen = true,
   setCalendarEvent,
 }: EventModalProps) {
-  const [eventDetail, setEventDetail] = useState<CalEvent | undefined>(event);
+  // const [eventDetail, setEventDetail] = useState<CalEvent | undefined>();
+  const [eventsList, setEventsList] = useState<CalEvent[]>();
   const submit = useSubmit();
   const transition = useTransition();
   const navigate = useNavigate();
-  const minDate = dayjs(eventDetail?.start);
-  const maxDate = dayjs(eventDetail?.end);
+  const minDate = dayjs(currentEvent?.start);
+  const maxDate = dayjs(currentEvent?.end);
   const text =
     transition.state === 'submitting'
       ? 'Saving...'
@@ -41,16 +41,8 @@ export default function EventModal({
       : 'submit';
 
   useEffect(() => {
-    setEventDetail({
-      ...eventDetail,
-      title: event?.title,
-      start: event?.start,
-      end: event?.end,
-      location: event?.location,
-      description: event?.description,
-      attendees: event?.attendees,
-    });
-  }, [event]);
+    setEventsList(events);
+  }, []);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
@@ -76,12 +68,12 @@ export default function EventModal({
 
     const payload = {
       name: formData.get('title'),
-      startTime: dayjs(eventDetail?.start).valueOf(),
-      endTime: dayjs(eventDetail?.end).valueOf(),
+      startTime: dayjs(currentEvent?.start).valueOf(),
+      endTime: dayjs(currentEvent?.end).valueOf(),
       location: formData.get('address'),
       description: formData.get('description'),
-      attendees: eventDetail?.attendees
-        ? eventDetail.attendees.map(({ attendee }) => attendee.email)
+      attendees: currentEvent?.attendees
+        ? currentEvent.attendees.map(({ attendee }) => attendee.email)
         : [],
     };
     const formDataPayload = new FormData();
@@ -124,14 +116,14 @@ export default function EventModal({
                       name="title"
                       placeholder="Enter Event Title"
                       inputClassnames="border-none font-normal text-[32px] mb-4 text-stone-500 m-0 !bg-white"
-                      value={eventDetail?.title?.toString() ?? ''}
-                      setValue={(title) => setEventDetail((ev) => ({ ...ev, title }))}
+                      value={currentEvent?.title?.toString() ?? ''}
+                      setValue={(title) => setCalendarEvent((e) => ({ ...e, title }))}
                     />
                   </Dialog.Title>
 
                   <EventVisibility
-                    visibility={eventDetail?.visibility ?? 'private'}
-                    setVisibility={(visibility) => setEventDetail((e) => ({ ...e, visibility }))}
+                    visibility={currentEvent?.visibility ?? 'private'}
+                    setVisibility={(visibility) => setCalendarEvent((e) => ({ ...e, visibility }))}
                   />
 
                   <div className="mt-2">
@@ -150,7 +142,7 @@ export default function EventModal({
                         )}
                         onChange={(start) => {
                           if (dayjs(start) < maxDate) {
-                            setEventDetail((e) => ({ ...e, start: dayjs(start).toDate() }));
+                            setCalendarEvent((e) => ({ ...e, start: dayjs(start).toDate() }));
                           }
                         }}
                         showTimeSelect
@@ -173,7 +165,7 @@ export default function EventModal({
                         )}
                         onChange={(end) => {
                           if (minDate < dayjs(end)) {
-                            setEventDetail((e) => ({ ...e, end: dayjs(end).toDate() }));
+                            setCalendarEvent((e) => ({ ...e, end: dayjs(end).toDate() }));
                           }
                         }}
                         showTimeSelect
@@ -184,8 +176,8 @@ export default function EventModal({
                     <EmailChipsInput
                       label="Attendees Emails"
                       placeholder="Attendees Emails"
-                      attendees={eventDetail?.attendees ?? []}
-                      setAttendees={(attendees) => setEventDetail((ev) => ({ ...ev, attendees }))}
+                      attendees={currentEvent?.attendees ?? []}
+                      setAttendees={(attendees) => setCalendarEvent((ev) => ({ ...ev, attendees }))}
                     />
 
                     <UserInput
@@ -195,8 +187,8 @@ export default function EventModal({
                       name="address"
                       labelClassnames="text-4"
                       placeholder="Enter URL or Address for the event"
-                      value={eventDetail?.location ?? ''}
-                      setValue={(location) => setEventDetail((ev) => ({ ...ev, location }))}
+                      value={currentEvent?.location ?? ''}
+                      setValue={(location) => setCalendarEvent((ev) => ({ ...ev, location }))}
                     />
 
                     <p className="text-4 mb-2">Description</p>
@@ -208,9 +200,9 @@ export default function EventModal({
                       cols={50}
                       name="description"
                       placeholder="Event Description"
-                      value={eventDetail?.description ?? ''}
+                      value={currentEvent?.description ?? ''}
                       onChange={(e) =>
-                        setEventDetail((ev) => ({ ...ev, description: e.target.value }))
+                        setCalendarEvent((ev) => ({ ...ev, description: e.target.value }))
                       }
                     ></textarea>
 
@@ -223,7 +215,7 @@ export default function EventModal({
               <RdsCalendar
                 height="100%"
                 view="day"
-                eventsList={eventsList}
+                eventsList={events}
                 defaultDate={currentEvent?.start}
                 currentEvent={currentEvent}
                 setCalendarEvent={setCalendarEvent}
