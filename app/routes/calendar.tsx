@@ -64,7 +64,7 @@ function CalendarPage() {
         <Navbar />
         <div className="flex justify-center flex-grow">
           <ToastContainer />
-          <Calendar events={parseEvents(events)} />
+          <Calendar events={parseEvents(events ? events : [])} />
           <Outlet />
         </div>
       </div>
