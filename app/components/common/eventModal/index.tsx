@@ -1,14 +1,19 @@
 import React from 'react';
-import { useTransition, useSubmit, Form, useNavigate } from '@remix-run/react';
+import { useTransition, Form, useNavigate, useParams } from '@remix-run/react';
+import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
 import DatePicker from 'react-datepicker';
+import { toast } from 'react-toastify';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
+import { useStore } from '~/store/useStore';
 import UserInput from '../userInput';
 import RdsCalendar from '../rdsCalendar';
 import EventVisibility from '../eventVisibility';
 import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
+import { patchEvent, postEvent } from '~/constants/urls.constants';
+import { parseEvents } from '~/utils/event.utils';
 
 interface EventModalProps {
   events: CalEvent[];
@@ -24,8 +29,9 @@ export default function EventModal({
   isOpen = true,
   setCalendarEvent,
 }: EventModalProps) {
-  const submit = useSubmit();
+  const { updateEvent, addEvent } = useStore((state) => state);
   const transition = useTransition();
+  const params = useParams();
   const navigate = useNavigate();
   const minDate = dayjs(currentEvent?.start);
   const maxDate = dayjs(currentEvent?.end);
@@ -58,27 +64,64 @@ export default function EventModal({
     // get the formData from that form
     const formData = new FormData($form);
 
-    const payload = {
-      name: formData.get('title'),
-      startTime: dayjs(currentEvent?.start).valueOf(),
-      endTime: dayjs(currentEvent?.end).valueOf(),
-      location: formData.get('address'),
-      description: formData.get('description'),
-      attendees: currentEvent?.attendees
-        ? currentEvent.attendees.map(({ attendee }) => attendee.email)
-        : [],
-    };
-    const formDataPayload = new FormData();
+    if (params.eventId !== 'new') {
+      const payload = {
+        name: formData.get('title'),
+        startTime: dayjs(currentEvent?.start).valueOf(),
+        endTime: dayjs(currentEvent?.end).valueOf(),
+        location: formData.get('address'),
+        description: formData.get('description'),
+        attendees: currentEvent?.attendees
+          ? currentEvent.attendees.map(({ attendee }) => attendee.email)
+          : [],
+      };
+      try {
+        const response = await axios(
+          patchEvent(
+            window.ENV.API_HOST,
+            parseInt(params.eventId ? params.eventId : '', 10) as number,
+          ),
+          {
+            method: 'patch',
+            data: payload,
+            withCredentials: true,
+          },
+        );
 
-    Object.entries(payload).forEach(([key, value]) => {
-      formDataPayload.append(key as string, value as string);
-    });
+        updateEvent(parseEvents([{ ...response.data.data }])[0]);
 
-    submit(formDataPayload, {
-      method: 'patch',
-      action: $form.getAttribute('action') ?? $form.action,
-    });
+        navigate(-1);
+      } catch (error) {
+        console.log(error);
+      }
+      return;
+    }
+
+    try {
+      const postPayload = {
+        name: formData.get('title'),
+        startTime: dayjs(currentEvent?.start).valueOf(),
+        endTime: dayjs(currentEvent?.end).valueOf(),
+        location: formData.get('address'),
+        description: formData.get('description'),
+        calendarId: 1,
+        attendees: currentEvent?.attendees
+          ? currentEvent.attendees.map(({ attendee }) => attendee.email)
+          : [],
+      };
+      const response = await axios(postEvent(window.ENV.API_HOST), {
+        method: 'post',
+        data: postPayload,
+        withCredentials: true,
+      });
+      addEvent(parseEvents([{ ...response.data.data }])[0]);
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  console.log({ currentEvent }, { setCalendarEvent });
 
   return (
     <Dialog.Root open={isOpen}>

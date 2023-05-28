@@ -12,8 +12,8 @@ interface RdsCalendarProps {
   eventsList: CalEvent[];
   defaultDate?: Date;
   currentEvent: CalEvent | undefined;
-  setCalendarEvent?: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
-  updateEvent: (event: CalEvent) => void;
+  setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
+  updateEvent?: (event: CalEvent) => void;
 }
 
 const localizer = momentLocalizer(moment);
@@ -24,8 +24,10 @@ const RdsCalendar = ({
   eventsList,
   defaultDate,
   currentEvent,
+  setCalendarEvent,
   updateEvent,
 }: RdsCalendarProps) => {
+  console.log(currentEvent?.start, eventsList);
   const RbcCalendar = withDragAndDrop(Calendar);
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
@@ -47,7 +49,17 @@ const RdsCalendar = ({
       onEventResize={onEventResize}
       selectable={true}
       scrollToTime={dayjs(currentEvent?.start).toDate()}
-      onSelectSlot={({ start }) => {
+      onSelectSlot={(ev: CalEvent) => {
+        console.log({ ev }, setCalendarEvent);
+        if (setCalendarEvent) {
+          console.log({ ev });
+
+          setCalendarEvent((event) => ({
+            ...event,
+            start: dayjs(ev.start).toDate(),
+            end: dayjs(ev.end).toDate(),
+          }));
+        }
         navigate('/calendar/new');
       }}
     />
