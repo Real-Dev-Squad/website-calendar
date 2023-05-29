@@ -26,7 +26,6 @@ const RdsCalendar = ({
   currentEvent,
   updateEvent,
 }: RdsCalendarProps) => {
-  console.log(currentEvent?.start, eventsList);
   const RbcCalendar = withDragAndDrop(Calendar);
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });

@@ -26,7 +26,6 @@ const Calendar = ({ view, events }: CalendarProps) => {
       description: event.description,
       attendees: event?.attendees ? event.attendees.map(({ attendee }) => attendee.email) : [],
     };
-    console.log({ event });
 
     try {
       const response = await axios(patchEvent(window.ENV.API_HOST, id), {

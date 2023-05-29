@@ -47,7 +47,6 @@ function CalendarPage() {
   useEffect(() => {
     if (error === null && events.length > 0) {
       // TODO: show a  different message if events are not present in the given date range
-      console.log({ events }, parseEvents(events));
 
       setEvents([...parseEvents(events)]);
     } else {
