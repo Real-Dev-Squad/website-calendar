@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTransition, Form, useNavigate, useParams, useLocation } from '@remix-run/react';
+import { Form, useNavigate, useParams, useLocation } from '@remix-run/react';
 import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
@@ -32,9 +32,9 @@ export default function EventModal({
   const { updateEvent, addEvent } = useStore((state) => state);
   const params = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const minDate = isNewEvent ? dayjs(location.state.start) : dayjs(currentEvent?.start);
-  const maxDate = isNewEvent ? dayjs(location.state.end) : dayjs(currentEvent?.end);
+  const routerLocation = useLocation() as { state: { start: string; end: string } };
+  const minDate = isNewEvent ? dayjs(routerLocation.state.start) : dayjs(currentEvent?.start);
+  const maxDate = isNewEvent ? dayjs(routerLocation.state.end) : dayjs(currentEvent?.end);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
@@ -49,6 +49,16 @@ export default function EventModal({
   const updateEventStateFromModal = (event: CalEvent) => {
     setCalendarEvent((e) => ({ ...e, event }));
   };
+
+  React.useEffect(() => {
+    if (params.eventId === 'new') {
+      setCalendarEvent((e) => ({
+        ...e,
+        start: dayjs(routerLocation.state.start),
+        end: dayjs(routerLocation.state.end),
+      }));
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

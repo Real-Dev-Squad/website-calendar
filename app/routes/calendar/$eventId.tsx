@@ -32,7 +32,6 @@ const EventDetails = () => {
         attendees: calEvent!.attendees,
       });
     }
-    // console.log({ calendarEvent });
   }, []);
 
   return (
@@ -41,6 +40,7 @@ const EventDetails = () => {
         currentEvent={calendarEvent}
         events={eventsList}
         isNewEvent={params.eventId === 'new'}
+        setCalendarEvent={setCalendarEvent}
       />
     </div>
   );
