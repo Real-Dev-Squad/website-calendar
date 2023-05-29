@@ -14,7 +14,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({ view, events }: CalendarProps) => {
-  const { events: eventsList, updateEvent } = useStore((state) => state);
+  const { updateEvent } = useStore((state) => state);
 
   const updateEventStateFromCalendar = async (event: CalEvent) => {
     const { id } = event;
@@ -28,7 +28,7 @@ const Calendar = ({ view, events }: CalendarProps) => {
     };
 
     try {
-      const response = await axios(patchEvent(window.ENV.API_HOST, id), {
+      const response = await axios(patchEvent(window.ENV.API_HOST, id as number), {
         method: 'patch',
         data: payload,
         withCredentials: true,

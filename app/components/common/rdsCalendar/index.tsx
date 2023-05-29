@@ -12,7 +12,7 @@ interface RdsCalendarProps {
   eventsList: CalEvent[];
   defaultDate?: Date;
   currentEvent: CalEvent | undefined;
-  setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
+  setCalendarEvent?: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
   updateEvent?: (event: CalEvent) => void;
 }
 
