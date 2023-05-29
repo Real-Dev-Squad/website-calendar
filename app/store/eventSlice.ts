@@ -3,6 +3,7 @@ import { EventState } from '~/utils/interfaces';
 
 export const createEventSlice: StateCreator<EventState, [], [], EventState> = (set) => ({
   events: [],
+  currentEvent: {},
   setEvents: (events) => set(() => ({ events: [...events] })),
   addEvent: (event) => set((state) => ({ events: [...state.events, event] })),
   removeEvent: (event) =>
@@ -16,4 +17,5 @@ export const createEventSlice: StateCreator<EventState, [], [], EventState> = (s
         return e;
       }),
     })),
+  setCurrentEvent: (event) => set(() => ({ currentEvent: { ...event } })),
 });

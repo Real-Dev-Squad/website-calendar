@@ -24,7 +24,6 @@ const RdsCalendar = ({
   eventsList,
   defaultDate,
   currentEvent,
-  setCalendarEvent,
   updateEvent,
 }: RdsCalendarProps) => {
   console.log(currentEvent?.start, eventsList);
@@ -50,17 +49,9 @@ const RdsCalendar = ({
       selectable={true}
       scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={(ev: CalEvent) => {
-        console.log({ ev }, setCalendarEvent);
-        if (setCalendarEvent) {
-          console.log({ ev });
-
-          setCalendarEvent((event) => ({
-            ...event,
-            start: dayjs(ev.start).toDate(),
-            end: dayjs(ev.end).toDate(),
-          }));
-        }
-        navigate('/calendar/new');
+        navigate('/calendar/new', {
+          state: { start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() },
+        });
       }}
     />
   );

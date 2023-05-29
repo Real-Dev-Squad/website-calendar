@@ -22,6 +22,7 @@ const EventDetails = () => {
       const calEvent = eventsList.find(
         (event: CalEvent) => event.id === parseInt(params.eventId as string, 10),
       );
+
       setCalendarEvent({
         title: calEvent!.title,
         start: calEvent!.start,
@@ -31,15 +32,15 @@ const EventDetails = () => {
         attendees: calEvent!.attendees,
       });
     }
-    console.log({ calendarEvent });
-  }, [calendarEvent]);
+    // console.log({ calendarEvent });
+  }, []);
 
   return (
     <div>
       <EventModal
-        events={eventsList}
         currentEvent={calendarEvent}
-        setCalendarEvent={setCalendarEvent}
+        events={eventsList}
+        isNewEvent={params.eventId === 'new'}
       />
     </div>
   );
