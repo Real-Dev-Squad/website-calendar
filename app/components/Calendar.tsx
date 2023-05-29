@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-big-calendar';
-import { CalEvent, CalendarEventProps } from '~/utils/interfaces';
+import dayjs from 'dayjs';
+import axios from 'axios';
+import { CalEvent } from '~/utils/interfaces';
 import RdsCalendar from '~/components/common/rdsCalendar';
 import { useStore } from '~/store/useStore';
 import { parseEvents } from '~/utils/event.utils';
-import dayjs from 'dayjs';
-import axios from 'axios';
 import { patchEvent } from '~/constants/urls.constants';
 
 interface CalendarProps {
