@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { LinksFunction, LoaderFunction, json } from '@remix-run/node';
-import { Outlet } from '@remix-run/react';
+import { Outlet, useLoaderData, ShouldReloadFunction } from '@remix-run/react';
 import { toast, ToastContainer } from 'react-toastify';
 import styles from 'react-datepicker/dist/react-datepicker.css';
-import Calendar from '~/components/Calendar';
-import Navbar from '~/components/common/navbar';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import Calendar from '~/components/Calendar';
+import Navbar from '~/components/common/navbar';
 import { useStore } from '~/store/useStore';
-import { useLoaderData, ShouldReloadFunction } from '@remix-run/react';
 import { parseEvents } from '~/utils/event.utils';
 import { getEvents } from '~/constants/urls.constants';
 import { getUrls } from '~/models/urls.server';
@@ -34,7 +33,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
     return json<LoaderData>({ events: response.data.data, ENV: baseUrls, error: null });
   } catch (error) {
-    return { events: null, ENV: baseUrls, error: error };
+    return { events: null, ENV: baseUrls, error };
   }
 };
 export const unstableShouldReload: ShouldReloadFunction = () => false;

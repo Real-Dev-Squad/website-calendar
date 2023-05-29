@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTransition, Form, useNavigate, useParams } from '@remix-run/react';
+import { useTransition, Form, useNavigate, useParams, useLocation } from '@remix-run/react';
 import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
@@ -19,28 +19,22 @@ interface EventModalProps {
   events: CalEvent[];
   currentEvent: CalEvent | undefined;
   createEvent?: (event: CalEvent) => void;
-  isOpen?: boolean;
+  isNewEvent: boolean;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
 }
 
 export default function EventModal({
   events,
   currentEvent,
-  isOpen = true,
+  isNewEvent = true,
   setCalendarEvent,
 }: EventModalProps) {
   const { updateEvent, addEvent } = useStore((state) => state);
-  const transition = useTransition();
   const params = useParams();
   const navigate = useNavigate();
-  const minDate = dayjs(currentEvent?.start);
-  const maxDate = dayjs(currentEvent?.end);
-  const text =
-    transition.state === 'submitting'
-      ? 'Saving...'
-      : transition.state === 'loading'
-      ? 'Saved!'
-      : 'submit';
+  const location = useLocation();
+  const minDate = isNewEvent ? dayjs(location.state.start) : dayjs(currentEvent?.start);
+  const maxDate = isNewEvent ? dayjs(location.state.end) : dayjs(currentEvent?.end);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
@@ -121,10 +115,8 @@ export default function EventModal({
     }
   };
 
-  console.log({ currentEvent }, { setCalendarEvent });
-
   return (
-    <Dialog.Root open={isOpen}>
+    <Dialog.Root open={true}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-20 bg-black bg-opacity-40 animate-overlayShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1" />
         <Dialog.Content className="z-30 fixed top-0 left-0 w-screen h-[95vh] my-6 box-border bg-white rounded-lg shadow-lg animate-contentShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1 focus:outline-none">
@@ -145,7 +137,7 @@ export default function EventModal({
                 <div className="p-2">
                   <Dialog.Title>
                     <UserInput
-                      disabled={text !== 'submit'}
+                      disabled={false}
                       dataTestId="modal-title"
                       label=""
                       name="title"
@@ -165,7 +157,7 @@ export default function EventModal({
                     <div data-testid="modal-from-date">
                       <p className="text-4 mb-2">From</p>
                       <DatePicker
-                        disabled={text !== 'submit'}
+                        disabled={false}
                         placeholderText="from-date"
                         className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         selected={minDate.toDate()}
@@ -188,7 +180,7 @@ export default function EventModal({
                     <div data-testid="modal-to-date">
                       <p className="text-4 mb-2">To</p>
                       <DatePicker
-                        disabled={text !== 'submit'}
+                        disabled={false}
                         placeholderText="to-date"
                         className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         minDate={minDate.toDate()}
@@ -216,7 +208,7 @@ export default function EventModal({
                     />
 
                     <UserInput
-                      disabled={text !== 'submit'}
+                      disabled={false}
                       dataTestId="modal-location"
                       label="URL / Address"
                       name="address"
@@ -228,7 +220,7 @@ export default function EventModal({
 
                     <p className="text-4 mb-2">Description</p>
                     <textarea
-                      disabled={text !== 'submit'}
+                      disabled={false}
                       aria-label="Event Description"
                       className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full"
                       rows={2}
@@ -241,7 +233,7 @@ export default function EventModal({
                       }
                     ></textarea>
 
-                    <Button dataTestId="modal-save-btn" label={text} type="submit" />
+                    <Button dataTestId="modal-save-btn" label={'Submit'} type="submit" />
                   </div>
                 </div>
               </div>
