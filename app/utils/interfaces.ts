@@ -8,7 +8,6 @@ export interface Attendees {
 }
 
 export interface CalEvent extends Event {
-  name?: string;
   id?: number;
   description?: string;
   location?: string;

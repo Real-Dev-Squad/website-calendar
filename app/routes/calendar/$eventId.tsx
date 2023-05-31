@@ -6,14 +6,7 @@ import { CalEvent } from '~/utils/interfaces';
 
 const EventDetails = () => {
   const { events: eventsList } = useStore((state) => state);
-  const [calendarEvent, setCalendarEvent] = React.useState<any>({
-    title: '',
-    start: undefined,
-    end: undefined,
-    location: '',
-    description: '',
-    attendees: [],
-  });
+  const [calendarEvent, setCalendarEvent] = React.useState<CalEvent>();
 
   const params = useParams();
 
@@ -21,15 +14,15 @@ const EventDetails = () => {
     if (params.eventId !== 'new') {
       const calEvent = eventsList.find(
         (event: CalEvent) => event.id === parseInt(params.eventId as string, 10),
-      );
+      ) as CalEvent;
 
       setCalendarEvent({
-        title: calEvent!.title,
-        start: calEvent!.start,
-        end: calEvent!.end,
-        location: calEvent!.location,
-        description: calEvent!.description,
-        attendees: calEvent!.attendees,
+        title: calEvent.title,
+        start: calEvent.start,
+        end: calEvent.end,
+        location: calEvent.location,
+        description: calEvent.description,
+        attendees: calEvent.attendees,
       });
     }
   }, []);

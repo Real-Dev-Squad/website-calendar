@@ -9,11 +9,6 @@ export const createEventSlice: StateCreator<EventState, [], [], EventState> = (s
     set((state) => ({ events: state.events.filter(({ id }) => id !== event.id) })),
   updateEvent: (event) =>
     set((state) => ({
-      events: state.events.map((e) => {
-        if (e.id === event.id) {
-          return event;
-        }
-        return e;
-      }),
+      events: state.events.map((e) => (e.id === event.id ? event : e)),
     })),
 });

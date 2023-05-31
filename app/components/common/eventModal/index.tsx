@@ -4,7 +4,6 @@ import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
 import DatePicker from 'react-datepicker';
-import { toast } from 'react-toastify';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import { useStore } from '~/store/useStore';
 import UserInput from '../userInput';

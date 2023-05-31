@@ -52,6 +52,7 @@ const RdsCalendar = ({
           state: { start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() },
         });
       }}
+      onView={(view) => console.log(view)}
     />
   );
 };

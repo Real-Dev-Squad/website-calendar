@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-big-calendar';
-import dayjs from 'dayjs';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { CalEvent } from '~/utils/interfaces';
 import RdsCalendar from '~/components/common/rdsCalendar';
 import { useStore } from '~/store/useStore';
-import { parseEvents } from '~/utils/event.utils';
+import { parseEvents, parseEventToPayload } from '~/utils/event.utils';
 import { patchEvent } from '~/constants/urls.constants';
 
 interface CalendarProps {
@@ -18,14 +18,7 @@ const Calendar = ({ view, events }: CalendarProps) => {
 
   const updateEventStateFromCalendar = async (event: CalEvent) => {
     const { id } = event;
-    const payload = {
-      name: event.title,
-      startTime: dayjs(event?.start).valueOf(),
-      endTime: dayjs(event?.end).valueOf(),
-      location: event.location,
-      description: event.description,
-      attendees: event?.attendees ? event.attendees.map(({ attendee }) => attendee.email) : [],
-    };
+    const payload = parseEventToPayload(event);
 
     try {
       const response = await axios(patchEvent(window.ENV.API_HOST, id as number), {
@@ -36,18 +29,22 @@ const Calendar = ({ view, events }: CalendarProps) => {
 
       updateEvent(parseEvents([{ ...response.data.data }])[0]);
     } catch (error) {
-      console.log(error);
+      toast.error('unable to update', {
+        toastId: 'events_error',
+      });
     }
 
     updateEvent(event);
   };
+
+  console.log('Calendar', events);
 
   const memoizedRdsCalendar = React.useCallback(
     () => (
       <RdsCalendar
         view={view}
         eventsList={events}
-        currentEvent={events[0] ? events[0] : {}}
+        currentEvent={events.length ? events[0] : {}}
         updateEvent={updateEventStateFromCalendar}
       />
     ),

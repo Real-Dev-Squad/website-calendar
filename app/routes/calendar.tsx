@@ -48,7 +48,7 @@ function CalendarPage() {
     if (error === null && events.length > 0) {
       // TODO: show a  different message if events are not present in the given date range
 
-      setEvents([...parseEvents(events)]);
+      setEvents([parseEvents(events)][0]);
     } else {
       // TODO: redirect the user to login page on 401
       toast.error('Unable to get events', {
@@ -57,13 +57,15 @@ function CalendarPage() {
     }
   }, []);
 
+  console.log('calendarPage', events);
+
   return (
     <div className="">
       <div className="flex flex-col-reverse md:flex-row ">
         <Navbar />
         <div className="flex justify-center flex-grow">
           <ToastContainer />
-          <Calendar events={eventList} />
+          <Calendar events={eventList.length ? eventList : parseEvents(events ?? [])} />
           <Outlet />
         </div>
       </div>
