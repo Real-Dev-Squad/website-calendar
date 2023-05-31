@@ -16,7 +16,7 @@ import { parseEvents } from '~/utils/event.utils';
 
 interface EventModalProps {
   events: CalEvent[];
-  currentEvent: CalEvent | undefined;
+  currentEvent: CalEvent;
   createEvent?: (event: CalEvent) => void;
   isNewEvent: boolean;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
@@ -32,8 +32,8 @@ export default function EventModal({
   const params = useParams();
   const navigate = useNavigate();
   const routerLocation = useLocation() as { state: { start: string; end: string } };
-  const minDate = isNewEvent ? dayjs(routerLocation.state.start) : dayjs(currentEvent?.start);
-  const maxDate = isNewEvent ? dayjs(routerLocation.state.end) : dayjs(currentEvent?.end);
+  const minDate = isNewEvent ? dayjs(routerLocation.state.start) : dayjs(currentEvent.start);
+  const maxDate = isNewEvent ? dayjs(routerLocation.state.end) : dayjs(currentEvent.end);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
@@ -70,13 +70,11 @@ export default function EventModal({
     if (params.eventId !== 'new') {
       const payload = {
         name: formData.get('title'),
-        startTime: dayjs(currentEvent?.start).valueOf(),
-        endTime: dayjs(currentEvent?.end).valueOf(),
+        startTime: dayjs(currentEvent.start).valueOf(),
+        endTime: dayjs(currentEvent.end).valueOf(),
         location: formData.get('address'),
         description: formData.get('description'),
-        attendees: currentEvent?.attendees
-          ? currentEvent.attendees.map(({ attendee }) => attendee.email)
-          : [],
+        attendees: currentEvent?.attendees.map(({ attendee }) => attendee.email) || [],
       };
       try {
         const response = await axios(
@@ -103,8 +101,8 @@ export default function EventModal({
     try {
       const postPayload = {
         name: formData.get('title'),
-        startTime: dayjs(currentEvent?.start).valueOf(),
-        endTime: dayjs(currentEvent?.end).valueOf(),
+        startTime: dayjs(currentEvent.start).valueOf(),
+        endTime: dayjs(currentEvent.end).valueOf(),
         location: formData.get('address'),
         description: formData.get('description'),
         calendarId: 1,

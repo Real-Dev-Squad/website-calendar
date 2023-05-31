@@ -37,8 +37,6 @@ const Calendar = ({ view, events }: CalendarProps) => {
     updateEvent(event);
   };
 
-  console.log('Calendar', events);
-
   const memoizedRdsCalendar = React.useCallback(
     () => (
       <RdsCalendar

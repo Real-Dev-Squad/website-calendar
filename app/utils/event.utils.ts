@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { CalEvent } from '~/utils/interfaces';
 
 // parse event objs from backend to frontend format
-export const parseEvents = (events: any[]) => {
-  return events?.reduce((acc, event) => {
+export const parseEvents = (events: any[]) =>
+  events?.reduce((acc, event) => {
     const { name, startTime, endTime, Attendees, isDeleted, ...remainingEventDetails } = event;
     return [
       ...acc,
@@ -16,7 +16,6 @@ export const parseEvents = (events: any[]) => {
       },
     ];
   }, []);
-};
 
 export const parseEventToPayload = (event: CalEvent) => ({
   name: event.title,
@@ -24,5 +23,5 @@ export const parseEventToPayload = (event: CalEvent) => ({
   endTime: dayjs(event?.end).valueOf(),
   location: event.location,
   description: event.description,
-  attendees: event?.attendees ? event.attendees.map(({ attendee }) => attendee.email) : [],
+  attendees: event?.attendees.map(({ attendee }) => attendee.email) || [],
 });

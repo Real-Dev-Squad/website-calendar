@@ -57,8 +57,6 @@ function CalendarPage() {
     }
   }, []);
 
-  console.log('calendarPage', events);
-
   return (
     <div className="">
       <div className="flex flex-col-reverse md:flex-row ">
