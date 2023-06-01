@@ -14,27 +14,29 @@ interface CalendarProps {
 }
 
 const Calendar = ({ view, events }: CalendarProps) => {
-  const { updateEvent } = useStore((state) => state);
+  const { updateEvent, events: globalEvents } = useStore((state) => state);
 
   const updateEventStateFromCalendar = async (event: CalEvent) => {
     const { id } = event;
+    const prevEvent = globalEvents.find((ev) => ev.id === id) as CalEvent;
+    updateEvent(event);
     const payload = parseEventToPayload(event);
-
     try {
       const response = await axios(patchEvent(window.ENV.API_HOST, id as number), {
         method: 'patch',
         data: payload,
         withCredentials: true,
       });
-
+      toast.success('event updated successfully!', {
+        toastId: 'events_success',
+      });
       updateEvent(parseEvents([{ ...response.data.data }])[0]);
     } catch (error) {
       toast.error('unable to update', {
         toastId: 'events_error',
       });
+      updateEvent(prevEvent);
     }
-
-    updateEvent(event);
   };
 
   const memoizedRdsCalendar = React.useCallback(

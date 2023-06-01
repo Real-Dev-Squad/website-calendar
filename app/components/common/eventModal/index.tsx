@@ -13,6 +13,7 @@ import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
 import { patchEvent, postEvent } from '~/constants/urls.constants';
 import { parseEvents } from '~/utils/event.utils';
+import { toast } from 'react-toastify';
 
 interface EventModalProps {
   events: CalEvent[];
@@ -90,7 +91,6 @@ export default function EventModal({
         );
 
         updateEvent(parseEvents([{ ...response.data.data }])[0]);
-
         navigate(-1);
       } catch (error) {
         console.log(error);
@@ -118,7 +118,9 @@ export default function EventModal({
       addEvent(parseEvents([{ ...response.data.data }])[0]);
       navigate(-1);
     } catch (error) {
-      console.log(error);
+      toast.error('unable to add event', {
+        toastId: 'events_error',
+      });
     }
   };
 

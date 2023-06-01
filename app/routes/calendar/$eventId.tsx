@@ -24,6 +24,7 @@ const EventDetails = () => {
           ...calEvent,
         });
       } else {
+        // if event not available redirect back to calendar
         toast.error('cannot find event', {
           toastId: 'events_error',
         });

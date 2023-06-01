@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
+import { useStore } from '~/store/useStore';
 
 interface RdsCalendarProps {
   height?: string;
@@ -32,7 +33,7 @@ const RdsCalendar = ({
   const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
   const navigate = useNavigate();
-
+  const setView = useStore((state) => state.setView);
   return (
     <RbcCalendar
       localizer={localizer}
@@ -52,7 +53,7 @@ const RdsCalendar = ({
           state: { start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() },
         });
       }}
-      onView={(view) => console.log(view)}
+      onView={(v: View) => setView(v)}
     />
   );
 };

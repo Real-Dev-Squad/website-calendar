@@ -41,7 +41,7 @@ export const unstableShouldReload: ShouldReloadFunction = () => false;
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 function CalendarPage() {
-  const { setEvents, events: eventList } = useStore((state) => state);
+  const { setEvents, events: eventList, view } = useStore((state) => state);
   const { events, error } = useLoaderData();
 
   useEffect(() => {
@@ -63,7 +63,7 @@ function CalendarPage() {
         <Navbar />
         <div className="flex justify-center flex-grow">
           <ToastContainer />
-          <Calendar events={eventList.length ? eventList : parseEvents(events ?? [])} />
+          <Calendar events={eventList.length ? eventList : parseEvents(events ?? [])} view={view} />
           <Outlet />
         </div>
       </div>
