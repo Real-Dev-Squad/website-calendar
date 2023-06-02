@@ -691,6 +691,11 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }

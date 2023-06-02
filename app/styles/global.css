@@ -27,4 +27,7 @@
   color: #78716c;
   font-size: 60%;
 }
+.rbc-off-range-bg {
+  background-color: #f5f5f5;
+}
 /* overriding react-big-calendar's css properties */
