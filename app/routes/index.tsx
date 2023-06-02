@@ -40,7 +40,6 @@ export const unstableShouldReload: ShouldReloadFunction = () => false;
 function CalendarPage() {
   const { setEvents, events: eventList, view } = useStore((state) => state);
   const { events, error } = useLoaderData();
-  console.log({ events });
 
   useEffect(() => {
     if (error === null && events.length > 0) {

@@ -65,8 +65,7 @@ export default function EventModal({
     // grab the form element
     const $form = e.currentTarget;
 
-    // get the formData from that form
-    // const formData = new FormData($form);
+    // get the payload from the form
 
     if (params.eventId !== 'new') {
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
