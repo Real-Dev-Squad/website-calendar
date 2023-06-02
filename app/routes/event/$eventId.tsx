@@ -28,7 +28,7 @@ const EventDetails = () => {
         toast.error('cannot find event', {
           toastId: 'events_error',
         });
-        navigate(-1);
+        navigate('/');
       }
     }
   }, []);

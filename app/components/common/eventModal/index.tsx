@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
 import DatePicker from 'react-datepicker';
+import { toast } from 'react-toastify';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import { useStore } from '~/store/useStore';
 import UserInput from '../userInput';
@@ -12,8 +13,7 @@ import EventVisibility from '../eventVisibility';
 import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
 import { patchEvent, postEvent } from '~/constants/urls.constants';
-import { parseEvents } from '~/utils/event.utils';
-import { toast } from 'react-toastify';
+import { parseEventToCreateOrUpdateEventPayload, parseEvents } from '~/utils/event.utils';
 
 interface EventModalProps {
   events: CalEvent[];
@@ -29,7 +29,7 @@ export default function EventModal({
   isNewEvent = true,
   setCalendarEvent,
 }: EventModalProps) {
-  const { updateEvent, addEvent } = useStore((state) => state);
+  const { updateEvent, addEvent, view } = useStore((state) => state);
   const params = useParams();
   const navigate = useNavigate();
   const routerLocation = useLocation() as { state: { start: string; end: string } };
@@ -66,17 +66,10 @@ export default function EventModal({
     const $form = e.currentTarget;
 
     // get the formData from that form
-    const formData = new FormData($form);
+    // const formData = new FormData($form);
 
     if (params.eventId !== 'new') {
-      const payload = {
-        name: formData.get('title'),
-        startTime: dayjs(currentEvent.start).valueOf(),
-        endTime: dayjs(currentEvent.end).valueOf(),
-        location: formData.get('address'),
-        description: formData.get('description'),
-        attendees: currentEvent?.attendees.map(({ attendee }) => attendee.email) || [],
-      };
+      const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       try {
         const response = await axios(
           patchEvent(
@@ -91,32 +84,24 @@ export default function EventModal({
         );
 
         updateEvent(parseEvents([{ ...response.data.data }])[0]);
-        navigate(-1);
+        navigate('/');
       } catch (error) {
-        console.log(error);
+        toast.error('unable to update event', {
+          toastId: 'events_error',
+        });
       }
       return;
     }
 
     try {
-      const postPayload = {
-        name: formData.get('title'),
-        startTime: dayjs(currentEvent.start).valueOf(),
-        endTime: dayjs(currentEvent.end).valueOf(),
-        location: formData.get('address'),
-        description: formData.get('description'),
-        calendarId: 1,
-        attendees: currentEvent?.attendees
-          ? currentEvent.attendees.map(({ attendee }) => attendee.email)
-          : [],
-      };
+      const postPayload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       const response = await axios(postEvent(window.ENV.API_HOST), {
         method: 'post',
         data: postPayload,
         withCredentials: true,
       });
       addEvent(parseEvents([{ ...response.data.data }])[0]);
-      navigate(-1);
+      navigate('/');
     } catch (error) {
       toast.error('unable to add event', {
         toastId: 'events_error',
@@ -128,7 +113,7 @@ export default function EventModal({
     <Dialog.Root open={true}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-20 bg-black bg-opacity-40 animate-overlayShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1" />
-        <Dialog.Content className="z-30 fixed top-0 left-0 w-screen h-[95vh] my-6 box-border bg-white rounded-lg shadow-lg animate-contentShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1 focus:outline-none">
+        <Dialog.Content className="z-30 fixed top-0 left-0 w-screen h-screen my-0 box-border bg-white rounded-lg shadow-lg animate-contentShow duration-150 transition-timing-cubic-bezier-0.16-1-0.3-1 focus:outline-none">
           <div className="h-full w-full flex">
             <Form method="patch" onSubmit={handleSubmit}>
               <div className="p-4 h-full w-full md:w-[400px] border-r-[1px] border-stone-50 overflow-auto">
@@ -137,7 +122,7 @@ export default function EventModal({
                     data-testid="modal-close-btn"
                     className="rounded-lg outline-none cursor-pointer py-2 px-4 text-sm bg-neutral-100 border-neutral-200 border-[1px] text-neutral-500"
                     aria-label="Close"
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate('/')}
                   >
                     CLOSE
                   </button>
@@ -250,7 +235,7 @@ export default function EventModal({
             <div className="flex-auto hidden md:block">
               <RdsCalendar
                 height="100%"
-                view="day"
+                view={view}
                 eventsList={events}
                 defaultDate={currentEvent?.start}
                 currentEvent={currentEvent}

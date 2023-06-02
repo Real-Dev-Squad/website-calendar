@@ -25,3 +25,18 @@ export const parseEventToPayload = (event: CalEvent) => ({
   description: event.description,
   attendees: event?.attendees.map(({ attendee }) => attendee.email) || [],
 });
+
+export const parseEventToCreateOrUpdateEventPayload = (
+  form: HTMLFormElement,
+  currentEvent: CalEvent,
+) => {
+  const formData = new FormData(form);
+  return {
+    name: formData.get('title'),
+    startTime: dayjs(currentEvent.start).valueOf(),
+    endTime: dayjs(currentEvent.end).valueOf(),
+    location: formData.get('address'),
+    description: formData.get('description'),
+    attendees: currentEvent?.attendees.map(({ attendee }) => attendee.email) || [],
+  };
+};

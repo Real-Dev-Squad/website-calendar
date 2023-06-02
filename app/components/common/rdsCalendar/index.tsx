@@ -27,6 +27,7 @@ const RdsCalendar = ({
   currentEvent,
   updateEvent,
 }: RdsCalendarProps) => {
+  const [date, setDate] = React.useState(dayjs(currentEvent?.start).toDate());
   const RbcCalendar = withDragAndDrop(Calendar);
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
@@ -34,6 +35,10 @@ const RdsCalendar = ({
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
   const navigate = useNavigate();
   const setView = useStore((state) => state.setView);
+
+  const handleNavigate = (localDate: any) => {
+    setDate(dayjs(localDate).toDate());
+  };
   return (
     <RbcCalendar
       localizer={localizer}
@@ -42,18 +47,21 @@ const RdsCalendar = ({
       defaultView={view ?? 'week'}
       style={{ height: height ?? '100vh' }}
       onSelectEvent={(event: CalEvent) => {
-        navigate(`/calendar/${event?.id}`);
+        navigate(`/event/${event.id}`);
       }}
+      // date={date}
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
       selectable={true}
       scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={(ev: CalEvent) => {
-        navigate('/calendar/new', {
+        navigate('/event/new', {
           state: { start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() },
         });
       }}
       onView={(v: View) => setView(v)}
+      // onRangeChange={(e) => console.log(e)}
+      // onNavigate={(e) => handleNavigate(e)}
     />
   );
 };
