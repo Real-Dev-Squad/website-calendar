@@ -39,17 +39,18 @@ const RdsCalendar = ({
   const handleNavigate = (localDate: any) => {
     setDate(dayjs(localDate).toDate());
   };
+
   return (
     <RbcCalendar
       localizer={localizer}
       events={eventsList}
       defaultDate={defaultDate}
-      defaultView={view ?? 'week'}
+      defaultView={view}
       style={{ height: height ?? '100vh' }}
       onSelectEvent={(event: CalEvent) => {
         navigate(`/event/${event.id}`);
       }}
-      // date={date}
+      date={date}
       onEventDrop={onEventDrop}
       onEventResize={onEventResize}
       selectable={true}
@@ -61,7 +62,7 @@ const RdsCalendar = ({
       }}
       onView={(v: View) => setView(v)}
       // onRangeChange={(e) => console.log(e)}
-      // onNavigate={(e) => handleNavigate(e)}
+      onNavigate={(e) => handleNavigate(e)}
     />
   );
 };

@@ -48,7 +48,7 @@ const Calendar = ({ view, events }: CalendarProps) => {
         updateEvent={updateEventStateFromCalendar}
       />
     ),
-    [events],
+    [events, view],
   );
 
   return (

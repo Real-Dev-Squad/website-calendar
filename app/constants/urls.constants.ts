@@ -4,6 +4,8 @@ export const checkUsername = (HOST: string, username: string) =>
 export const getEvents = (HOST: string, startTime: number, endTime: number) =>
   `${HOST}/events/calendar/${1}?startTime=${startTime}&endTime=${endTime}`;
 
+export const getEventById = (HOST: string, id: number) => `${HOST}/events/${id}`;
+
 export const patchEvent = (HOST: string, id: number) => `${HOST}/events/${id}`;
 
 export const postEvent = (HOST: string) => `${HOST}/events/`;
