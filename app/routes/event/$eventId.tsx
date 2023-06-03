@@ -16,8 +16,8 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
-
   const cookie = request.headers.get('cookie');
+
   try {
     const response = await axios.get(
       getEventById(process.env.API_HOST as string, parseInt(url.pathname.split('/')[2], 10)),
@@ -30,10 +30,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
     return json<LoaderData>({ event: response.data.data, error: null });
   } catch (error) {
-    throw new Response(null, {
-      status: 404,
-      statusText: 'Not Found',
-    });
+    if ((url.pathname.split('/')[2] as string) !== 'new') {
+      throw new Response(null, {
+        status: 404,
+        statusText: 'Not Found',
+      });
+    }
+    return { event: dummyEvent };
   }
 };
 
@@ -41,10 +44,11 @@ const EventDetails = () => {
   const { event } = useLoaderData();
 
   const { events: eventsList } = useStore((state) => state);
-  const [calendarEvent, setCalendarEvent] = React.useState<CalEvent>(dummyEvent);
+  const [calendarEvent, setCalendarEvent] = React.useState<CalEvent>(
+    parseEvents([event])[0] ?? dummyEvent,
+  );
 
   const params = useParams();
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (params.eventId !== 'new') {
@@ -59,11 +63,11 @@ const EventDetails = () => {
       }
     }
   }, []);
-  console.log({ event: parseEvents([event])[0] });
+
   return (
     <div>
       <EventModal
-        currentEvent={parseEvents([event])[0] ?? calendarEvent}
+        currentEvent={calendarEvent}
         events={eventsList}
         isNewEvent={params.eventId === 'new'}
         setCalendarEvent={setCalendarEvent}

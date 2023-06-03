@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { defaultCalendarId } from '../constants/urls.constants';
 import { CalEvent } from '~/utils/interfaces';
 
 // parse event objs from backend to frontend format
@@ -23,7 +24,7 @@ export const parseEventToPayload = (event: CalEvent) => ({
   endTime: dayjs(event?.end).valueOf(),
   location: event.location,
   description: event.description,
-  attendees: event?.attendees.map(({ attendee }) => attendee.email) || [],
+  attendees: event.attendees ? event.attendees.map(({ attendee }) => attendee.email) : [],
 });
 
 export const parseEventToCreateOrUpdateEventPayload = (
@@ -31,12 +32,16 @@ export const parseEventToCreateOrUpdateEventPayload = (
   currentEvent: CalEvent,
 ) => {
   const formData = new FormData(form);
+
   return {
     name: formData.get('title'),
     startTime: dayjs(currentEvent.start).valueOf(),
     endTime: dayjs(currentEvent.end).valueOf(),
     location: formData.get('address'),
+    calendarId: defaultCalendarId,
     description: formData.get('description'),
-    attendees: currentEvent?.attendees.map(({ attendee }) => attendee.email) || [],
+    attendees: currentEvent.attendees
+      ? currentEvent.attendees.map(({ attendee }) => attendee.email)
+      : [],
   };
 };

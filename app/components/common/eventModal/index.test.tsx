@@ -2,6 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { CalEvent } from '~/utils/interfaces';
 import EventModal from '.';
+import { useStore } from '~/store/useStore';
 
 const mockEvent: CalEvent = {
   id: 1,
@@ -18,18 +19,26 @@ const mockUpdateEvent = jest.fn();
 const mockSetCalendarEvent = jest.fn();
 const mockSetIsOpen = jest.fn();
 
-describe('EventModal', () => {
+describe.only('EventModal', () => {
+  const initialStoreState = useStore.getState();
+
+  beforeEach(() => {
+    useStore.setState(initialStoreState, true);
+  });
+
+  useStore.setState({ events: [], view: 'week' });
+
   test('renders EventModal component', () => {
+    console.log({ initialStoreState });
     const { getByPlaceholderText } = render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
+    useStore.setState({ events: [] });
     expect(screen.getByTestId('modal-close-btn')).toBeInTheDocument();
     expect(screen.getByTestId('modal-title')).toHaveValue('Mock Event');
     expect(screen.getByTestId('modal-visibility')).toHaveTextContent('Private');
@@ -47,11 +56,9 @@ describe('EventModal', () => {
   test('updates event title when title input is changed', () => {
     render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -65,11 +72,9 @@ describe('EventModal', () => {
   test('should call setIsOpen with false when user clicks the Close button', () => {
     render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -84,11 +89,9 @@ describe('EventModal', () => {
   test('should call updateEvent with the updated event when user clicks the Save button', () => {
     render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -102,11 +105,9 @@ describe('EventModal', () => {
   test('updates event visibility when visibility button is tapped', () => {
     render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -120,11 +121,9 @@ describe('EventModal', () => {
   test('updates event start date when start date input is changed', () => {
     const { getByPlaceholderText } = render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -138,11 +137,9 @@ describe('EventModal', () => {
   test('updates event end date when end date input is changed', () => {
     const { getByPlaceholderText } = render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -156,11 +153,9 @@ describe('EventModal', () => {
   test('updates event attendees when attendees input is changed', () => {
     render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );
@@ -174,11 +169,9 @@ describe('EventModal', () => {
   test('updates event location when location input is changed', () => {
     render(
       <EventModal
-        event={mockEvent}
-        eventsList={[mockEvent]}
+        events={[mockEvent]}
         currentEvent={mockEvent}
-        setIsOpen={mockSetIsOpen}
-        updateEvent={mockUpdateEvent}
+        isNewEvent={true}
         setCalendarEvent={mockSetCalendarEvent}
       />,
     );

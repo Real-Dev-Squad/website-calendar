@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
-import { useStore } from '~/store/useStore';
+import { useStore } from '../../../store/useStore';
 
 interface RdsCalendarProps {
   height?: string;
@@ -14,7 +14,7 @@ interface RdsCalendarProps {
   defaultDate?: Date;
   currentEvent: CalEvent | undefined;
   setCalendarEvent?: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
-  updateEvent?: (event: CalEvent) => void;
+  updateEvent: (event: CalEvent) => void;
 }
 
 const localizer = momentLocalizer(moment);

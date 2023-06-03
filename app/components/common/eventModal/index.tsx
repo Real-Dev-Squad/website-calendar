@@ -6,14 +6,14 @@ import dayjs from 'dayjs';
 import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
-import { useStore } from '~/store/useStore';
+import { useStore } from '../../../store/useStore';
 import UserInput from '../userInput';
 import RdsCalendar from '../rdsCalendar';
 import EventVisibility from '../eventVisibility';
 import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
-import { patchEvent, postEvent } from '~/constants/urls.constants';
-import { parseEventToCreateOrUpdateEventPayload, parseEvents } from '~/utils/event.utils';
+import { patchEvent, postEvent } from '../../../constants/urls.constants';
+import { parseEventToCreateOrUpdateEventPayload, parseEvents } from '../../../utils/event.utils';
 
 interface EventModalProps {
   events: CalEvent[];
@@ -64,10 +64,13 @@ export default function EventModal({
     e.preventDefault();
     // grab the form element
     const $form = e.currentTarget;
+    console.log({ form: $form });
 
     // get the payload from the form
 
     if (params.eventId !== 'new') {
+      console.log('inside if');
+
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       try {
         const response = await axios(
@@ -91,9 +94,12 @@ export default function EventModal({
       }
       return;
     }
+    console.log('before new ');
 
     try {
+      console.log('inside new');
       const postPayload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
+      console.log('inside new', postPayload);
       const response = await axios(postEvent(window.ENV.API_HOST), {
         method: 'post',
         data: postPayload,
