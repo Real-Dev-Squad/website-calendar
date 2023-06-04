@@ -61,7 +61,6 @@ const RdsCalendar = ({
         });
       }}
       onView={(v: View) => setView(v)}
-      // onRangeChange={(e) => console.log(e)}
       onNavigate={(e) => handleNavigate(e)}
     />
   );

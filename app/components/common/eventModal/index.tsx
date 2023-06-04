@@ -64,12 +64,10 @@ export default function EventModal({
     e.preventDefault();
     // grab the form element
     const $form = e.currentTarget;
-    console.log({ form: $form });
 
     // get the payload from the form
 
     if (params.eventId !== 'new') {
-      console.log('inside if');
 
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       try {
@@ -94,12 +92,9 @@ export default function EventModal({
       }
       return;
     }
-    console.log('before new ');
 
     try {
-      console.log('inside new');
       const postPayload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
-      console.log('inside new', postPayload);
       const response = await axios(postEvent(window.ENV.API_HOST), {
         method: 'post',
         data: postPayload,
