@@ -18,6 +18,7 @@ interface UserInputProps {
   maxDate?: string;
   labelClassnames?: string;
   inputClassnames?: string;
+  disabled?: boolean;
 }
 
 const UserInput: FC<UserInputProps> = ({
@@ -37,6 +38,7 @@ const UserInput: FC<UserInputProps> = ({
   maxDate,
   labelClassnames,
   inputClassnames,
+  disabled = false,
 }) => {
   const [showPassword, setShowPasword] = useState(false);
   const Icon = showPassword ? EyeIcon : EyeSlashIcon;
@@ -84,6 +86,7 @@ const UserInput: FC<UserInputProps> = ({
             name={name}
             min={minDate}
             max={maxDate}
+            disabled={disabled}
           />
           {type === 'password' && (
             <Icon

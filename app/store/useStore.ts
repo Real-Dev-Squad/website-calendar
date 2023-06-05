@@ -1,9 +1,14 @@
-import { create } from 'zustand';
+import * as zustand from 'zustand';
+import { devtools } from 'zustand/middleware';
 import { createEventSlice } from './eventSlice';
 import { createUserSlice } from './userSlice';
 import { EventState, UserState } from '~/utils/interfaces';
 
-export const useStore = create<EventState & UserState>()((...a) => ({
-  ...createEventSlice(...a),
-  ...createUserSlice(...a),
-}));
+const { create } = zustand;
+
+export const useStore = create<EventState & UserState>()(
+  devtools((...a) => ({
+    ...createEventSlice(...a),
+    ...createUserSlice(...a),
+  })),
+);
