@@ -1,89 +1,59 @@
-import dayjs from 'dayjs';
-import { useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-big-calendar';
-import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
-import EventModal from '~/components/common/eventModal';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { CalEvent } from '~/utils/interfaces';
 import RdsCalendar from '~/components/common/rdsCalendar';
 import { useStore } from '~/store/useStore';
+import { parseEvents, parseEventToPayload } from '~/utils/event.utils';
+import { patchEvent } from '~/constants/urls.constants';
 
 interface CalendarProps {
   view?: View;
+  events: CalEvent[];
 }
 
-const Calendar = ({ view }: CalendarProps) => {
-  const events = useStore((state: { events: any }) => state.events);
+const Calendar = ({ view, events }: CalendarProps) => {
+  const { updateEvent, events: globalEvents } = useStore((state) => state);
 
-  const [eventsList, setEventsList] = useState<CalEvent[]>(events);
-  const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
-    event: events[0],
-    show: false,
-    new: false,
-  });
-
-  useEffect(() => {
-    setEventsList(events);
-  }, [events]);
-
-  const updateEventState = (event: CalEvent) => {
-    setCalendarEvent((e) => ({ ...e, event }));
-    setEventsList((events) =>
-      events.map((e) => {
-        if (e.id === event.id) {
-          e.title = event.title;
-          e.start = dayjs(event.start).toDate();
-          e.end = dayjs(event.end).toDate();
-        }
-        return e;
-      }),
-    );
+  const updateEventStateFromCalendar = async (event: CalEvent) => {
+    const { id } = event;
+    const prevEvent = globalEvents.find((ev) => ev.id === id) as CalEvent;
+    updateEvent(event);
+    const payload = parseEventToPayload(event);
+    try {
+      const response = await axios(patchEvent(window.ENV.API_HOST, id as number), {
+        method: 'patch',
+        data: payload,
+        withCredentials: true,
+      });
+      toast.success('event updated successfully!', {
+        toastId: 'events_success',
+      });
+      updateEvent(parseEvents([{ ...response.data.data }])[0]);
+    } catch (error) {
+      toast.error('unable to update', {
+        toastId: 'events_error',
+      });
+      updateEvent(prevEvent);
+    }
   };
 
-  const updateEventStateFromModal = (event: CalEvent) => {
-    setCalendarEvent((e) => ({ ...e, event }));
-    setEventsList((events) =>
-      events.map((e) => {
-        if (e.id === event.id) {
-          return event;
-        }
-        return e;
-      }),
-    );
-  };
-
-  const addEvent = (event: CalEvent) => setEventsList((events) => [...events, event]);
-
-  const setShowEvent = (show: boolean) => {
-    setCalendarEvent((e) => ({ ...e, show }));
-  };
-
-  const memoizedRdsCalendar = useCallback(
+  const memoizedRdsCalendar = React.useCallback(
     () => (
       <RdsCalendar
         view={view}
-        eventsList={eventsList}
-        currentEvent={calendarEvent?.event}
-        setCalendarEvent={setCalendarEvent}
-        updateEvent={updateEventState}
+        eventsList={events}
+        currentEvent={events.length ? events[0] : {}}
+        updateEvent={updateEventStateFromCalendar}
       />
     ),
-    [eventsList],
+    [events, view],
   );
 
   return (
     <>
       <div className="w-[100%]">{memoizedRdsCalendar()}</div>
-      {calendarEvent?.show && (
-        <EventModal
-          event={calendarEvent.event}
-          eventsList={eventsList}
-          currentEvent={calendarEvent?.event}
-          createEvent={addEvent}
-          updateEvent={updateEventStateFromModal}
-          setIsOpen={setShowEvent}
-          newEvent={calendarEvent.new}
-          setCalendarEvent={setCalendarEvent}
-        />
-      )}
     </>
   );
 };

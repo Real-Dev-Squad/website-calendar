@@ -8,6 +8,7 @@ export interface EventVisibilityProps {
 
 const EventVisibility: FC<EventVisibilityProps> = ({ visibility, setVisibility }) => (
   <button
+    type="button"
     data-testid="modal-visibility"
     className={`bg-neutral-200 flex align-middle gap-1 px-3 py-1 rounded-full w-fit font-normal text-[14px] text-neutral-500 cursor-pointer ${
       setVisibility ? 'mb-8' : 'mb-4 mt-4'

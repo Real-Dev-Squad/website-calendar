@@ -1,19 +1,25 @@
-import { LinksFunction, LoaderFunction } from '@remix-run/node';
-import styles from 'react-datepicker/dist/react-datepicker.css';
-import Calendar from '~/components/Calendar';
-import Navbar from '~/components/common/navbar';
+import { useEffect } from 'react';
+import { LoaderFunction, json } from '@remix-run/node';
+import { Outlet, useLoaderData, ShouldReloadFunction } from '@remix-run/react';
+import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import Calendar from '~/components/Calendar';
+import Navbar from '~/components/common/navbar';
 import { useStore } from '~/store/useStore';
-import { useLoaderData } from '@remix-run/react';
 import { parseEvents } from '~/utils/event.utils';
 import { getEvents } from '~/constants/urls.constants';
-import { ToastContainer, toast } from 'react-toastify';
-import { useEffect } from 'react';
+import { getUrls } from '~/models/urls.server';
 
-export let loader: LoaderFunction = async ({ request }) => {
+type LoaderData = {
+  ENV: Awaited<ReturnType<typeof getUrls>>;
+  events: any;
+  error: string | null;
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const baseUrls = await getUrls();
   const cookie = request.headers.get('cookie');
-
   const startTime = dayjs().subtract(1, 'months').startOf('month').unix() * 1000;
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
 
@@ -24,21 +30,22 @@ export let loader: LoaderFunction = async ({ request }) => {
         Cookie: cookie,
       },
     });
-    return { events: response.data.data, error: null };
+    return json<LoaderData>({ events: response.data.data, ENV: baseUrls, error: null });
   } catch (error) {
-    return { events: null, error: error };
+    return { events: null, ENV: baseUrls, error };
   }
 };
+export const unstableShouldReload: ShouldReloadFunction = () => false;
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
-
-export default function Index() {
-  const setEvents = useStore((state: { setEvents: any }) => state.setEvents);
-  const response = useLoaderData();
+function CalendarPage() {
+  const { setEvents, events: eventList, view } = useStore((state) => state);
+  const { events, error } = useLoaderData();
 
   useEffect(() => {
-    if (response.error === null && response.events.length > 0) {
-      setEvents(parseEvents(response.events));
+    if (error === null && events.length > 0) {
+      // TODO: show a  different message if events are not present in the given date range
+
+      setEvents([parseEvents(events)][0]);
     } else {
       // TODO: redirect the user to login page on 401
       toast.error('Unable to get events', {
@@ -52,10 +59,13 @@ export default function Index() {
       <div className="flex flex-col-reverse md:flex-row ">
         <Navbar />
         <div className="flex justify-center flex-grow">
-          <Calendar />
+          <Calendar events={eventList.length ? eventList : parseEvents(events ?? [])} view={view} />
+          <Outlet />
         </div>
       </div>
       <ToastContainer />
     </div>
   );
 }
+
+export default CalendarPage;
