@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, useLoaderData } from '@remix-run/react';
 import { LoaderFunction, json } from '@remix-run/node';
@@ -44,13 +44,13 @@ const EventDetails = () => {
   const { event } = useLoaderData();
 
   const { events: eventsList } = useStore((state) => state);
-  const [calendarEvent, setCalendarEvent] = React.useState<CalEvent>(
+  const [calendarEvent, setCalendarEvent] = useState<CalEvent>(
     parseEvents([event])[0] ?? dummyEvent,
   );
 
   const params = useParams();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (params.eventId !== 'new') {
       const calEvent = eventsList.find(
         (event: CalEvent) => event.id === parseInt(params.eventId as string, 10),
