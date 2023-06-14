@@ -33,8 +33,8 @@ export default function EventModal({
   const params = useParams();
   const navigate = useNavigate();
   const routerLocation = useLocation() as { state: { start: string; end: string } };
-  const minDate = isNewEvent ? dayjs(routerLocation.state.start) : dayjs(currentEvent.start);
-  const maxDate = isNewEvent ? dayjs(routerLocation.state.end) : dayjs(currentEvent.end);
+  const minDate = dayjs(currentEvent.start);
+  const maxDate = dayjs(currentEvent.end);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
@@ -68,7 +68,6 @@ export default function EventModal({
     // get the payload from the form
 
     if (params.eventId !== 'new') {
-
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       try {
         const response = await axios(
