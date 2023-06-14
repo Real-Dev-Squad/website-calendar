@@ -5,6 +5,8 @@ import Slider from '../../slider';
 
 import Navbar, { DynamicHeroIcon } from '../index';
 
+// test cases failing in certain conditions
+
 describe('Navbar', () => {
   it('renders', () => {
     const { container } = render(<Navbar />);

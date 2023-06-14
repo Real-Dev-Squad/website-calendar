@@ -1,5 +1,5 @@
-import EventCard from '~/components/common/eventCard';
 import dayjs from 'dayjs';
+import EventCard from '~/components/common/eventCard';
 
 const startTime = dayjs().format('h:mm A');
 const endTime = dayjs().add(2, 'hours').format('h:mm A');

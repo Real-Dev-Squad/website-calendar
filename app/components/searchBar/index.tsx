@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-//for passing props creating interface
+// for passing props creating interface
 interface SearchProps {
   placeholder?: string;
   defaultValue?: string;

@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Navbar from '../navbar';
 
+// test cases failing in certain conditions
+
 describe('Testing working of the slider component', () => {
   it('Opens and closes the slider', () => {
     render(<Navbar />);

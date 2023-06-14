@@ -1,6 +1,6 @@
 import { screen, render, fireEvent, getByTestId, waitFor } from '@testing-library/react';
-import SearchBar from '.';
 import userEvent from '@testing-library/user-event';
+import SearchBar from '.';
 
 describe('Rendering Input Value', () => {
   it('renders a input field', () => {

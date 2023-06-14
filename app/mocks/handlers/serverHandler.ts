@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+
 const URL = process.env.API_HOST;
 
 export const serverHandlers = [
