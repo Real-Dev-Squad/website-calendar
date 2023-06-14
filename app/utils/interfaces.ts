@@ -1,4 +1,5 @@
-import { Event, stringOrDate } from 'react-big-calendar';
+import { View, Event, stringOrDate } from 'react-big-calendar';
+
 import { UpdateUserKey } from '~/types/GlobalState';
 
 export interface Attendees {
@@ -31,10 +32,12 @@ export interface UpdateEvent {
 
 export interface EventState {
   events: CalEvent[];
+  view: View;
   setEvents: (events: CalEvent[]) => void;
   addEvent: (event: CalEvent) => void;
   removeEvent: (event: CalEvent) => void;
   updateEvent: (event: CalEvent) => void;
+  setView: (view: View) => void;
 }
 
 export interface User {

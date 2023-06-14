@@ -7,14 +7,14 @@ describe('Button', () => {
   const btnText = 'Click me';
   it('renders', () => {
     const { getByText } = render(
-      <Button size="small" label={btnText} varient="primary" disabled={false} />
+      <Button size="small" label={btnText} varient="primary" disabled={false} />,
     );
     expect(getByText(btnText)).toBeInTheDocument();
   });
 
   it('renders with different sizes', () => {
     const { getByText } = render(
-      <Button size="small" label={btnText} varient="primary" disabled={false} />
+      <Button size="small" label={btnText} varient="primary" disabled={false} />,
     );
     expect(getByText(btnText)).toHaveClass('py-1 px-2 text-sm gap-1');
     expect(getByText(btnText).classList.contains('border-transparent')).toBeTruthy();
@@ -29,7 +29,7 @@ describe('Button', () => {
         varient="primary"
         disabled={false}
         handleClick={jest.fn(() => null)}
-      />
+      />,
     );
     const btnElement = getByText(btnText);
 
@@ -48,7 +48,7 @@ describe('Button', () => {
         varient="secondary"
         disabled={false}
         handleClick={handleClick}
-      />
+      />,
     );
   });
 
@@ -62,7 +62,7 @@ describe('LinkButton', () => {
   const btnText = 'Click me';
   it('renders', () => {
     const { getByText } = render(
-      <LinkButton href="/" title={btnText} icon={() => <div>Icon</div>} />
+      <LinkButton href="/" title={btnText} icon={() => <div>Icon</div>} />,
     );
     expect(getByText(btnText)).toBeInTheDocument();
   });

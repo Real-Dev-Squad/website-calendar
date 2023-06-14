@@ -3,14 +3,17 @@ import { FC } from 'react';
 
 export interface EventVisibilityProps {
   visibility: string;
-  setVisibility: (visibility: string) => void;
+  setVisibility?: (visibility: string) => void;
 }
 
 const EventVisibility: FC<EventVisibilityProps> = ({ visibility, setVisibility }) => (
   <button
+    type="button"
     data-testid="modal-visibility"
-    className="bg-neutral-200 flex align-middle gap-1 px-3 py-1 mb-8 rounded-full w-fit font-normal text-[14px] text-neutral-500 cursor-pointer"
-    onClick={() => setVisibility(visibility === 'public' ? 'private' : 'public')}
+    className={`bg-neutral-200 flex align-middle gap-1 px-3 py-1 rounded-full w-fit font-normal text-[14px] text-neutral-500 cursor-pointer ${
+      setVisibility ? 'mb-8' : 'mb-4 mt-4'
+    }`}
+    onClick={() => setVisibility && setVisibility(visibility === 'public' ? 'private' : 'public')}
   >
     {visibility === 'public' && (
       <>
