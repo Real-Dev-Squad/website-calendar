@@ -28,6 +28,12 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
   const { updateEvent, addEvent, view } = useStore((state) => state);
   const params = useParams();
   const navigate = useNavigate();
+  const [statuses, setStatuses] = React.useState<{
+    creatingPost: 'idle' | 'loading';
+  }>({
+    loadingPosts: 'loading',
+    creatingPost: 'idle',
+  });
   const routerLocation = useLocation() as { state: { start: string; end: string } };
   const minDate = dayjs(currentEvent.start);
   const maxDate = dayjs(currentEvent.end);
@@ -89,7 +95,9 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
     }
 
     try {
+      setStatuses((old) => ({ ...old, creatingPost: 'loading' }));
       const postPayload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
+
       const response = await axios(postEvent(window.ENV.API_HOST), {
         method: 'post',
         data: postPayload,
@@ -99,6 +107,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
       toast.success('successfully added event', {
         toastId: 'events_success',
       });
+      setStatuses((old) => ({ ...old, creatingPost: 'idle' }));
       navigate('/');
     } catch (error) {
       toast.error('unable to add event', {
@@ -227,7 +236,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
 
                     <Button
                       dataTestId="modal-save-btn"
-                      label={'Submit'}
+                      label={statuses.creatingPost === 'loading' ? 'submitting...' : 'Submit'}
                       type="submit"
                       disabled={!currentEvent.title}
                     />
