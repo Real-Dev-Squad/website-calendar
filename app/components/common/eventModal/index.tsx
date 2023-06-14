@@ -23,6 +23,8 @@ interface EventModalProps {
 }
 
 export default function EventModal({ events, currentEvent, setCalendarEvent }: EventModalProps) {
+  console.log('rerender', currentEvent);
+
   const { updateEvent, addEvent, view } = useStore((state) => state);
   const params = useParams();
   const navigate = useNavigate();
