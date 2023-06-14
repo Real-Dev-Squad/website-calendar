@@ -1,6 +1,6 @@
-import {useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate, useLoaderData } from '@remix-run/react';
+import { useParams, useLoaderData } from '@remix-run/react';
 import { LoaderFunction, json } from '@remix-run/node';
 import EventModal from '~/components/common/eventModal';
 import { useStore } from '~/store/useStore';
@@ -69,7 +69,6 @@ const EventDetails = () => {
       <EventModal
         currentEvent={calendarEvent}
         events={eventsList}
-        isNewEvent={params.eventId === 'new'}
         setCalendarEvent={setCalendarEvent}
       />
     </div>

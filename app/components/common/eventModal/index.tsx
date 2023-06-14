@@ -19,16 +19,10 @@ interface EventModalProps {
   events: CalEvent[];
   currentEvent: CalEvent;
   createEvent?: (event: CalEvent) => void;
-  isNewEvent: boolean;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
 }
 
-export default function EventModal({
-  events,
-  currentEvent,
-  isNewEvent = true,
-  setCalendarEvent,
-}: EventModalProps) {
+export default function EventModal({ events, currentEvent, setCalendarEvent }: EventModalProps) {
   const { updateEvent, addEvent, view } = useStore((state) => state);
   const params = useParams();
   const navigate = useNavigate();
@@ -100,6 +94,9 @@ export default function EventModal({
         withCredentials: true,
       });
       addEvent(parseEvents([{ ...response.data.data }])[0]);
+      toast.success('successfully added event', {
+        toastId: 'events_success',
+      });
       navigate('/');
     } catch (error) {
       toast.error('unable to add event', {
@@ -226,7 +223,12 @@ export default function EventModal({
                       }
                     ></textarea>
 
-                    <Button dataTestId="modal-save-btn" label={'Submit'} type="submit" />
+                    <Button
+                      dataTestId="modal-save-btn"
+                      label={'Submit'}
+                      type="submit"
+                      disabled={!currentEvent.title}
+                    />
                   </div>
                 </div>
               </div>
