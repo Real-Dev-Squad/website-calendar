@@ -27,9 +27,6 @@ const Calendar = ({ view, events }: CalendarProps) => {
         data: payload,
         withCredentials: true,
       });
-      toast.success('event updated successfully!', {
-        toastId: 'events_success',
-      });
       updateEvent(parseEvents([{ ...response.data.data }])[0]);
     } catch (error) {
       toast.error('unable to update', {

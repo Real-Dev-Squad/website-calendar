@@ -31,7 +31,6 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
   const [statuses, setStatuses] = React.useState<{
     creatingPost: 'idle' | 'loading';
   }>({
-    loadingPosts: 'loading',
     creatingPost: 'idle',
   });
   const routerLocation = useLocation() as { state: { start: string; end: string } };
@@ -138,7 +137,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                 <div className="p-2">
                   <Dialog.Title>
                     <UserInput
-                      disabled={false}
+                      disabled={statuses.creatingPost === 'loading'}
                       dataTestId="modal-title"
                       label=""
                       name="title"
@@ -158,7 +157,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                     <div data-testid="modal-from-date">
                       <p className="text-4 mb-2">From</p>
                       <DatePicker
-                        disabled={false}
+                        disabled={statuses.creatingPost === 'loading'}
                         placeholderText="from-date"
                         className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         selected={minDate.toDate()}
@@ -181,7 +180,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                     <div data-testid="modal-to-date">
                       <p className="text-4 mb-2">To</p>
                       <DatePicker
-                        disabled={false}
+                        disabled={statuses.creatingPost === 'loading'}
                         placeholderText="to-date"
                         className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         minDate={minDate.toDate()}
@@ -209,7 +208,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                     />
 
                     <UserInput
-                      disabled={false}
+                      disabled={statuses.creatingPost === 'loading'}
                       dataTestId="modal-location"
                       label="URL / Address"
                       name="address"
@@ -221,7 +220,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
 
                     <p className="text-4 mb-2">Description</p>
                     <textarea
-                      disabled={false}
+                      disabled={statuses.creatingPost === 'loading'}
                       aria-label="Event Description"
                       className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full"
                       rows={2}
