@@ -42,7 +42,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const EventDetails = () => {
   const { event } = useLoaderData();
-  console.log({ event });
 
   const { events: eventsList } = useStore((state) => state);
   const [calendarEvent, setCalendarEvent] = useState<CalEvent>(
