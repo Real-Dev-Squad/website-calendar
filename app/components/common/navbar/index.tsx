@@ -57,7 +57,7 @@ const Navbar = () => {
       {
         icon: 'Users',
         text: 'Social Events',
-        href: '/',
+        href: '/socialEvents',
         id: 2,
         visibleOnDesktop: true,
       },
