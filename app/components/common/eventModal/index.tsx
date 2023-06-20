@@ -19,22 +19,21 @@ interface EventModalProps {
   events: CalEvent[];
   currentEvent: CalEvent;
   createEvent?: (event: CalEvent) => void;
-  isNewEvent: boolean;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
 }
 
-export default function EventModal({
-  events,
-  currentEvent,
-  isNewEvent = true,
-  setCalendarEvent,
-}: EventModalProps) {
+export default function EventModal({ events, currentEvent, setCalendarEvent }: EventModalProps) {
   const { updateEvent, addEvent, view } = useStore((state) => state);
   const params = useParams();
   const navigate = useNavigate();
+  const [statuses, setStatuses] = React.useState<{
+    creatingPost: 'idle' | 'loading';
+  }>({
+    creatingPost: 'idle',
+  });
   const routerLocation = useLocation() as { state: { start: string; end: string } };
-  const minDate = isNewEvent ? dayjs(routerLocation.state.start) : dayjs(currentEvent.start);
-  const maxDate = isNewEvent ? dayjs(routerLocation.state.end) : dayjs(currentEvent.end);
+  const minDate = dayjs(currentEvent.start);
+  const maxDate = dayjs(currentEvent.end);
 
   const dateRange = (startDate: Date, endDate: Date) => {
     const difference = dayjs(endDate).diff(startDate, 'minutes');
@@ -68,7 +67,6 @@ export default function EventModal({
     // get the payload from the form
 
     if (params.eventId !== 'new') {
-
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       try {
         const response = await axios(
@@ -94,13 +92,19 @@ export default function EventModal({
     }
 
     try {
+      setStatuses((old) => ({ ...old, creatingPost: 'loading' }));
       const postPayload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
+
       const response = await axios(postEvent(window.ENV.API_HOST), {
         method: 'post',
         data: postPayload,
         withCredentials: true,
       });
       addEvent(parseEvents([{ ...response.data.data }])[0]);
+      toast.success('successfully added event', {
+        toastId: 'events_success',
+      });
+      setStatuses((old) => ({ ...old, creatingPost: 'idle' }));
       navigate('/');
     } catch (error) {
       toast.error('unable to add event', {
@@ -131,7 +135,7 @@ export default function EventModal({
                 <div className="p-2">
                   <Dialog.Title>
                     <UserInput
-                      disabled={false}
+                      disabled={statuses.creatingPost === 'loading'}
                       dataTestId="modal-title"
                       label=""
                       name="title"
@@ -151,7 +155,7 @@ export default function EventModal({
                     <div data-testid="modal-from-date">
                       <p className="text-4 mb-2">From</p>
                       <DatePicker
-                        disabled={false}
+                        disabled={statuses.creatingPost === 'loading'}
                         placeholderText="from-date"
                         className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         selected={minDate.toDate()}
@@ -174,7 +178,7 @@ export default function EventModal({
                     <div data-testid="modal-to-date">
                       <p className="text-4 mb-2">To</p>
                       <DatePicker
-                        disabled={false}
+                        disabled={statuses.creatingPost === 'loading'}
                         placeholderText="to-date"
                         className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         minDate={minDate.toDate()}
@@ -202,7 +206,7 @@ export default function EventModal({
                     />
 
                     <UserInput
-                      disabled={false}
+                      disabled={statuses.creatingPost === 'loading'}
                       dataTestId="modal-location"
                       label="URL / Address"
                       name="address"
@@ -214,7 +218,7 @@ export default function EventModal({
 
                     <p className="text-4 mb-2">Description</p>
                     <textarea
-                      disabled={false}
+                      disabled={statuses.creatingPost === 'loading'}
                       aria-label="Event Description"
                       className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full"
                       rows={2}
@@ -227,7 +231,12 @@ export default function EventModal({
                       }
                     ></textarea>
 
-                    <Button dataTestId="modal-save-btn" label={'Submit'} type="submit" />
+                    <Button
+                      dataTestId="modal-save-btn"
+                      label={statuses.creatingPost === 'loading' ? 'submitting...' : 'Submit'}
+                      type="submit"
+                      disabled={!currentEvent.title}
+                    />
                   </div>
                 </div>
               </div>
