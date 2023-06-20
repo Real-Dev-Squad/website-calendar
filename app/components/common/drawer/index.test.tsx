@@ -55,7 +55,7 @@ describe('Drawer', () => {
     expect(toggleDrawerMock).toHaveBeenCalledTimes(1);
 
     const eventTime = screen.getByText(
-      `${moment(event.start).format('MMMM DD, YYYY h A')} - ${moment(event.end).format('h A')}`,
+      `${moment(event.start).format('MMMM DD, YYYY h A')} - ${moment(event.end).format('MMMM DD, YYYY h A')}`,
     );
     expect(eventTime).toBeInTheDocument();
 
