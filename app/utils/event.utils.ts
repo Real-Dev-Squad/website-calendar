@@ -3,7 +3,7 @@ import { defaultCalendarId } from '../constants/urls.constants';
 import { CalEvent } from '~/utils/interfaces';
 
 // parse event objs from backend to frontend format
-export const parseEvents = (events: any[]) =>
+export const parseEvents = (events: any[]): Array<CalEvent> =>
   events?.reduce((acc, event) => {
     const { name, startTime, endTime, Attendees, isDeleted, ...remainingEventDetails } = event;
     return [
