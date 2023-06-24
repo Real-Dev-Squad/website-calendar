@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Drawer from '~/components/common/drawer';
-import SocialEventCard from '~/components/common/eventCard';
+import SocialEventCard from '~/components/common/socialEventCard';
 import Navbar from '~/components/common/navbar';
 import { socialMockEvents } from '~/constants/socialEvents.constants';
 import { CalEvent } from '~/utils/interfaces';

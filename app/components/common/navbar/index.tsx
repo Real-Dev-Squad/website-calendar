@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as Icons from '@heroicons/react/24/outline';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import Slider from '../slider';
 
 interface DynamicHeroIconType {
