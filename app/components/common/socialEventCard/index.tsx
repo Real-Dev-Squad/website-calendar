@@ -10,7 +10,7 @@ export default function SocialEventCard({ title, attendees, start, end }: CalEve
   const numberOfAttendees = attendees ? attendees.length : 0;
   return (
     <>
-      <div className="border-2 w-64 h-72 bg-gray-200 rounded-3xl m-auto p-4 flex flex-col justify-between">
+      <div className="border-2 w-64 h-72 bg-gray-200 rounded-3xl m-auto p-4 flex flex-col justify-between cursor-pointer">
         <div className="flex justify-end align-end">
           <div className="w-10 h-12 top-4 bg-white rounded-lg flex items-center flex-col divide-y">
             <div className="text-black font-medium text-base">{date}</div>

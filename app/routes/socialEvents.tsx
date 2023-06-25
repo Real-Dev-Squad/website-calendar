@@ -19,8 +19,9 @@ export default function socialEvents() {
   return <>
   <div className='flex'>
     <Navbar />
-    <div className='flex flex-start m-10'>
-    {socialMockEvents.map(socialEvent => <div onClick={() => toggleDrawer(socialEvent)} className="ml-10"><SocialEventCard {...socialEvent} /></div>)}
+    <div className='flex flex-start flex-wrap gap-20 justify-center m-10'>
+    {socialMockEvents.map(socialEvent => <div onClick={() => {
+      toggleDrawer(socialEvent)}} className=""><SocialEventCard {...socialEvent} /></div>)}
     </div>
     {selectedEvent && (
           <Drawer

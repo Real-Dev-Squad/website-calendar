@@ -18,7 +18,7 @@ const EventCard = ({
   <>
     <div
       data-testid="event-card-box"
-      className="w-full rounded-xl px-4 py-3 border-2 border-grey grid grid-cols-[auto,1fr] items-center gap-6"
+      className="w-full rounded-xl px-4 py-3 border-2 border-grey grid grid-cols-[auto,1fr] items-center gap-6 cursor-pointer"
       
     >
       <div data-testid="event-card-dates" className="w-18 grid grid-cols-1 gap-1">

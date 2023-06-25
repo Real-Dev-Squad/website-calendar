@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import Drawer from '.';
 import { CalEvent } from '~/utils/interfaces';
 
@@ -11,8 +11,8 @@ describe('Drawer', () => {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel.',
     location: 'Nashville, Tennessee. U.S.',
     visibility: 'Public',
-    start: moment().add(1, 'hour').toDate(),
-    end: moment().add(2, 'hours').toDate(),
+    start: dayjs().add(1, 'hour').toDate(),
+    end: dayjs().add(2, 'hours').toDate(),
     attendees: [
       {
         attendee: {
@@ -55,7 +55,7 @@ describe('Drawer', () => {
     expect(toggleDrawerMock).toHaveBeenCalledTimes(1);
 
     const eventTime = screen.getByText(
-      `${moment(event.start).format('MMMM DD, YYYY h A')} - ${moment(event.end).format('MMMM DD, YYYY h A')}`,
+      `${dayjs(event.start).format('MMMM DD, YYYY h A')} - ${dayjs(event.end).format('MMMM DD, YYYY h A')}`,
     );
     expect(eventTime).toBeInTheDocument();
 
