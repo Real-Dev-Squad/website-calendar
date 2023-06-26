@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React from 'react';
 import { CalEvent } from '~/utils/interfaces';
 import EventVisibility from '../eventVisibility';
@@ -34,7 +34,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
           <h1 className=" font-semibold text-3xl leading-10 capitalize">{event.title}</h1>
           <EventVisibility visibility={event.visibility ?? ''} />
           <p className="py-2 text-base font-normal leading-5 text-left">
-            {moment(event.start).format('MMMM DD, YYYY h A')} - {moment(event.end).format('h A')}
+            {dayjs(event.start).format('MMMM DD, YYYY h A')} - {dayjs(event.end).format('MMMM DD, YYYY h A')}
           </p>
           <p className="py-2 text-base font-normal leading-5 text-left">{event.location}</p>
           <p className="py-4 font-normal text-base">{event.description}</p>

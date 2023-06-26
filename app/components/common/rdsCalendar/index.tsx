@@ -1,8 +1,7 @@
 import React from 'react';
-import { Calendar, momentLocalizer, View } from 'react-big-calendar';
+import { Calendar, dayjsLocalizer, View } from 'react-big-calendar';
 import { useNavigate } from '@remix-run/react';
 import dayjs from 'dayjs';
-import moment from 'moment';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 import { useStore } from '../../../store/useStore';
@@ -17,7 +16,7 @@ interface RdsCalendarProps {
   updateEvent: (event: CalEvent) => void;
 }
 
-const localizer = momentLocalizer(moment);
+const localizer = dayjsLocalizer(dayjs);
 
 const RdsCalendar = ({
   height,

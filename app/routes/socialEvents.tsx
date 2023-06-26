@@ -1,32 +1,35 @@
 import dayjs from 'dayjs';
-import EventCard from '~/components/common/eventCard';
-
-const startTime = dayjs().format('h:mm A');
-const endTime = dayjs().add(2, 'hours').format('h:mm A');
+import { useState } from 'react';
+import Drawer from '~/components/common/drawer';
+import SocialEventCard from '~/components/common/socialEventCard';
+import Navbar from '~/components/common/navbar';
+import { socialMockEvents } from '~/constants/socialEvents.constants';
+import { CalEvent } from '~/utils/interfaces';
 
 export default function socialEvents() {
-  const dummyEvent = {
-    id: 1,
-    title: 'timed event',
-    start: dayjs().add(1, 'hour').toDate(),
-    end: dayjs().add(2, 'hours').toDate(),
-    attendees: [
-      {
-        attendee: {
-          email: 'samyak@rcal.com',
-        },
-      },
-      {
-        attendee: {
-          email: 'samyak2@rcal.com',
-        },
-      },
-      {
-        attendee: {
-          email: 'samyak3@rcal.com',
-        },
-      },
-    ],
+  const [selectedEvent, setSelectedEvent] = useState<CalEvent | null>(null);
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  
+
+  const toggleDrawer = (event?: CalEvent) => {
+    setSelectedEvent(event || null);
+    setIsDrawerVisible((isDrawerOpen) => !isDrawerOpen);
   };
-  return <EventCard {...dummyEvent} />;
+
+  return <>
+  <div className='flex'>
+    <Navbar />
+    <div className='flex flex-start flex-wrap gap-20 justify-center m-10'>
+    {socialMockEvents.map(socialEvent => <div onClick={() => {
+      toggleDrawer(socialEvent)}} className=""><SocialEventCard {...socialEvent} /></div>)}
+    </div>
+    {selectedEvent && (
+          <Drawer
+            event={selectedEvent}
+            isDrawerVisible={isDrawerVisible}
+            toggleDrawer={toggleDrawer}
+          />
+        )}
+  </div>
+  </>;
 }
