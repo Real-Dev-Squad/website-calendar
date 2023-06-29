@@ -38,7 +38,7 @@ const EventCard = ({
         <div className="w-full">
           {attendees && (
             <div data-testid="event-card-attendees" className="w-full text-sm text-grey-dark">
-              {attendees.reduce((list,attendeeData) => list + attendeeData.attendee.email + ' ','')}
+              {attendees.map(data => data.attendee.email).join(", ")}
             </div>
           )}
           {!attendees && location && (
