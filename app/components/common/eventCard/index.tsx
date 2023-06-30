@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react';
 import dayjs from 'dayjs';
-import { CalEvent } from '~/utils/interfaces';
 import { DynamicHeroIcon } from '../navbar';
+import { CalEvent } from '~/utils/interfaces';
 import { GoogleMeet } from '../../../components/icons';
 
 const EventCard = ({
