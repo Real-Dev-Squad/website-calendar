@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { LoaderFunction, json } from '@remix-run/node';
-import { Outlet, useLoaderData,  } from '@remix-run/react';
+import { Outlet, useLoaderData, ShouldRevalidateFunction } from '@remix-run/react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -38,6 +38,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return { events: null, ENV: baseUrls, error };
   }
 };
+export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
 function CalendarPage() {
   const { setEvents, events: eventList, view } = useStore((state) => state);
