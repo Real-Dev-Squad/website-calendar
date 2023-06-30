@@ -10,7 +10,7 @@ const EventCard = ({
   end,
   attendees,
   location,
-  meetLink
+  onlineEventLink
 } : CalEvent) => {
     const startDate = dayjs(start);
   const startTime = startDate.format('YYYY MMM DD h:mm A');
@@ -53,10 +53,10 @@ const EventCard = ({
               <div className="w-full text-sm text-grey-dark">{location}</div>
             </div>
           )}
-          {!attendees && !location && meetLink && (
+          {!attendees && !location && onlineEventLink && (
             <Link
               target={'blank'}
-              to={meetLink}
+              to={onlineEventLink}
               data-testid="event-card-meet"
               className="w-full grid grid-cols-[auto,1fr] items-center gap-1"
             >
@@ -66,7 +66,7 @@ const EventCard = ({
               
             </Link>
           )}
-          {!attendees && !location && !meetLink && (
+          {!attendees && !location && !onlineEventLink && (
             <div data-testid="event-card-no-details" className="w-full text-sm text-grey-dark">
               No details provided
             </div>

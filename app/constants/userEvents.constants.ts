@@ -13,6 +13,6 @@ export const userEvents: CalEvent[] = [
       end: dayjs().add(2, 'hours').toDate(),
       visibility: 'private',
       attendees: [{ attendee: { email: 'a@b.c' } }, { attendee: { email: 'alpha@beta.gamma' } }],
-      meetLink: 'https://github.com/Real-Dev-Squad/website-calendar'
+      onlineEventLink: 'https://github.com/Real-Dev-Squad/website-calendar'
     },
   ];
