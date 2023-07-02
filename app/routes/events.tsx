@@ -4,7 +4,8 @@ import Drawer from '~/components/common/drawer';
 import Navbar from '~/components/common/navbar';
 import EventCard from '~/components/common/eventCard';
 import { CalEvent } from '~/utils/interfaces';
-import { userEvents } from '~/constants/userEvents.constants';
+import socialEvents from './socialEvents';
+import { socialMockEvents } from '~/constants/socialEvents.constants';
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<CalEvent | null>(null);
@@ -27,7 +28,7 @@ const Events = () => {
           <div className="w-full grid grid-cols-1 gap-2">
             <div className="w-full text-center text-grey-med">Events</div>
             <div className="w-full grid grid-cols-1 gap-2">
-              {userEvents.map(eventData => <div onClick={() => toggleDrawer(eventData)}><EventCard {...eventData} /></div>)}
+              {socialMockEvents.map(eventData => <div onClick={() => toggleDrawer(eventData)}><EventCard {...eventData} /></div>)}
             </div>
           </div>
         </div>

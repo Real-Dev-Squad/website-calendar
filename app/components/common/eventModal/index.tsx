@@ -143,7 +143,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                       label=""
                       name="title"
                       placeholder="Enter Event Title"
-                      inputClassnames="border-none font-normal text-[32px] mb-4 text-stone-500 m-0 !bg-white"
+                      inputClassnames="border-none font-normal text-2xl mb-4 text-stone-500 m-0 !bg-white"
                       value={currentEvent?.title?.toString() ?? ''}
                       setValue={(title) => setCalendarEvent((e) => ({ ...e, title }))}
                     />
