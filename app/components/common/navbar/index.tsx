@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Icons from '@heroicons/react/24/outline';
-import { Link } from '@remix-run/react';
+import { Link, useMatches } from '@remix-run/react';
 import Slider from '../slider';
 
 interface DynamicHeroIconType {
@@ -27,16 +27,22 @@ export const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
 };
 
 const Navbar = () => {
-  const [active, setActive] = useState<number>(0);
+  const matches = useMatches();
+  const {pathname} = matches[matches.length - 1];
+  const [active, setActive] = useState<string>('');
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
-  const myColor = (elementPosition: number) => {
-    if (active === elementPosition) return true;
+  const myColor = (elementPath: string) => {
+    if (active === elementPath) return true;
     return false;
   };
-  const toggle = (elementPosition: number) => {
-    if (active !== elementPosition) setActive(elementPosition);
+  const toggle = (elementPath: string) => {
+    if (active !== elementPath) setActive(elementPath);
   };
+
+  useEffect(() => {
+    setActive(pathname)
+  },[pathname]);
 
   const navbarElements = {
     navbarPages: [
@@ -114,13 +120,13 @@ const Navbar = () => {
                 className={`${navItem.visibleOnDesktop ? '' : 'md:hidden'} ${
                   classShortHands.flexDesktopRow
                 } items-center mb-0 md:mb-8 cursor-pointer group`}
-                onClick={() => toggle(navItem.id)}
+                onClick={() => toggle(navItem.href)}
               >
                 <div className="h-5 w-5">
                   <DynamicHeroIcon
                     name={navItem.icon}
                     className={`${
-                      myColor(navItem.id)
+                      myColor(navItem.href)
                         ? `${classShortHands.headingSelectedColor}`
                         : `${classShortHands.headingColor}`
                     } group-hover:${classShortHands.headingSelectedColor}`}
@@ -130,7 +136,7 @@ const Navbar = () => {
                   className={`p-0 md:p-0 md:pl-2   ${classShortHands.fontSize}  hover:${
                     classShortHands.headingSelectedColor
                   } ${
-                    myColor(navItem.id)
+                    myColor(navItem.href)
                       ? `${classShortHands.headingSelectedColor}`
                       : `${classShortHands.headingColor}`
                   }`}
@@ -154,13 +160,13 @@ const Navbar = () => {
                 className={`${navItem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                   classShortHands.flexDesktopRow
                 } items-center mb-0 md:mb-8 cursor-pointer group`}
-                onClick={() => toggle(navItem.id)}
+                onClick={() => toggle(navItem.href)}
               >
                 <div className="h-5 w-5">
                   <DynamicHeroIcon
                     name={navItem.icon}
                     className={`${
-                      myColor(navItem.id)
+                      myColor(navItem.href)
                         ? `$${classShortHands.headingSelectedColor}`
                         : `${classShortHands.headingColor}`
                     } group-hover:stroke-slate-900`}
@@ -170,7 +176,7 @@ const Navbar = () => {
                   className={`p-0 md:pl-2   ${classShortHands.fontSize}   hover:${
                     classShortHands.headingSelectedColor
                   } ${
-                    myColor(navItem.id)
+                    myColor(navItem.href)
                       ? `${classShortHands.headingSelectedColor}`
                       : `${classShortHands.headingColor}`
                   }`}

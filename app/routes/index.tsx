@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { LoaderFunction, json } from '@remix-run/node';
-import { Outlet, useLoaderData, ShouldReloadFunction } from '@remix-run/react';
+import { Outlet, useLoaderData, ShouldRevalidateFunction } from '@remix-run/react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -8,7 +8,7 @@ import Calendar from '~/components/Calendar';
 import Navbar from '~/components/common/navbar';
 import { useStore } from '~/store/useStore';
 import { parseEvents } from '~/utils/event.utils';
-import { getEvents } from '~/constants/urls.constants';
+import { getEvents, getUserCalendarId, getUserSelfData } from '~/constants/urls.constants';
 import { getUrls } from '~/models/urls.server';
 
 type LoaderData = {
@@ -24,7 +24,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
 
   try {
-    const response = await axios.get(getEvents(process.env.API_HOST ?? '', startTime, endTime), {
+    const {data : { username}} = await axios.get(getUserSelfData(process.env.API_HOST ?? ''));
+    const {data: {rcal : { ownerId}}} = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', username))
+
+    const response = await axios.get(getEvents(process.env.API_HOST ?? '', ownerId, startTime, endTime), {
       headers: {
         'Content-Type': 'application/json',
         Cookie: cookie,
@@ -35,7 +38,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return { events: null, ENV: baseUrls, error };
   }
 };
-export const unstableShouldReload: ShouldReloadFunction = () => false;
+export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
 function CalendarPage() {
   const { setEvents, events: eventList, view } = useStore((state) => state);

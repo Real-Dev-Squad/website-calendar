@@ -16,7 +16,7 @@ export interface CalEvent extends Event {
   ownerId?: number;
   calendarId?: number;
   attendees?: Attendees[];
-  meetLink?:string;
+  onlineEventLink?:string;
 }
 
 export interface CalendarEventProps {
