@@ -24,6 +24,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
 
   try {
+    console.log(getUserSelfData(process.env.API_HOST ?? ''));
+
     const {
       data: { username },
     } = await axios.get(getUserSelfData(process.env.API_HOST ?? ''), {
@@ -32,6 +34,8 @@ export const loader: LoaderFunction = async ({ request }) => {
         Cookie: cookie,
       },
     });
+    console.log({ username });
+    console.log(getUserCalendarId(process.env.API_HOST ?? '', username));
 
     const {
       data: {
@@ -43,7 +47,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         Cookie: cookie,
       },
     });
-
+    console.log({ ownerId });
     const GET_EVENTS = getEvents(process.env.API_HOST ?? '', ownerId, startTime, endTime);
 
     const response = await axios.get(GET_EVENTS, {
@@ -54,6 +58,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
     return json<LoaderData>({ events: response.data.data, ENV: baseUrls, error: null });
   } catch (error) {
+    // console.log({ error });
+
     return { events: null, ENV: baseUrls, error };
   }
 };
