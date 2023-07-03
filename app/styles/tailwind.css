@@ -1512,6 +1512,11 @@ video {
   vertical-align: middle;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -1523,10 +1528,6 @@ video {
 
 .text-\[14px\] {
   font-size: 14px;
-}
-
-.text-\[32px\] {
-  font-size: 32px;
 }
 
 .text-base {

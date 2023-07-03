@@ -1,5 +1,11 @@
 import React from 'react';
-import { Form, useNavigate, useParams, useLocation, ShouldRevalidateFunction } from '@remix-run/react';
+import {
+  Form,
+  useNavigate,
+  useParams,
+  useLocation,
+  ShouldRevalidateFunction,
+} from '@remix-run/react';
 import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
@@ -21,7 +27,8 @@ interface EventModalProps {
   createEvent?: (event: CalEvent) => void;
   setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
 }
-//This function lets apps optimize which routes data should be reloaded after actions and for client-side navigations.
+// This function lets apps optimize which routes data should be
+// reloaded after actions and for client-side navigations.
 // https://remix.run/docs/en/main/route/should-revalidate
 export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
@@ -146,6 +153,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                       inputClassnames="border-none font-normal text-2xl mb-4 text-stone-500 m-0 !bg-white"
                       value={currentEvent?.title?.toString() ?? ''}
                       setValue={(title) => setCalendarEvent((e) => ({ ...e, title }))}
+                      isEventTitle={true}
                     />
                   </Dialog.Title>
 
