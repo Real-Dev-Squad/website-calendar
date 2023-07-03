@@ -24,10 +24,29 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
 
   try {
-    const {data : { username}} = await axios.get(getUserSelfData(process.env.API_HOST ?? ''));
-    const {data: {rcal : { ownerId}}} = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', username))
+    const {
+      data: { username },
+    } = await axios.get(getUserSelfData(process.env.API_HOST ?? ''), {
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookie,
+      },
+    });
 
-    const response = await axios.get(getEvents(process.env.API_HOST ?? '', ownerId, startTime, endTime), {
+    const {
+      data: {
+        rcal: { ownerId },
+      },
+    } = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', username), {
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+    const GET_EVENTS = getEvents(process.env.API_HOST ?? '', ownerId, startTime, endTime);
+
+    const response = await axios.get(GET_EVENTS, {
       headers: {
         'Content-Type': 'application/json',
         Cookie: cookie,

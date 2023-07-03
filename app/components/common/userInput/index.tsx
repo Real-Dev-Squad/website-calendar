@@ -19,6 +19,7 @@ interface UserInputProps {
   labelClassnames?: string;
   inputClassnames?: string;
   disabled?: boolean;
+  isEventTitle?: boolean;
 }
 
 const UserInput: FC<UserInputProps> = ({
@@ -39,6 +40,7 @@ const UserInput: FC<UserInputProps> = ({
   labelClassnames,
   inputClassnames,
   disabled = false,
+  isEventTitle = false,
 }) => {
   const [showPassword, setShowPasword] = useState(false);
   const Icon = showPassword ? EyeIcon : EyeSlashIcon;
@@ -73,11 +75,11 @@ const UserInput: FC<UserInputProps> = ({
             aria-describedby="desc"
             type={inputType()}
             data-testid={dataTestId ?? 'user-input'}
-            className={`bg-stone-50 text-sm p-3  focus:outline-none ${
+            className={`${inputClassnames} bg-stone-50 ${
+              isEventTitle ? 'text-2xl' : 'text-sm'
+            }  p-3  focus:outline-none ${
               link ? 'basis-full border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
-            }   border-solid border  ${
-              err ? 'border-red-600' : 'border-stone-400'
-            } ${inputClassnames}`}
+            }   border-solid border  ${err ? 'border-red-600' : 'border-stone-400'} `}
             placeholder={placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}
