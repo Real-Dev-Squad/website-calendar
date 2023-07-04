@@ -28,13 +28,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     if(data?.username) {
       const {data: selfData } = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', data.username))
       if(selfData?.rcal?.ownerId) {
-        const response = await axios.get(getEvents(process.env.API_HOST ?? '', selfData.rcal.ownerId, startTime, endTime), {
+        const {data: eventDetails} = await axios.get(getEvents(process.env.API_HOST ?? '', selfData.rcal.ownerId, startTime, endTime), {
           headers: {
             'Content-Type': 'application/json',
             Cookie: cookie,
           },
         });
-        return json<LoaderData>({ events: response.data.data, ENV: baseUrls, error: null });
+        return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
       } else {
         toast.error('Unable to get ownerId details'+ selfData, {
           toastId: 'events_error',
