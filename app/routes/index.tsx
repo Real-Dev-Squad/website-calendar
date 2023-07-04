@@ -26,9 +26,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   try {
     const {data} = await axios.get(getUserSelfData(process.env.API_HOST ?? ''));
     if(data?.username) {
-      const {data: selfData } = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', data?.username))
+      const {data: selfData } = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', data.username))
       if(selfData?.rcal?.ownerId) {
-        const response = await axios.get(getEvents(process.env.API_HOST ?? '', selfData?.rcal?.ownerId, startTime, endTime), {
+        const response = await axios.get(getEvents(process.env.API_HOST ?? '', selfData.rcal.ownerId, startTime, endTime), {
           headers: {
             'Content-Type': 'application/json',
             Cookie: cookie,
