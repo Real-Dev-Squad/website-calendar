@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { LoaderFunction, json } from '@remix-run/node';
-import { Outlet, useLoaderData, ShouldRevalidateFunction } from '@remix-run/react';
+import { LoaderFunction, json, redirect } from '@remix-run/node';
+import { Outlet, useLoaderData } from '@remix-run/react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -22,34 +22,44 @@ export const loader: LoaderFunction = async ({ request }) => {
   const cookie = request.headers.get('cookie');
   const startTime = dayjs().subtract(1, 'months').startOf('month').unix() * 1000;
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
-
+  axios.defaults.headers.common['Content-Type'] = 'application/json';
+  axios.defaults.headers.common['Cookie'] = cookie;
   try {
-    const {data} = await axios.get(getUserSelfData(process.env.API_HOST ?? ''));
-    if(data?.username) {
-      const {data: selfData } = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', data.username))
-      if(selfData?.rcal?.ownerId) {
-        const {data: eventDetails} = await axios.get(getEvents(process.env.API_HOST ?? '', selfData.rcal.ownerId, startTime, endTime), {
-          headers: {
-            'Content-Type': 'application/json',
-            Cookie: cookie,
-          },
-        });
+    const { data } = await axios.get(getUserSelfData(process.env.API_HOST!)).catch((_) => ({
+      data: null,
+      ENV: baseUrls,
+      error: 'Unable to fetch the user details, please login',
+    }));
+
+    const userName = data?.data?.username;
+    if (userName) {
+      const { data } = await axios
+        .get(getUserCalendarId(process.env.API_HOST!, userName))
+        .catch((_) => ({
+          data: null,
+          ENV: baseUrls,
+          error: 'Unable to fetch the owner details, please login',
+        }));
+
+      const ownerID = data?.data?.rCal[0]?.ownerId;
+      if (ownerID) {
+        const { data: eventDetails } = await axios
+          .get(getEvents(process.env.API_HOST!, 1, startTime, endTime))
+          .catch((_) => ({
+            data: null,
+            ENV: baseUrls,
+            error: 'Unable to fetch the event Details',
+          }));
+
         return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
-      } else {
-        toast.error('Unable to get ownerId details'+ selfData, {
-          toastId: 'events_error',
-        });
       }
-    } else {
-      toast.error('Unable to get username details'+ data, {
-        toastId: 'events_error',
-      });
-    } 
+      return json<any>({ events: null, ENV: baseUrls, error: 'Unable to fetch the owner details' });
+    }
+    return redirect('/login');
   } catch (error) {
     return { events: null, ENV: baseUrls, error };
   }
 };
-export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
 function CalendarPage() {
   const { setEvents, events: eventList, view } = useStore((state) => state);
@@ -60,9 +70,11 @@ function CalendarPage() {
       // TODO: show a  different message if events are not present in the given date range
 
       setEvents([parseEvents(events)][0]);
+    } else if (error === null && events.length === 0) {
+      // TODO: discuss regarding display of user message in case of no events
     } else {
       // TODO: redirect the user to login page on 401
-      toast.error('Unable to get events', {
+      toast.error(error, {
         toastId: 'events_error',
       });
     }

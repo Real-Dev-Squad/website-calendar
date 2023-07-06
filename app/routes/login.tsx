@@ -18,20 +18,20 @@ const LoginPage = () => {
 
   return (
     <main className="flex flex-col items-center w-screen h-screen p-4 sm:max-w-xs sm:mx-auto lg:max-w-sm">
-      <h1 className="mt-20 mb-10 text-xl font-semibold lg:mt-24">HapDay</h1>
+      <h1 className="mt-20 mb-10 text-xl font-semibold lg:mt-24">RCalendar</h1>
 
       <h2 className="text-3xl font-semibold sm:text-3xl">Welcome back</h2>
 
-      {ENV.GOOGLE_OAUTH && ENV.MICROSOFT_OAUTH && (
-        <SocialAuth google={ENV.GOOGLE_OAUTH} microsoft={ENV.MICROSOFT_OAUTH} />
+      { (
+        <SocialAuth google={ENV.GOOGLE_OAUTH!} />
       )}
 
-      <h3 className="text-stone-500">
+      {/* <h3 className="text-stone-500">
         New here?{' '}
         <Link className="hover:underline active:underline underline-offset-2" to="/signup">
           Create Account
         </Link>
-      </h3>
+      </h3> */}
     </main>
   );
 };
