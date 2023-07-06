@@ -41,7 +41,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         );
         return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
       }
-      toast.error(`Unable to get ownerId details${  selfData}`, {
+      toast.error('Unable to get ownerId details' + selfData, {
         toastId: 'events_error',
       });
     } else {
