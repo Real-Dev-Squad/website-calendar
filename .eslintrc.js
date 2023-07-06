@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ['airbnb-base', 'plugin:storybook/recommended'],
+  extends: ['airbnb-base', 'plugin:storybook/recommended', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -30,6 +30,7 @@ module.exports = {
           '**/__tests__/**/*.js',
           '**/.storybook/**/*.*',
           '**/*{.,_}{test,spec}.{ts,tsx}',
+          'app/__mocks__/**/*',
         ],
         peerDependencies: true,
       },
