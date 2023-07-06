@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useLoaderData } from '@remix-run/react';
+import { useParams, useLoaderData, ShouldRevalidateFunction } from '@remix-run/react';
 import { LoaderFunction, json } from '@remix-run/node';
 import EventModal from '~/components/common/eventModal';
 import { useStore } from '~/store/useStore';
-import { CalEvent } from '~/utils/interfaces';
+import { CalEvent, CalendarEventProps } from '~/utils/interfaces';
 import { dummyEvent } from '~/constants/events.constants';
 import { getEventById } from '~/constants/urls.constants';
 import { parseEvents } from '~/utils/event.utils';
@@ -14,7 +14,7 @@ type LoaderData = {
   error: string | null;
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {  
   const url = new URL(request.url);
   const cookie = request.headers.get('cookie');
 
@@ -40,13 +40,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 };
 
+const shouldRevalidate: ShouldRevalidateFunction = ({}) => false;
+
 const EventDetails = () => {
   const { event } = useLoaderData();
 
   const { events: eventsList } = useStore((state) => state);
-  const [calendarEvent, setCalendarEvent] = useState<CalEvent>(
-    parseEvents([event])[0] ?? dummyEvent,
-  );
+  const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
+    event: parseEvents([event])[0] ?? dummyEvent});
 
   const params = useParams();
 
@@ -58,7 +59,7 @@ const EventDetails = () => {
 
       if (calEvent) {
         setCalendarEvent({
-          ...calEvent,
+          event: {...calEvent},
         });
       }
     }
@@ -67,7 +68,7 @@ const EventDetails = () => {
   return (
     <div>
       <EventModal
-        currentEvent={calendarEvent}
+        currentEvent={calendarEvent.event!}
         events={eventsList}
         setCalendarEvent={setCalendarEvent}
       />
