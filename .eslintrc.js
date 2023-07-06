@@ -31,7 +31,7 @@ module.exports = {
           '**/.storybook/**/*.*',
           '**/*{.,_}{test,spec}.{ts,tsx}',
           'app/__mocks__/**/*',
-          "app/mocks/**/*"
+          'app/mocks/**/*',
         ],
         peerDependencies: true,
       },
