@@ -9,27 +9,36 @@ import { CalEvent } from '~/utils/interfaces';
 export default function socialEvents() {
   const [selectedEvent, setSelectedEvent] = useState<CalEvent | null>(null);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  
 
   const toggleDrawer = (event?: CalEvent) => {
     setSelectedEvent(event || null);
     setIsDrawerVisible((isDrawerOpen) => !isDrawerOpen);
   };
 
-  return <>
-  <div className='flex'>
-    <Navbar />
-    <div className='flex flex-start flex-wrap gap-20 justify-center m-10'>
-    {socialMockEvents.map(socialEvent => <div onClick={() => {
-      toggleDrawer(socialEvent)}} className=""><SocialEventCard {...socialEvent} /></div>)}
-    </div>
-    {selectedEvent && (
+  return (
+    <>
+      <div className="flex">
+        <Navbar />
+        <div className="flex flex-start flex-wrap gap-20 justify-center m-10">
+          {socialMockEvents.map((socialEvent) => (
+            <div
+              onClick={() => {
+                toggleDrawer(socialEvent);
+              }}
+              className=""
+            >
+              <SocialEventCard {...socialEvent} />
+            </div>
+          ))}
+        </div>
+        {selectedEvent && (
           <Drawer
             event={selectedEvent}
             isDrawerVisible={isDrawerVisible}
             toggleDrawer={toggleDrawer}
           />
         )}
-  </div>
-  </>;
+      </div>
+    </>
+  );
 }

@@ -3,4 +3,4 @@ export * from './Microsoft';
 export * from './GoogleCalendar';
 export * from './MicrosoftCalendar';
 export * from './Email';
-export * from './GoogleMeet'
+export * from './GoogleMeet';
