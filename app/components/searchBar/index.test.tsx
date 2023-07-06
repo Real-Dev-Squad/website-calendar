@@ -1,4 +1,4 @@
-import { screen, render, fireEvent, getByTestId, waitFor } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchBar from '.';
 
@@ -20,7 +20,7 @@ describe('checks input value to be empty', () => {
 
 describe('Accepting Letters', () => {
   it('checking input letter', () => {
-    render(<SearchBar placeholder="" onChangeValue={jest.fn((value) => {})} />);
+    render(<SearchBar placeholder="" onChangeValue={jest.fn(() => {})} />);
     const letters = 'abcdefghizklmnopqrstuvwxyz';
     const input = screen.getByTestId('searchBar') as HTMLInputElement;
     fireEvent.change(input, { target: { value: letters } });
@@ -40,7 +40,7 @@ describe('Accepting Symbols', () => {
 
 describe('Checking whether Input matches or not', () => {
   it('Matching Input', async () => {
-    render(<SearchBar placeholder="" defaultValue="" onChangeValue={jest.fn((value) => {})} />);
+    render(<SearchBar placeholder="" defaultValue="" onChangeValue={jest.fn(() => {})} />);
     const box = screen.getByRole('searchbox') as HTMLInputElement;
     await userEvent.click(box);
     await userEvent.keyboard('helloworld');

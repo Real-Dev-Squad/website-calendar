@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { IconProps } from '~/types/Icon';
 
 export const Email: React.FC<IconProps> = ({ className }) => (

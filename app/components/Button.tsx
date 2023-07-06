@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '~/types/Icon';
+import { Icon as IconType } from '~/types/Icon';
 
 interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
@@ -35,6 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
                     : 'bg-white border-gray-400 text-gray-900 hover:bg-gray-300'
                 } 
                 ${
+                  // eslint-disable-next-line no-nested-ternary
                   size === 'small'
                     ? 'py-1 px-2 my-2 text-sm gap-1'
                     : size === 'medium'
@@ -53,7 +54,7 @@ export const Button: React.FC<ButtonProps> = ({
 interface LinkButtonProps {
   href: string;
   title: string;
-  icon: Icon;
+  icon: IconType;
 }
 
 export const LinkButton: React.FC<LinkButtonProps> = ({ href, title, icon: Icon }) => (

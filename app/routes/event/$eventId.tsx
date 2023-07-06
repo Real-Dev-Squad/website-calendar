@@ -53,7 +53,7 @@ const EventDetails = () => {
   useEffect(() => {
     if (params.eventId !== 'new') {
       const calEvent = eventsList.find(
-        (event: CalEvent) => event.id === parseInt(params.eventId as string, 10),
+        (singleEvent: CalEvent) => singleEvent.id === parseInt(params.eventId as string, 10),
       );
 
       if (calEvent) {

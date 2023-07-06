@@ -1,6 +1,7 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
-export const socialMockEvents = [{
+export const socialMockEvents = [
+  {
     id: 1,
     title: 'stand up feature demo',
     start: dayjs('2023-06-01').add(1, 'hour').toDate(),
@@ -53,4 +54,5 @@ export const socialMockEvents = [{
         },
       },
     ],
-  }];
+  },
+];

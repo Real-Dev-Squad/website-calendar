@@ -24,31 +24,38 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
 
   try {
-    const {data} = await axios.get(getUserSelfData(process.env.API_HOST ?? ''));
-    if(data?.username) {
-      const {data: selfData } = await axios.get(getUserCalendarId(process.env.API_HOST ?? '', data.username))
-      if(selfData?.rcal?.ownerId) {
-        const {data: eventDetails} = await axios.get(getEvents(process.env.API_HOST ?? '', selfData.rcal.ownerId, startTime, endTime), {
-          headers: {
-            'Content-Type': 'application/json',
-            Cookie: cookie,
+    const { data } = await axios.get(getUserSelfData(process.env.API_HOST ?? ''));
+    if (data?.username) {
+      const { data: selfData } = await axios.get(
+        getUserCalendarId(process.env.API_HOST ?? '', data.username),
+      );
+      if (selfData?.rcal?.ownerId) {
+        const { data: eventDetails } = await axios.get(
+          getEvents(process.env.API_HOST ?? '', selfData.rcal.ownerId, startTime, endTime),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Cookie: cookie,
+            },
           },
-        });
+        );
         return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
-      } else {
-        toast.error('Unable to get ownerId details'+ selfData, {
-          toastId: 'events_error',
-        });
       }
-    } else {
-      toast.error('Unable to get username details'+ data, {
+      toast.error(`Unable to get ownerId details${selfData}`, {
         toastId: 'events_error',
       });
-    } 
+      return null;
+    }
+
+    toast.error(`Unable to get username details${data}`, {
+      toastId: 'events_error',
+    });
+    return null;
   } catch (error) {
     return { events: null, ENV: baseUrls, error };
   }
 };
+
 export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
 function CalendarPage() {
