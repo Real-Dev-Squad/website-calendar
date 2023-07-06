@@ -1,12 +1,10 @@
 import React from 'react';
 import { unstable_createRemixStub as createRemixStub } from '@remix-run/testing';
-import userEvent from '@testing-library/user-event';
-import { fireEvent, render } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { render } from '@testing-library/react';
 import Slider from '../slider/index';
 import Navbar, { DynamicHeroIcon } from './index';
 
-describe.only('Navbar', () => {
+describe('Navbar', () => {
   // Make the stub
   const RemixStub = createRemixStub([
     {
