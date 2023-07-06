@@ -1,7 +1,6 @@
 import { IconProps } from '~/types/Icon';
 
-export const GoogleCalendar: React.FC<IconProps> = ({ className }) => {
-  return (
+export const GoogleCalendar: React.FC<IconProps> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
       <rect width="22" height="22" x="13" y="13" fill="#fff" />
       <polygon
@@ -19,5 +18,4 @@ export const GoogleCalendar: React.FC<IconProps> = ({ className }) => {
       <path fill="#1565c0" d="M39,6h-5v8h8V9C42,7.343,40.657,6,39,6z" />
       <path fill="#1565c0" d="M9,42h5v-8H6v5C6,40.657,7.343,42,9,42z" />
     </svg>
-  );
-};
+);

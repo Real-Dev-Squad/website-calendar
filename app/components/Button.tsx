@@ -30,16 +30,16 @@ export const Button: React.FC<ButtonProps> = ({
                 ${
                   varient === 'primary'
                     ? `border-transparent ${
-                        disabled ? 'bg-stone-500' : 'bg-stone-900'
-                      }   text-white hover:bg-stone-1100`
+                      disabled ? 'bg-stone-500' : 'bg-stone-900'
+                    }   text-white hover:bg-stone-1100`
                     : 'bg-white border-gray-400 text-gray-900 hover:bg-gray-300'
                 } 
                 ${
                   size === 'small'
                     ? 'py-1 px-2 my-2 text-sm gap-1'
                     : size === 'medium'
-                    ? ` px-4 py-2 gap-2 ${style}`
-                    : ` px-4 py-2 text-lg gap-3 ${style} `
+                      ? ` px-4 py-2 gap-2 ${style}`
+                      : ` px-4 py-2 text-lg gap-3 ${style} `
                 }
             `}
     type={type}

@@ -40,13 +40,12 @@ export const loader: LoaderFunction = async ({ request }) => {
           },
         );
         return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
-      } else {
-        toast.error('Unable to get ownerId details' + selfData, {
-          toastId: 'events_error',
-        });
       }
+      toast.error(`Unable to get ownerId details${selfData}`, {
+        toastId: 'events_error',
+      });
     } else {
-      toast.error('Unable to get username details' + data, {
+      toast.error(`Unable to get username details${data}`, {
         toastId: 'events_error',
       });
     }

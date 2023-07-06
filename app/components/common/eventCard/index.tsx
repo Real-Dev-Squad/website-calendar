@@ -4,7 +4,9 @@ import { DynamicHeroIcon } from '../navbar';
 import { CalEvent } from '~/utils/interfaces';
 import { GoogleMeet } from '../../../components/icons';
 
-const EventCard = ({ title, start, end, attendees, location, onlineEventLink }: CalEvent) => {
+const EventCard = ({
+  title, start, end, attendees, location, onlineEventLink,
+}: CalEvent) => {
   const startDate = dayjs(start);
   const startTime = startDate.format('YYYY MMM DD h:mm A');
   const endTime = dayjs(end).format('YYYY MMM DD h:mm A');

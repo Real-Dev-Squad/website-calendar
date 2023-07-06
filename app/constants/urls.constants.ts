@@ -1,5 +1,4 @@
-export const checkUsername = (HOST: string, username: string) =>
-  `${HOST}/users/usernameCheck/${username}`;
+export const checkUsername = (HOST: string, username: string) => `${HOST}/users/usernameCheck/${username}`;
 
 export const defaultCalendarId = 1;
 export const getUserSelfData = (HOST: string) => `${HOST}/users/self`;

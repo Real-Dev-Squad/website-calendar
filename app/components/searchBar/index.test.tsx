@@ -1,4 +1,6 @@
-import { screen, render, fireEvent, getByTestId, waitFor } from '@testing-library/react';
+import {
+  screen, render, fireEvent, getByTestId, waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchBar from '.';
 

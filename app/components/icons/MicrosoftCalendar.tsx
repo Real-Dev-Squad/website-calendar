@@ -1,5 +1,4 @@
-export const MicrosoftCalendar = () => {
-  return (
+export const MicrosoftCalendar = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
       <path
         fill="#103262"
@@ -110,5 +109,4 @@ export const MicrosoftCalendar = () => {
         d="M13,18.691c-3.111,0-4.985,2.377-4.985,5.309S9.882,29.309,13,29.309 c3.119,0,4.985-2.377,4.985-5.308C17.985,21.068,16.111,18.691,13,18.691z M13,27.517c-1.765,0-2.82-1.574-2.82-3.516 s1.06-3.516,2.82-3.516s2.821,1.575,2.821,3.516S14.764,27.517,13,27.517z"
       />
     </svg>
-  );
-};
+);

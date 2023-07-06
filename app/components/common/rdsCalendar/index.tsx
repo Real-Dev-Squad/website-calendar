@@ -28,10 +28,8 @@ const RdsCalendar = ({
 }: RdsCalendarProps) => {
   const [date, setDate] = React.useState(dayjs(currentEvent?.start).toDate());
   const RbcCalendar = withDragAndDrop(Calendar);
-  const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
-    updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
-  const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
-    updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
+  const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) => updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
+  const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) => updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
   const navigate = useNavigate();
   const setView = useStore((state) => state.setView);
 

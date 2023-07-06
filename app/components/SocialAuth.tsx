@@ -6,12 +6,10 @@ interface SocialAuthProps {
   microsoft: string;
 }
 
-export const SocialAuth: React.FC<SocialAuthProps> = ({ google, microsoft }) => {
-  return (
+export const SocialAuth: React.FC<SocialAuthProps> = ({ google, microsoft }) => (
     <div className="flex flex-col w-full gap-4 my-8">
       <LinkButton icon={Google} title="Continue with Google" href={google} />
 
       <LinkButton icon={Microsoft} title="Continue with Microsoft" href={microsoft} />
     </div>
-  );
-};
+);

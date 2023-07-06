@@ -11,6 +11,5 @@ export const createUserSlice: StateCreator<UserState, [], [], UserState> = (set)
     timezone: '',
     onboarding: false,
   },
-  updateUser: (data: Record<UpdateUserKey, string>) =>
-    set((state) => ({ user: { ...state.user, ...data } })),
+  updateUser: (data: Record<UpdateUserKey, string>) => set((state) => ({ user: { ...state.user, ...data } })),
 });

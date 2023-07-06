@@ -1,7 +1,6 @@
 import { IconProps } from '~/types/Icon';
 
-export const Microsoft: React.FC<IconProps> = ({ className }) => {
-  return (
+export const Microsoft: React.FC<IconProps> = ({ className }) => (
     <svg
       className={className}
       xmlns="http://www.w3.org/2000/svg"
@@ -13,5 +12,4 @@ export const Microsoft: React.FC<IconProps> = ({ className }) => {
       <path d="m1187.9 2500h-1187.9v-1187.9h1187.9z" fill="#00adef" />
       <path d="m2499.6 2500h-1188v-1187.9h1187.9v1187.9z" fill="#fbbc09" />
     </svg>
-  );
-};
+);

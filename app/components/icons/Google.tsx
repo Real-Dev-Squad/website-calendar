@@ -1,7 +1,6 @@
 import { IconProps } from '~/types/Icon';
 
-export const Google: React.FC<IconProps> = ({ className }) => {
-  return (
+export const Google: React.FC<IconProps> = ({ className }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -24,5 +23,4 @@ export const Google: React.FC<IconProps> = ({ className }) => {
       <path clipPath="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z" />
       <path clipPath="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z" />
     </svg>
-  );
-};
+);

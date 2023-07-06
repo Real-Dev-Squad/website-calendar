@@ -9,8 +9,7 @@ interface DrawerProps {
   toggleDrawer: () => void;
 }
 
-const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer }) => {
-  return (
+const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer }) => (
     <div className={`w-full h-full fixed inset-0 ${isDrawerVisible ? '' : 'invisible'}`}>
       <div
         onClick={toggleDrawer}
@@ -56,7 +55,6 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
         </button>
       </div>
     </div>
-  );
-};
+);
 
 export default Drawer;

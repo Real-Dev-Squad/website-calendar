@@ -35,7 +35,9 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = Object.fromEntries(await request.formData());
 
   const url = `${process.env.API_HOST}/users/self`;
-  const { username, firstname, lastname, timezone } = formData;
+  const {
+    username, firstname, lastname, timezone,
+  } = formData;
 
   const errors = {
     username: username ? null : 'Username is required',

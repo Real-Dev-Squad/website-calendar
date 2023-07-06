@@ -1,7 +1,6 @@
 import { IconProps } from '~/types/Icon';
 
-export const GoogleMeet: React.FC<IconProps> = ({ className }) => {
-  return (
+export const GoogleMeet: React.FC<IconProps> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 87.5 72">
       <path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z" />
       <path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z" />
@@ -13,5 +12,4 @@ export const GoogleMeet: React.FC<IconProps> = ({ className }) => {
       />
       <path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z" />
     </svg>
-  );
-};
+);
