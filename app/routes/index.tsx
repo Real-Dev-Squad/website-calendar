@@ -44,15 +44,18 @@ export const loader: LoaderFunction = async ({ request }) => {
       toast.error(`Unable to get ownerId details${selfData}`, {
         toastId: 'events_error',
       });
-    } else {
-      toast.error(`Unable to get username details${data}`, {
-        toastId: 'events_error',
-      });
+      return null;
     }
+
+    toast.error(`Unable to get username details${data}`, {
+      toastId: 'events_error',
+    });
+    return null;
   } catch (error) {
     return { events: null, ENV: baseUrls, error };
   }
 };
+
 export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
 function CalendarPage() {

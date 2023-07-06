@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import dayjs from 'dayjs';
@@ -25,7 +25,10 @@ interface RdsCalendarProps {
   updateEvent: (event: CalEvent) => void;
 }
 
-jest.mock('react-big-calendar/lib/addons/dragAndDrop', () => (Component: React.ComponentType) => Component);
+jest.mock(
+  'react-big-calendar/lib/addons/dragAndDrop',
+  () => (Component: React.ComponentType) => Component,
+);
 
 const mockEventsList: CalEvent[] = [
   {
@@ -87,8 +90,7 @@ describe('RdsCalendar', () => {
   // });
 
   it('handles onEventDrop correctly', () => {
-    const { getByText } = render(<RdsCalendar {...defaultProps} />);
-    const eventElement = getByText('Event 1');
+    render(<RdsCalendar {...defaultProps} />);
 
     const newStartDate = dayjs().add(3, 'hours').toDate();
     const newEndDate = dayjs().add(4, 'hours').toDate();
@@ -105,11 +107,12 @@ describe('RdsCalendar', () => {
     };
 
     // Call the onEventDrop function directly
-    const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) => mockUpdateEvent({
-      ...ev.event,
-      start: dayjs(ev.start).toDate(),
-      end: dayjs(ev.end).toDate(),
-    });
+    const onEventDrop: withDragAndDropProps['onEventDrop'] = (ev: UpdateEvent) =>
+      mockUpdateEvent({
+        ...ev.event,
+        start: dayjs(ev.start).toDate(),
+        end: dayjs(ev.end).toDate(),
+      });
     onEventDrop(updateEventObj);
 
     expect(mockUpdateEvent).toHaveBeenCalledWith({
@@ -120,7 +123,7 @@ describe('RdsCalendar', () => {
   });
 
   it('handles onEventResize correctly', () => {
-    const { getByText } = render(<RdsCalendar {...defaultProps} />);
+    render(<RdsCalendar {...defaultProps} />);
 
     const newEndDate = dayjs().add(4, 'hours').toDate();
 
@@ -136,11 +139,12 @@ describe('RdsCalendar', () => {
     };
 
     // Call the onEventDrop function directly
-    const onEventDrop: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) => mockUpdateEvent({
-      ...ev.event,
-      start: dayjs(ev.start).toDate(),
-      end: dayjs(ev.end).toDate(),
-    });
+    const onEventDrop: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
+      mockUpdateEvent({
+        ...ev.event,
+        start: dayjs(ev.start).toDate(),
+        end: dayjs(ev.end).toDate(),
+      });
     onEventDrop(updateEventObj);
 
     expect(mockUpdateEvent).toHaveBeenCalledWith({
@@ -155,11 +159,6 @@ describe('RdsCalendar', () => {
 
     const startTime = dayjs().add(3, 'hours').toDate();
     const endTime = dayjs().add(4, 'hours').toDate();
-    const newEvent: CalEvent = {
-      title: '',
-      start: startTime,
-      end: endTime,
-    };
 
     const onSelectSlotMock = {
       start: startTime,
@@ -190,7 +189,10 @@ describe('RdsCalendar', () => {
         end: dayjs(slotInfo.start).add(1, 'hour').toDate(),
       };
       mockSetCalendarEvent((e: any) => ({
-        ...e, event, show: true, new: true,
+        ...e,
+        event,
+        show: true,
+        new: true,
       }));
     };
     onSelectSlot(onSelectSlotMock);

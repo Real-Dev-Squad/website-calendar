@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
 import { CalEvent } from '~/utils/interfaces';
 
-export default function SocialEventCard({
-  title, attendees, start, end,
-}: CalEvent) {
+export default function SocialEventCard({ title, attendees, start, end }: CalEvent) {
   const startDate = dayjs(start);
   const date = startDate.format('D');
   const month = startDate.format('MMM');

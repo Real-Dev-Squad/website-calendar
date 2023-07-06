@@ -11,7 +11,6 @@ export const isUsernameAvailable = async (host: string, token: string, username:
     });
     return response.data.data.available;
   } catch (error) {
-    console.error('err', error);
     return error;
   }
 };

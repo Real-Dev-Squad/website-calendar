@@ -237,7 +237,8 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                       name="description"
                       placeholder="Event Description"
                       value={currentEvent?.description ?? ''}
-                      onChange={(e) => setCalendarEvent((ev) => ({ ...ev, description: e.target.value }))
+                      onChange={(e) =>
+                        setCalendarEvent((ev) => ({ ...ev, description: e.target.value }))
                       }
                     ></textarea>
 

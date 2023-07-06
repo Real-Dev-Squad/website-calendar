@@ -18,7 +18,8 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
   const [value, setValue] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const isEmailInList = (email: string) => attendees.findIndex((em) => em.attendee.email === email) !== -1;
+  const isEmailInList = (email: string) =>
+    attendees.findIndex((em) => em.attendee.email === email) !== -1;
 
   const isEmailValid = (email: string) => {
     let err = null;

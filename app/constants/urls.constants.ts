@@ -1,10 +1,13 @@
-export const checkUsername = (HOST: string, username: string) => `${HOST}/users/usernameCheck/${username}`;
+export const checkUsername = (HOST: string, username: string) =>
+  `${HOST}/users/usernameCheck/${username}`;
 
 export const defaultCalendarId = 1;
 export const getUserSelfData = (HOST: string) => `${HOST}/users/self`;
 export const getUserCalendarId = (HOST: string, username: string) => `${HOST}/calendar/${username}`;
 export const getEvents = (
   HOST: string,
+  
+  // eslint-disable-next-line default-param-last
   calendarId: number = defaultCalendarId,
   startTime: number,
   endTime: number,

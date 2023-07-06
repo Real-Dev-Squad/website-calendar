@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { useState } from 'react';
 import Drawer from '~/components/common/drawer';
 import SocialEventCard from '~/components/common/socialEventCard';

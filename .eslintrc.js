@@ -31,9 +31,12 @@ module.exports = {
           '**/.storybook/**/*.*',
           '**/*{.,_}{test,spec}.{ts,tsx}',
           'app/__mocks__/**/*',
+          "app/mocks/**/*"
         ],
         peerDependencies: true,
       },
     ],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };
