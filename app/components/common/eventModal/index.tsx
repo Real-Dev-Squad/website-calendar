@@ -161,7 +161,9 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
 
                   <EventVisibility
                     visibility={currentEvent?.visibility ?? 'private'}
-                    setVisibility={(visibility) => setCalendarEvent((e) => ({ ...e, visibility }))}
+                    setVisibility={(visibility) =>
+                      setCalendarEvent((e) => ({ ...e, event: { ...e.event, visibility } }))
+                    }
                   />
 
                   <div className="mt-2">
@@ -180,7 +182,10 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                         )}
                         onChange={(start) => {
                           if (dayjs(start) < maxDate) {
-                            setCalendarEvent((e) => ({ ...e, start: dayjs(start).toDate() }));
+                            setCalendarEvent((e) => ({
+                              ...e,
+                              event: { ...e.event, start: dayjs(start).toDate() },
+                            }));
                           }
                         }}
                         showTimeSelect
@@ -203,7 +208,10 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                         )}
                         onChange={(end) => {
                           if (minDate < dayjs(end)) {
-                            setCalendarEvent((e) => ({ ...e, end: dayjs(end).toDate() }));
+                            setCalendarEvent((e) => ({
+                              ...e,
+                              event: { ...e.event, end: dayjs(end).toDate() },
+                            }));
                           }
                         }}
                         showTimeSelect
@@ -215,7 +223,9 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                       label="Attendees Emails"
                       placeholder="Attendees Emails"
                       attendees={currentEvent?.attendees ?? []}
-                      setAttendees={(attendees) => setCalendarEvent((ev) => ({ ...ev, attendees }))}
+                      setAttendees={(attendees) =>
+                        setCalendarEvent((ev) => ({ ...ev, event: { ...ev.event, attendees } }))
+                      }
                     />
 
                     <UserInput
@@ -226,7 +236,9 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                       labelClassnames="text-4"
                       placeholder="Enter URL or Address for the event"
                       value={currentEvent?.location ?? ''}
-                      setValue={(location) => setCalendarEvent((ev) => ({ ...ev, location }))}
+                      setValue={(location) =>
+                        setCalendarEvent((ev) => ({ ...ev, event: { ...ev.event, location } }))
+                      }
                     />
 
                     <p className="text-4 mb-2">Description</p>
@@ -240,7 +252,10 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                       placeholder="Event Description"
                       value={currentEvent?.description ?? ''}
                       onChange={(e) =>
-                        setCalendarEvent((ev) => ({ ...ev, description: e.target.value }))
+                        setCalendarEvent((ev) => ({
+                          ...ev,
+                          event: { ...ev.event, description: e.target.value },
+                        }))
                       }
                     ></textarea>
 
