@@ -43,7 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       return redirect('/onboarding');
     }
 
-    const { data } = await axios
+    const { data: calendarData } = await axios
       .get(getUserCalendarId(process.env.API_HOST!, userName))
       .catch((_) => ({
         data: null,
@@ -51,11 +51,12 @@ export const loader: LoaderFunction = async ({ request }) => {
         error: 'Unable to fetch the owner details, please login',
       }));
 
-    const ownerID = data?.data?.rCal[0]?.ownerId;
+    const ownerId = calendarData?.data?.rCal[0]?.ownerId;
+    const calendarId = calendarData?.data?.rCal[0]?.id;
 
-    if (ownerID) {
+    if (ownerId) {
       const { data: eventDetails } = await axios
-        .get(getEvents(process.env.API_HOST!, 1, startTime, endTime))
+        .get(getEvents(process.env.API_HOST!, calendarId, startTime, endTime))
         .catch((_) => ({
           data: null,
           ENV: baseUrls,
