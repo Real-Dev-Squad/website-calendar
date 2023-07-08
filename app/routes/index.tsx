@@ -31,31 +31,42 @@ export const loader: LoaderFunction = async ({ request }) => {
       error: 'Unable to fetch the user details, please login',
     }));
 
-    const userName = data?.data?.username;
-    if (userName) {
-      const { data } = await axios
-        .get(getUserCalendarId(process.env.API_HOST!, userName))
+    const userData = data?.data;
+
+    if (!userData) {
+      return redirect('/login');
+    }
+
+    const userName = userData.username;
+
+    if (!userName) {
+      return redirect('/onboarding');
+    }
+
+    const { data: calendarData } = await axios
+      .get(getUserCalendarId(process.env.API_HOST!, userName))
+      .catch((_) => ({
+        data: null,
+        ENV: baseUrls,
+        error: 'Unable to fetch the owner details, please login',
+      }));
+
+    const ownerId = calendarData?.data?.rCal[0]?.ownerId;
+    const calendarId = calendarData?.data?.rCal[0]?.id;
+
+    if (ownerId) {
+      const { data: eventDetails } = await axios
+        .get(getEvents(process.env.API_HOST!, calendarId, startTime, endTime))
         .catch((_) => ({
           data: null,
           ENV: baseUrls,
-          error: 'Unable to fetch the owner details, please login',
+          error: 'Unable to fetch the event Details',
         }));
 
-      const ownerID = data?.data?.rCal[0]?.ownerId;
-      if (ownerID) {
-        const { data: eventDetails } = await axios
-          .get(getEvents(process.env.API_HOST!, 1, startTime, endTime))
-          .catch((_) => ({
-            data: null,
-            ENV: baseUrls,
-            error: 'Unable to fetch the event Details',
-          }));
-
-        return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
-      }
-      return json<any>({ events: null, ENV: baseUrls, error: 'Unable to fetch the owner details' });
+      return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
     }
-    return redirect('/login');
+
+    return json<any>({ events: null, ENV: baseUrls, error: 'Unable to fetch the owner details' });
   } catch (error) {
     return { events: null, ENV: baseUrls, error };
   }

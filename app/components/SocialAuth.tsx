@@ -9,8 +9,8 @@ interface SocialAuthProps {
 export const SocialAuth: React.FC<SocialAuthProps> = ({ google, microsoft }) => {
   return (
     <div className="flex flex-col w-full gap-4 my-8">
-      <LinkButton icon={Google} title="Continue with Google" href={'https://realdevsquad.com/'} />
-      
+      <LinkButton icon={Google} title="Continue with Google" href={google} />
+
       {/* // TODO: Integrate Microsoft Login */}
       {/* <LinkButton icon={Microsoft} title="Continue with Microsoft" href={microsoft} /> */}
     </div>

@@ -14,7 +14,7 @@ type LoaderData = {
   error: string | null;
 };
 
-export const loader: LoaderFunction = async ({ request }) => {  
+export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const cookie = request.headers.get('cookie');
 
@@ -47,7 +47,8 @@ const EventDetails = () => {
 
   const { events: eventsList } = useStore((state) => state);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
-    event: parseEvents([event])[0] ?? dummyEvent});
+    event: parseEvents([event])[0] ?? dummyEvent,
+  });
 
   const params = useParams();
 
@@ -59,7 +60,7 @@ const EventDetails = () => {
 
       if (calEvent) {
         setCalendarEvent({
-          event: {...calEvent},
+          event: { ...calEvent },
         });
       }
     }
