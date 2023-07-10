@@ -2,6 +2,18 @@ import dayjs from 'dayjs';
 import { defaultCalendarId } from '../constants/urls.constants';
 import { CalEvent } from '~/utils/interfaces';
 
+// parse event obj from backend to frontend format
+export const parseEvent = (event: any): CalEvent => {
+  const { name, startTime, endTime, Attendees, isDeleted, ...remainingEventDetails } = event;
+  return {
+    ...remainingEventDetails,
+    title: name,
+    start: dayjs(startTime).toDate(),
+    end: dayjs(endTime).toDate(),
+    attendees: Attendees,
+  };
+};
+
 // parse event objs from backend to frontend format
 export const parseEvents = (events: any[]): Array<CalEvent> =>
   events?.reduce((acc, event) => {
