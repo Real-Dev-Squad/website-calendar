@@ -15,6 +15,7 @@ type LoaderData = {
   ENV: Awaited<ReturnType<typeof getUrls>>;
   events: any;
   error: string | null;
+  calendarId?: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -30,7 +31,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       ENV: baseUrls,
       error: 'Unable to fetch the user details, please login',
     }));
-
+    console.log({data})
     const userData = data?.data;
 
     if (!userData) {
@@ -50,7 +51,6 @@ export const loader: LoaderFunction = async ({ request }) => {
         ENV: baseUrls,
         error: 'Unable to fetch the owner details, please login',
       }));
-
     const ownerId = calendarData?.data?.rCal[0]?.ownerId;
     const calendarId = calendarData?.data?.rCal[0]?.id;
 
@@ -63,7 +63,7 @@ export const loader: LoaderFunction = async ({ request }) => {
           error: 'Unable to fetch the event Details',
         }));
 
-      return json<LoaderData>({ events: eventDetails?.data, ENV: baseUrls, error: null });
+      return json<LoaderData>({ events: eventDetails?.data, calendarId: calendarId, ENV: baseUrls, error: null });
     }
 
     return json<any>({ events: null, ENV: baseUrls, error: 'Unable to fetch the owner details' });
@@ -74,15 +74,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 function CalendarPage() {
   const { setEvents, events: eventList, view } = useStore((state) => state);
-  const { events, error } = useLoaderData();
-
+  const { events, error, calendarId } = useLoaderData();
   useEffect(() => {
     if (error === null && events.length > 0) {
       // TODO: show a  different message if events are not present in the given date range
-
+      sessionStorage.setItem('calendarId', calendarId)
       setEvents([parseEvents(events)][0]);
     } else if (error === null && events.length === 0) {
       // TODO: discuss regarding display of user message in case of no events
+      sessionStorage.setItem('calendarId', calendarId)
     } else {
       // TODO: redirect the user to login page on 401
       toast.error(error, {
