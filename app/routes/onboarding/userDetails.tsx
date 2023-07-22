@@ -58,7 +58,9 @@ export const action: ActionFunction = async ({ request }) => {
       },
     });
 
-    return redirect('/onboarding/userCalendarDetails');
+    // TODO: connect 3rd party calendars
+    // return redirect('/onboarding/userCalendarDetails');
+    return redirect('/');
   } catch (error) {
     return error;
   }
@@ -208,7 +210,7 @@ const UserDetails = () => {
       <div className=" mx-4 mb-3 basis-1/12">
         <Button
           dataTestId="submitButton"
-          label="Save & Next"
+          label="Submit"
           size="medium"
           varient="primary"
           type={'submit'}
