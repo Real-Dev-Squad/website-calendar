@@ -25,7 +25,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
   axios.defaults.headers.common['Content-Type'] = 'application/json';
   axios.defaults.headers.common['Cookie'] = cookie;
-  console.log(getUserSelfData(process.env.API_HOST!))
+  
   try {
     const { data } = await axios.get(getUserSelfData(process.env.API_HOST!)).catch((_) => ({
       data: null,
