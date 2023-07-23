@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useStore } from '~/store/useStore';
 import { CalEvent } from '~/utils/interfaces';
 
 // parse event obj from backend to frontend format
@@ -43,7 +44,7 @@ export const parseEventToCreateOrUpdateEventPayload = (
   currentEvent: CalEvent,
 ) => {
   const formData = new FormData(form);
-  const calendarId = sessionStorage.getItem("calendarId")
+  const {calendarId } = useStore((state) => state);
   return {
     name: formData.get('title'),
     startTime: dayjs(currentEvent.start).valueOf(),

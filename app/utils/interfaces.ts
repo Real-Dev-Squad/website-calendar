@@ -34,11 +34,13 @@ export interface UpdateEvent {
 export interface EventState {
   events: CalEvent[];
   view: View;
+  calendarId: number;
   setEvents: (events: CalEvent[]) => void;
   addEvent: (event: CalEvent) => void;
   removeEvent: (event: CalEvent) => void;
   updateEvent: (event: CalEvent) => void;
   setView: (view: View) => void;
+  setCalendarId: (calendarId: number) => void;
 }
 
 export interface User {

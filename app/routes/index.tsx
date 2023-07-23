@@ -25,13 +25,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
   axios.defaults.headers.common['Content-Type'] = 'application/json';
   axios.defaults.headers.common['Cookie'] = cookie;
+  console.log(getUserSelfData(process.env.API_HOST!))
   try {
     const { data } = await axios.get(getUserSelfData(process.env.API_HOST!)).catch((_) => ({
       data: null,
       ENV: baseUrls,
       error: 'Unable to fetch the user details, please login',
     }));
-    console.log({data})
+
     const userData = data?.data;
 
     if (!userData) {
@@ -73,16 +74,16 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 function CalendarPage() {
-  const { setEvents, events: eventList, view } = useStore((state) => state);
+  const { setEvents, events: eventList, view, setCalendarId } = useStore((state) => state);
   const { events, error, calendarId } = useLoaderData();
   useEffect(() => {
     if (error === null && events.length > 0) {
       // TODO: show a  different message if events are not present in the given date range
-      sessionStorage.setItem('calendarId', calendarId)
+      setCalendarId(calendarId)
       setEvents([parseEvents(events)][0]);
     } else if (error === null && events.length === 0) {
       // TODO: discuss regarding display of user message in case of no events
-      sessionStorage.setItem('calendarId', calendarId)
+      setCalendarId(calendarId)
     } else {
       // TODO: redirect the user to login page on 401
       toast.error(error, {
