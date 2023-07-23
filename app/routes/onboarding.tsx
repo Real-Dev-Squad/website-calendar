@@ -38,7 +38,7 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
       {apiHost && (
         <div className="form bg-stone-50 h-screen">
           <div className="form-container h-full flex flex-col ">
-            <div className="header-pbar-wrapper basis-3/12">
+            <div className="header-pbar-wrapper basis-3/12 mb-4">
               <div className="header">
                 <h1 className="text-2x font-semibold text-center pt-10 mb-3">
                   {FormTitlesAndSubtitles[page].title}
@@ -47,7 +47,9 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
                   {FormTitlesAndSubtitles[page].subtitle}
                 </p>
               </div>
-              <div className="progressbar my-4">
+              {/*
+                // TODO: uncomment to work on step 2
+                <div className="progressbar my-4">
                 <p className="text-xs text-stone-500 mx-4 mb-1">Step {page + 1} of 2</p>
                 <div className="flex mx-4">
                   {FormTitlesAndSubtitles.map((item, index) => (
@@ -59,7 +61,7 @@ const OnboardingPage: FC<UserOnboardingInterface> = () => {
                     ></div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <Outlet />
