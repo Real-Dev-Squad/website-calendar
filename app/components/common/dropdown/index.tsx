@@ -80,7 +80,9 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder, setUserTimezone }) => 
               data-testid={`option-${index + 1}`}
               className="flex p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
             >
-              <label htmlFor={`checkbox-${index + 1}`}>{item.title}</label>
+              <label htmlFor={`checkbox-${index + 1}`} className="text-black">
+                {item.title}
+              </label>
             </li>
           ))}
         </ul>

@@ -54,24 +54,17 @@ const Navbar = () => {
         visibleOnDesktop: true,
       },
       {
-        icon: 'Calendar',
-        text: 'Events',
-        href: '/events',
-        id: 1,
-        visibleOnDesktop: true,
-      },
-      {
         icon: 'Users',
         text: 'Social Events',
         href: '/socialEvents',
-        id: 2,
+        id: 1,
         visibleOnDesktop: true,
       },
       {
         icon: 'Cog6Tooth',
         text: 'Settings',
         href: '/',
-        id: 3,
+        id: 2,
         visibleOnDesktop: false,
       },
     ],
@@ -159,7 +152,7 @@ const Navbar = () => {
                 key={navItem.id}
                 className={`${navItem.visibleOnDesktop ? '' : 'md:hidden'}  ${
                   classShortHands.flexDesktopRow
-                } items-center mb-0 md:mb-8 cursor-pointer group`}
+                } items-center mb-0 md:mb-8 cursor-not-allowed group`}
                 onClick={() => toggle(navItem.href)}
               >
                 <div className="h-5 w-5">
