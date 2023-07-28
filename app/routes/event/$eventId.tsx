@@ -65,8 +65,11 @@ const EventDetails = () => {
         });
       }
     } else {
+      const start = navState && navState.start ? navState.start : dummyEvent.start;
+      const end = navState && navState.end ? navState.end : dummyEvent.end;
+
       setCalendarEvent({
-        event: { ...event, start: navState.start, end: navState.end },
+        event: { ...event, start, end },
       });
     }
   }, [event.id]);
