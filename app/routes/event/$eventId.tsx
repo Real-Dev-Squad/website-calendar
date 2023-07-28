@@ -48,7 +48,7 @@ const EventDetails = () => {
   const { state: navState } = useLocation();
   const { events: eventsList } = useStore((state) => state);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
-    event: parseEvent(event) ?? dummyEvent,
+    event: event ? parseEvent(event) : dummyEvent,
   });
 
   const params = useParams();
