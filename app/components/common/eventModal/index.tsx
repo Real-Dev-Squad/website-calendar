@@ -60,7 +60,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
   };
 
   React.useEffect(() => {
-    if (params.eventId === 'new') {
+    if (params.eventId === 'new' && routerLocation.state) {
       setCalendarEvent((e) => ({
         ...e,
         start: dayjs(routerLocation.state.start),
