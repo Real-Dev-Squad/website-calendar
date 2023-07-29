@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useLoaderData, ShouldRevalidateFunction, useLocation } from '@remix-run/react';
+import { useLoaderData, ShouldRevalidateFunction } from '@remix-run/react';
 import { LoaderFunction, json } from '@remix-run/node';
 import EventModal from '~/components/common/eventModal';
-import { useStore } from '~/store/useStore';
-import { CalEvent, CalendarEventProps } from '~/utils/interfaces';
 import { dummyEvent } from '~/constants/events.constants';
 import { getEventById } from '~/constants/urls.constants';
+import { CalEvent } from '~/utils/interfaces';
 import { parseEvent } from '~/utils/event.utils';
 
 type LoaderData = {
-  event: any;
-  error: string | null;
+  emptyEvent?: CalEvent;
+  serverEvent?: any;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -20,7 +18,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const eventId = url.pathname.split('/')[2];
 
-  if (eventId === 'new') return { event: dummyEvent };
+  if (eventId === 'new') return json<LoaderData>({ emptyEvent: dummyEvent });
 
   try {
     const response = await axios.get(
@@ -32,7 +30,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         },
       },
     );
-    return json<LoaderData>({ event: response.data.data, error: null });
+    return json<LoaderData>({ serverEvent: response.data.data });
   } catch (error) {
     throw new Response(null, {
       status: 404,
@@ -44,45 +42,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 const shouldRevalidate: ShouldRevalidateFunction = ({}) => false;
 
 const EventDetails = () => {
-  const { event } = useLoaderData();
-  const { state: navState } = useLocation();
-  const { events: eventsList } = useStore((state) => state);
-  const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
-    event: parseEvent(event) ?? dummyEvent,
-  });
+  const { emptyEvent, serverEvent } = useLoaderData();
 
-  const params = useParams();
+  const event = emptyEvent ?? parseEvent(serverEvent);
 
-  useEffect(() => {
-    if (params.eventId !== 'new') {
-      const calEvent = eventsList.find(
-        (event: CalEvent) => event.id === parseInt(params.eventId as string, 10),
-      );
-
-      if (calEvent) {
-        setCalendarEvent({
-          event: { ...calEvent },
-        });
-      }
-    } else {
-      const start = navState && navState.start ? navState.start : dummyEvent.start;
-      const end = navState && navState.end ? navState.end : dummyEvent.end;
-
-      setCalendarEvent({
-        event: { ...event, start, end },
-      });
-    }
-  }, [event.id]);
-
-  return (
-    <div>
-      <EventModal
-        currentEvent={calendarEvent.event!}
-        events={eventsList}
-        setCalendarEvent={setCalendarEvent}
-      />
-    </div>
-  );
+  return <EventModal event={event} />;
 };
 
 export default EventDetails;
