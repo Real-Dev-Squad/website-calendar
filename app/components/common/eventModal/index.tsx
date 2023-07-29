@@ -1,4 +1,4 @@
-import React from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import {
   Form,
   useNavigate,
@@ -22,26 +22,28 @@ import { patchEvent, postEvent } from '../../../constants/urls.constants';
 import { parseEventToCreateOrUpdateEventPayload, parseEvents } from '../../../utils/event.utils';
 
 interface EventModalProps {
-  events: CalEvent[];
-  currentEvent: CalEvent;
-  createEvent?: (event: CalEvent) => void;
-  setCalendarEvent: React.Dispatch<React.SetStateAction<CalendarEventProps>>;
+  event: CalEvent;
 }
 // This function lets apps optimize which routes data should be
 // reloaded after actions and for client-side navigations.
 // https://remix.run/docs/en/main/route/should-revalidate
 export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
-export default function EventModal({ events, currentEvent, setCalendarEvent }: EventModalProps) {
-  const { updateEvent, addEvent, view } = useStore((state) => state);
-  const params = useParams();
-  const navigate = useNavigate();
-  const [statuses, setStatuses] = React.useState<{
+export default function EventModal({ event }: EventModalProps) {
+  const { updateEvent, addEvent, view, events } = useStore((state) => state);
+  const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
+    event,
+  });
+  const [statuses, setStatuses] = useState<{
     creatingPost: 'idle' | 'loading';
   }>({
     creatingPost: 'idle',
   });
+  const params = useParams();
+  const navigate = useNavigate();
   const routerLocation = useLocation() as { state: { start: string; end: string } };
+
+  const currentEvent = calendarEvent.event!;
   const minDate = dayjs(currentEvent.start);
   const maxDate = dayjs(currentEvent.end);
 
@@ -55,21 +57,24 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
     return resultArray;
   };
 
-  const updateEventStateFromModal = (event: CalEvent) => {
-    setCalendarEvent((e) => ({ ...e, event }));
+  const updateEventStateFromModal = (ev: CalEvent) => {
+    setCalendarEvent((e) => ({ ...e, ev }));
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (params.eventId === 'new' && routerLocation.state) {
       setCalendarEvent((e) => ({
         ...e,
-        start: dayjs(routerLocation.state.start),
-        end: dayjs(routerLocation.state.end),
+        event: {
+          ...e.event,
+          start: dayjs(routerLocation.state.start).toDate(),
+          end: dayjs(routerLocation.state.end).toDate(),
+        },
       }));
     }
-  }, []);
+  }, [routerLocation.state]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // grab the form element
     const $form = e.currentTarget;
@@ -122,6 +127,21 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
       });
     }
   };
+
+  const memoizedRdsCalendar = useCallback(
+    () => (
+      <RdsCalendar
+        height="100%"
+        view={view}
+        eventsList={events}
+        defaultDate={currentEvent?.start}
+        currentEvent={currentEvent}
+        setCalendarEvent={setCalendarEvent}
+        updateEvent={updateEventStateFromModal}
+      />
+    ),
+    [events],
+  );
 
   return (
     <Dialog.Root open={true}>
@@ -269,17 +289,7 @@ export default function EventModal({ events, currentEvent, setCalendarEvent }: E
                 </div>
               </div>
             </Form>
-            <div className="flex-auto hidden md:block">
-              <RdsCalendar
-                height="100%"
-                view={view}
-                eventsList={events}
-                defaultDate={currentEvent?.start}
-                currentEvent={currentEvent}
-                setCalendarEvent={setCalendarEvent}
-                updateEvent={updateEventStateFromModal}
-              />
-            </div>
+            <div className="flex-auto hidden md:block">{memoizedRdsCalendar()}</div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
