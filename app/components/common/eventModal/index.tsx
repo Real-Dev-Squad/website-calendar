@@ -82,6 +82,7 @@ export default function EventModal({ event }: EventModalProps) {
     // get the payload from the form
 
     if (params.eventId !== 'new') {
+      setStatuses((old) => ({ ...old, creatingPost: 'loading' }));
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
       try {
         const response = await axios(
@@ -116,9 +117,9 @@ export default function EventModal({ event }: EventModalProps) {
         withCredentials: true,
       });
       addEvent(parseEvents([{ ...response.data.data }])[0]);
-      toast.success('successfully added event', {
-        toastId: 'events_success',
-      });
+      // toast.success('successfully added event', {
+      //   toastId: 'events_success',
+      // });
       setStatuses((old) => ({ ...old, creatingPost: 'idle' }));
       navigate('/');
     } catch (error) {

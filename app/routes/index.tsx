@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { LoaderFunction, json, redirect } from '@remix-run/node';
+import { HeadersFunction, LoaderFunction, json, redirect } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
@@ -10,6 +10,10 @@ import { useStore } from '~/store/useStore';
 import { parseEvents } from '~/utils/event.utils';
 import { getEvents, getUserCalendarId, getUserSelfData } from '~/constants/urls.constants';
 import { getUrls } from '~/models/urls.server';
+
+export const headers: HeadersFunction = () => ({
+  'Cache-Control': 'max-age=300, s-maxage=3600',
+});
 
 type LoaderData = {
   ENV: Awaited<ReturnType<typeof getUrls>>;
