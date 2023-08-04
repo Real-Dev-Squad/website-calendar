@@ -43,7 +43,7 @@ export const parseEventToCreateOrUpdateEventPayload = (
   currentEvent: CalEvent,
 ) => {
   const formData = new FormData(form);
-  const calendarId  = localStorage.getItem('calendarId');
+  const calendarId = localStorage.getItem('calendarId');
   return {
     name: formData.get('title'),
     startTime: dayjs(currentEvent.start).valueOf(),
