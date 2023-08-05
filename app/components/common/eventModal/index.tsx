@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Form,
   useNavigate,
@@ -6,38 +6,28 @@ import {
   useLocation,
   ShouldRevalidateFunction,
 } from '@remix-run/react';
-import axios from 'axios';
-import * as Dialog from '@radix-ui/react-dialog';
 import dayjs from 'dayjs';
 import DatePicker from 'react-datepicker';
-import { toast } from 'react-toastify';
 import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import { useStore } from '../../../store/useStore';
 import UserInput from '../userInput';
-import RdsCalendar from '../rdsCalendar';
 import EventVisibility from '../eventVisibility';
 import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
-import { patchEvent, postEvent } from '../../../constants/urls.constants';
-import { parseEventToCreateOrUpdateEventPayload, parseEvents } from '../../../utils/event.utils';
 
 interface EventModalProps {
   event: CalEvent;
+  statuses: 'idle' | 'loading';
 }
 // This function lets apps optimize which routes data should be
 // reloaded after actions and for client-side navigations.
 // https://remix.run/docs/en/main/route/should-revalidate
 export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
-export default function EventModal({ event }: EventModalProps) {
-  const { updateEvent, addEvent, view, events } = useStore((state) => state);
+export default function EventModal({ event, statuses = 'idle' }: EventModalProps) {
+  useStore((state: any) => state);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
     event,
-  });
-  const [statuses, setStatuses] = useState<{
-    creatingPost: 'idle' | 'loading';
-  }>({
-    creatingPost: 'idle',
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -57,10 +47,6 @@ export default function EventModal({ event }: EventModalProps) {
     return resultArray;
   };
 
-  const updateEventStateFromModal = (ev: CalEvent) => {
-    setCalendarEvent((e) => ({ ...e, ev }));
-  };
-
   useEffect(() => {
     if (params.eventId === 'new' && routerLocation.state) {
       setCalendarEvent((e) => ({
@@ -74,80 +60,10 @@ export default function EventModal({ event }: EventModalProps) {
     }
   }, [routerLocation.state]);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // grab the form element
-    const $form = e.currentTarget;
-
-    // get the payload from the form
-
-    if (params.eventId !== 'new') {
-      setStatuses((old) => ({ ...old, creatingPost: 'loading' }));
-      const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
-      try {
-        const response = await axios(
-          patchEvent(
-            window.ENV.API_HOST,
-            parseInt(params.eventId ? params.eventId : '', 10) as number,
-          ),
-          {
-            method: 'patch',
-            data: payload,
-            withCredentials: true,
-          },
-        );
-
-        updateEvent(parseEvents([{ ...response.data.data }])[0]);
-        navigate('/');
-      } catch (error) {
-        toast.error('unable to update event', {
-          toastId: 'events_error',
-        });
-      }
-      return;
-    }
-
-    try {
-      setStatuses((old) => ({ ...old, creatingPost: 'loading' }));
-      const postPayload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
-
-      const response = await axios(postEvent(window.ENV.API_HOST), {
-        method: 'post',
-        data: postPayload,
-        withCredentials: true,
-      });
-      addEvent(parseEvents([{ ...response.data.data }])[0]);
-      // toast.success('successfully added event', {
-      //   toastId: 'events_success',
-      // });
-      setStatuses((old) => ({ ...old, creatingPost: 'idle' }));
-      navigate('/');
-    } catch (error) {
-      toast.error('unable to add event', {
-        toastId: 'events_error',
-      });
-    }
-  };
-
-  const memoizedRdsCalendar = useCallback(
-    () => (
-      <RdsCalendar
-        height="100%"
-        view={view}
-        eventsList={events}
-        defaultDate={currentEvent?.start}
-        currentEvent={currentEvent}
-        setCalendarEvent={setCalendarEvent}
-        updateEvent={updateEventStateFromModal}
-      />
-    ),
-    [events],
-  );
-
   return (
-    <Form method="patch" onSubmit={handleSubmit}>
+    <Form method="patch">
       <div className="p-4 h-full w-full md:w-[400px] border-r-[1px] border-stone-50 overflow-auto">
-        <Dialog.Close asChild>
+        <div>
           <button
             data-testid="modal-close-btn"
             className="rounded-lg outline-none cursor-pointer py-2 px-4 text-sm bg-neutral-100 border-neutral-200 border-[1px] text-neutral-500"
@@ -156,12 +72,12 @@ export default function EventModal({ event }: EventModalProps) {
           >
             CLOSE
           </button>
-        </Dialog.Close>
+        </div>
 
         <div className="p-2">
-          <Dialog.Title>
+          <div>
             <UserInput
-              disabled={statuses.creatingPost === 'loading'}
+              disabled={statuses === 'loading'}
               dataTestId="modal-title"
               label=""
               name="title"
@@ -173,7 +89,7 @@ export default function EventModal({ event }: EventModalProps) {
               }
               isEventTitle={true}
             />
-          </Dialog.Title>
+          </div>
 
           <EventVisibility
             visibility={currentEvent?.visibility ?? 'private'}
@@ -186,7 +102,7 @@ export default function EventModal({ event }: EventModalProps) {
             <div data-testid="modal-from-date">
               <p className="text-4 mb-2">From</p>
               <DatePicker
-                disabled={statuses.creatingPost === 'loading'}
+                disabled={statuses === 'loading'}
                 placeholderText="from-date"
                 className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                 selected={minDate.toDate()}
@@ -209,7 +125,7 @@ export default function EventModal({ event }: EventModalProps) {
             <div data-testid="modal-to-date">
               <p className="text-4 mb-2">To</p>
               <DatePicker
-                disabled={statuses.creatingPost === 'loading'}
+                disabled={statuses === 'loading'}
                 placeholderText="to-date"
                 className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                 minDate={minDate.toDate()}
@@ -239,7 +155,7 @@ export default function EventModal({ event }: EventModalProps) {
             />
 
             <UserInput
-              disabled={statuses.creatingPost === 'loading'}
+              disabled={statuses === 'loading'}
               dataTestId="modal-location"
               label="URL / Address"
               name="address"
@@ -253,7 +169,7 @@ export default function EventModal({ event }: EventModalProps) {
 
             <p className="text-4 mb-2">Description</p>
             <textarea
-              disabled={statuses.creatingPost === 'loading'}
+              disabled={statuses === 'loading'}
               aria-label="Event Description"
               className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full"
               rows={2}
@@ -268,10 +184,18 @@ export default function EventModal({ event }: EventModalProps) {
                 }))
               }
             ></textarea>
-
+            <input type="text" name="event" defaultValue={event.toString()} className="hidden" />
+            <input
+              type="text"
+              name="calendarId"
+              defaultValue={
+                typeof window !== 'undefined' ? localStorage?.getItem('calendarId')?.toString() : ''
+              }
+              className="hidden"
+            />
             <Button
               dataTestId="modal-save-btn"
-              label={statuses.creatingPost === 'loading' ? 'submitting...' : 'Submit'}
+              label={statuses === 'loading' ? 'submitting...' : 'Submit'}
               type="submit"
               disabled={!currentEvent.title}
             />
