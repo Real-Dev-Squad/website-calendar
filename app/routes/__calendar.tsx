@@ -29,7 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
   axios.defaults.headers.common['Content-Type'] = 'application/json';
   axios.defaults.headers.common['Cookie'] = cookie;
-  
+
   try {
     const { data } = await axios.get(getUserSelfData(process.env.API_HOST!)).catch((_) => ({
       data: null,
@@ -68,7 +68,12 @@ export const loader: LoaderFunction = async ({ request }) => {
           error: 'Unable to fetch the event Details',
         }));
 
-      return json<LoaderData>({ events: eventDetails?.data, calendarId, ENV: baseUrls, error: null });
+      return json<LoaderData>({
+        events: eventDetails?.data,
+        calendarId,
+        ENV: baseUrls,
+        error: null,
+      });
     }
 
     return json<any>({ events: null, ENV: baseUrls, error: 'Unable to fetch the owner details' });
@@ -83,11 +88,11 @@ function CalendarPage() {
   useEffect(() => {
     if (error === null && events.length > 0) {
       // TODO: show a  different message if events are not present in the given date range
-      localStorage.setItem('calendarId',calendarId)
+      localStorage.setItem('calendarId', calendarId);
       setEvents([parseEvents(events)][0]);
     } else if (error === null && events.length === 0) {
       // TODO: discuss regarding display of user message in case of no events
-      localStorage.setItem('calendarId',calendarId)
+      localStorage.setItem('calendarId', calendarId);
     } else {
       // TODO: redirect the user to login page on 401
       toast.error(error, {
@@ -99,10 +104,9 @@ function CalendarPage() {
   return (
     <div className="">
       <div className="flex flex-col-reverse md:flex-row ">
-        <Navbar />
+        <Outlet />
         <div className="flex justify-center flex-grow">
           <Calendar events={eventList.length ? eventList : parseEvents(events ?? [])} view={view} />
-          <Outlet />
         </div>
       </div>
       <ToastContainer />

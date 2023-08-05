@@ -22,9 +22,7 @@ const LoginPage = () => {
 
       <h2 className="text-3xl font-semibold sm:text-3xl">Welcome back</h2>
 
-      { (
-        <SocialAuth google={ENV.GOOGLE_OAUTH!} />
-      )}
+      {<SocialAuth google={ENV.GOOGLE_OAUTH!} />}
 
       {/* <h3 className="text-stone-500">
         New here?{' '}
