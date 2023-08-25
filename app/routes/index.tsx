@@ -62,6 +62,9 @@ function CalendarPage() {
       const { data: eventsList } = await axios.get(
         getEvents(apiHost, calendarId, startTime, endTime),
         {
+          headers: {
+            'Content-Type': 'application/json',
+          },
           withCredentials: true,
         },
       );
