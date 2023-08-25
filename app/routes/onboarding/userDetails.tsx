@@ -3,6 +3,7 @@ import { Form, useSubmit, useActionData } from '@remix-run/react';
 import { ActionFunction, json, redirect } from '@remix-run/node';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
+import dayjs from 'dayjs';
 import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
@@ -60,7 +61,15 @@ export const action: ActionFunction = async ({ request }) => {
 
     // TODO: connect 3rd party calendars
     // return redirect('/onboarding/userCalendarDetails');
-    return redirect('/');
+    return redirect('/', {
+      // set username cookie
+      headers: {
+        'Set-Cookie': `username=${username}; Path=/; Expires=${dayjs().add(
+          1,
+          'month',
+        )}; Secure; SameSite=Lax`,
+      },
+    });
   } catch (error) {
     return error;
   }
