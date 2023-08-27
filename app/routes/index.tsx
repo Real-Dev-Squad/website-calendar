@@ -8,89 +8,76 @@ import Calendar from '~/components/Calendar';
 import Navbar from '~/components/common/navbar';
 import { useStore } from '~/store/useStore';
 import { parseEvents } from '~/utils/event.utils';
-import { getEvents, getUserCalendarId, getUserSelfData } from '~/constants/urls.constants';
+import { getEvents } from '~/constants/urls.constants';
 import { getUrls } from '~/models/urls.server';
-
+import { parseCookie } from '~/utils/cookie.utils';
 
 type LoaderData = {
-  ENV: Awaited<ReturnType<typeof getUrls>>;
-  events: any;
-  error: string | null;
-  calendarId?: string;
+  apiHost?: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const baseUrls = await getUrls();
-  const cookie = request.headers.get('cookie');
-  const startTime = dayjs().subtract(1, 'months').startOf('month').unix() * 1000;
-  const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
-  axios.defaults.headers.common['Content-Type'] = 'application/json';
-  axios.defaults.headers.common['Cookie'] = cookie;
-  
-  try {
-    const { data } = await axios.get(getUserSelfData(process.env.API_HOST!)).catch((_) => ({
-      data: null,
-      ENV: baseUrls,
-      error: 'Unable to fetch the user details, please login',
-    }));
+  const { API_HOST = '' } = await getUrls();
+  const cookieHeader = request.headers.get('cookie');
 
-    const userData = data?.data;
+  if (cookieHeader) {
+    const cookies = parseCookie(cookieHeader);
 
-    if (!userData) {
-      return redirect('/login');
-    }
+    /*
+      routes from where the required cookies are set:
+      rcalSession: from backend (stored as rcal-session: kebab to camel req)
+      calendarId: from backend (stored as calendar-id: kebab to camel req)
+      username: from backend & onboarding/userDetails.tsx
+    */
+    const { rcalSession, username, calendarId } = cookies;
 
-    const userName = userData.username;
-
-    if (!userName) {
+    if (rcalSession && calendarId) {
+      if (username) return json<LoaderData>({ apiHost: API_HOST });
+      // session cookie exist but no username; onboarding is pending
       return redirect('/onboarding');
     }
-
-    const { data: calendarData } = await axios
-      .get(getUserCalendarId(process.env.API_HOST!, userName))
-      .catch((_) => ({
-        data: null,
-        ENV: baseUrls,
-        error: 'Unable to fetch the owner details, please login',
-      }));
-    const ownerId = calendarData?.data?.rCal[0]?.ownerId;
-    const calendarId = calendarData?.data?.rCal[0]?.id;
-
-    if (ownerId) {
-      const { data: eventDetails } = await axios
-        .get(getEvents(process.env.API_HOST!, calendarId, startTime, endTime))
-        .catch((_) => ({
-          data: null,
-          ENV: baseUrls,
-          error: 'Unable to fetch the event Details',
-        }));
-
-      return json<LoaderData>({ events: eventDetails?.data, calendarId, ENV: baseUrls, error: null });
-    }
-
-    return json<any>({ events: null, ENV: baseUrls, error: 'Unable to fetch the owner details' });
-  } catch (error) {
-    return { events: null, ENV: baseUrls, error };
   }
+
+  // no session cookie
+  return redirect('/login');
 };
 
 function CalendarPage() {
-  const { setEvents, events: eventList, view } = useStore((state) => state);
-  const { events, error, calendarId } = useLoaderData();
-  useEffect(() => {
-    if (error === null && events.length > 0) {
-      // TODO: show a  different message if events are not present in the given date range
-      localStorage.setItem('calendarId',calendarId)
-      setEvents([parseEvents(events)][0]);
-    } else if (error === null && events.length === 0) {
-      // TODO: discuss regarding display of user message in case of no events
-      localStorage.setItem('calendarId',calendarId)
-    } else {
-      // TODO: redirect the user to login page on 401
-      toast.error(error, {
+  const { setEvents, events, view } = useStore((state) => state);
+  const { apiHost } = useLoaderData();
+
+  const fetchEvents = async () => {
+    if (!apiHost) return;
+
+    let calendarId = 0;
+    const startTime = dayjs().subtract(1, 'months').startOf('month').unix() * 1000;
+    const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
+
+    if (typeof window !== 'undefined') {
+      const cookie = parseCookie(document.cookie);
+      calendarId = Number(cookie.calendarId);
+    }
+
+    try {
+      const { data: eventsList } = await axios.get(
+        getEvents(apiHost, calendarId, startTime, endTime),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      );
+      setEvents(parseEvents(eventsList.data));
+    } catch (error) {
+      toast.error('Unable to fetch the event Details', {
         toastId: 'events_error',
       });
     }
+  };
+
+  useEffect(() => {
+    fetchEvents();
   }, []);
 
   return (
@@ -98,7 +85,7 @@ function CalendarPage() {
       <div className="flex flex-col-reverse md:flex-row ">
         <Navbar />
         <div className="flex justify-center flex-grow">
-          <Calendar events={eventList.length ? eventList : parseEvents(events ?? [])} view={view} />
+          <Calendar events={events} view={view} />
           <Outlet />
         </div>
       </div>

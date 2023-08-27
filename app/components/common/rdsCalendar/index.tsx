@@ -55,8 +55,15 @@ const RdsCalendar = ({
       selectable={true}
       scrollToTime={dayjs(currentEvent?.start).toDate()}
       onSelectSlot={(ev: CalEvent) => {
+        let startDate = dayjs(ev.start).toDate();
+        let endDate = dayjs(ev.end).toDate();
+
+        if (view === 'month') {
+          startDate = dayjs(ev.start).add(10, 'hours').toDate(); // 10 am
+          endDate = dayjs(ev.end).subtract(13, 'hours').toDate(); // 11 am
+        }
         navigate('/event/new', {
-          state: { start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() },
+          state: { start: startDate, end: endDate },
         });
       }}
       onView={(v: View) => setView(v)}

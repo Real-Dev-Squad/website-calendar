@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { CalEvent } from '~/utils/interfaces';
+import { parseCookie } from './cookie.utils';
 
 // parse event obj from backend to frontend format
 export const parseEvent = (event: any): CalEvent => {
@@ -43,13 +44,19 @@ export const parseEventToCreateOrUpdateEventPayload = (
   currentEvent: CalEvent,
 ) => {
   const formData = new FormData(form);
-  const calendarId  = localStorage.getItem('calendarId');
+  let calendarId = 0;
+
+  if (typeof window !== 'undefined') {
+    const cookie = parseCookie(document.cookie);
+    calendarId = Number(cookie.calendarId);
+  }
+
   return {
     name: formData.get('title'),
     startTime: dayjs(currentEvent.start).valueOf(),
     endTime: dayjs(currentEvent.end).valueOf(),
     location: formData.get('address'),
-    calendarId: Number(calendarId),
+    calendarId,
     description: formData.get('description'),
     attendees: currentEvent.attendees
       ? currentEvent.attendees.map(({ attendee }) => attendee.email)
