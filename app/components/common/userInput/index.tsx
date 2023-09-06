@@ -37,8 +37,8 @@ const UserInput: FC<UserInputProps> = ({
   name,
   minDate,
   maxDate,
-  labelClassnames,
-  inputClassnames,
+  labelClassnames = '',
+  inputClassnames = '',
   disabled = false,
   isEventTitle = false,
 }) => {
@@ -76,7 +76,7 @@ const UserInput: FC<UserInputProps> = ({
             type={inputType()}
             data-testid={dataTestId ?? 'user-input'}
             className={`${inputClassnames} bg-stone-50 ${
-              isEventTitle ? 'text-2xl' : 'text-sm'
+              isEventTitle ? 'text-xl' : 'text-sm'
             }  p-3  focus:outline-none ${
               link ? 'basis-full border-l-0 rounded-r-lg ' : 'rounded-lg w-full'
             }   border-solid border  ${err ? 'border-red-600' : 'border-stone-400'} `}

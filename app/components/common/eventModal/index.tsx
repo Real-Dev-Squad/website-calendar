@@ -15,11 +15,12 @@ import { CalendarEventProps, CalEvent } from '~/utils/interfaces';
 import { useStore } from '../../../store/useStore';
 import UserInput from '../userInput';
 import RdsCalendar from '../rdsCalendar';
-import EventVisibility from '../eventVisibility';
+import EventVisibilitySetter from '../eventVisibility/EventVisibilitySetter';
 import EmailChipsInput from '../emailChipsInput';
 import { Button } from '../../Button';
 import { patchEvent, postEvent } from '../../../constants/urls.constants';
 import { parseEventToCreateOrUpdateEventPayload, parseEvents } from '../../../utils/event.utils';
+import Rspinner from '../spinner';
 
 interface EventModalProps {
   event: CalEvent;
@@ -30,6 +31,7 @@ interface EventModalProps {
 export const unstableShouldReload: ShouldRevalidateFunction = () => false;
 
 export default function EventModal({ event }: EventModalProps) {
+  const [showSpinner, setShowSpinner] = useState(false);
   const { updateEvent, addEvent, view, events } = useStore((state) => state);
   const [calendarEvent, setCalendarEvent] = useState<CalendarEventProps>({
     event,
@@ -79,8 +81,9 @@ export default function EventModal({ event }: EventModalProps) {
     // grab the form element
     const $form = e.currentTarget;
 
-    // get the payload from the form
+    setShowSpinner(true);
 
+    // get the payload from the form
     if (params.eventId !== 'new') {
       setStatuses((old) => ({ ...old, creatingPost: 'loading' }));
       const payload = parseEventToCreateOrUpdateEventPayload($form, currentEvent);
@@ -103,6 +106,7 @@ export default function EventModal({ event }: EventModalProps) {
         toast.error('unable to update event', {
           toastId: 'events_error',
         });
+        setShowSpinner(false);
       }
       return;
     }
@@ -126,6 +130,7 @@ export default function EventModal({ event }: EventModalProps) {
       toast.error('unable to add event', {
         toastId: 'events_error',
       });
+      setShowSpinner(false);
     }
   };
 
@@ -152,48 +157,49 @@ export default function EventModal({ event }: EventModalProps) {
           <div className="h-full w-full flex">
             <Form method="patch" onSubmit={handleSubmit}>
               <div className="p-4 h-full w-full md:w-[400px] border-r-[1px] border-stone-50 overflow-auto">
-                <Dialog.Close asChild>
-                  <button
-                    data-testid="modal-close-btn"
-                    className="rounded-lg outline-none cursor-pointer py-2 px-4 text-sm bg-neutral-100 border-neutral-200 border-[1px] text-neutral-500"
-                    aria-label="Close"
-                    onClick={() => navigate('/')}
-                  >
-                    CLOSE
-                  </button>
-                </Dialog.Close>
-
-                <div className="p-2">
-                  <Dialog.Title>
-                    <UserInput
-                      disabled={statuses.creatingPost === 'loading'}
-                      dataTestId="modal-title"
-                      label=""
-                      name="title"
-                      placeholder="Enter Event Title"
-                      inputClassnames="border-none font-normal text-2xl mb-4 text-stone-500 m-0 !bg-white"
-                      value={currentEvent?.title?.toString() ?? ''}
-                      setValue={(title) =>
-                        setCalendarEvent((e) => ({ ...e, event: { ...e.event, title } }))
-                      }
-                      isEventTitle={true}
-                    />
-                  </Dialog.Title>
-
-                  <EventVisibility
+                <div className="flex justify-between align-middle mb-4">
+                  <Dialog.Close asChild>
+                    <button
+                      data-testid="modal-close-btn"
+                      className="rounded-lg outline-none cursor-pointer py-2 px-4 text-sm bg-neutral-100 border-neutral-200 border-[1px] text-neutral-500"
+                      aria-label="Close"
+                      onClick={() => navigate('/')}
+                    >
+                      CLOSE
+                    </button>
+                  </Dialog.Close>
+                  <EventVisibilitySetter
                     visibility={currentEvent?.visibility ?? 'private'}
                     setVisibility={(visibility) =>
                       setCalendarEvent((e) => ({ ...e, event: { ...e.event, visibility } }))
                     }
                   />
+                </div>
+
+                <div className="p-2">
+                  {/* <Dialog.Title> */}
+                  <UserInput
+                    disabled={statuses.creatingPost === 'loading'}
+                    dataTestId="modal-title"
+                    label="Title"
+                    name="title"
+                    placeholder="Enter Event Title"
+                    labelClassnames="!text-base"
+                    value={currentEvent?.title?.toString() ?? ''}
+                    setValue={(title) =>
+                      setCalendarEvent((e) => ({ ...e, event: { ...e.event, title } }))
+                    }
+                    isEventTitle={true}
+                  />
+                  {/* </Dialog.Title> */}
 
                   <div className="mt-2">
                     <div data-testid="modal-from-date">
-                      <p className="text-4 mb-2">From</p>
+                      <p className="text-base mb-2">From</p>
                       <DatePicker
                         disabled={statuses.creatingPost === 'loading'}
                         placeholderText="from-date"
-                        className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
+                        className="bg-stone-50 text-base p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         selected={minDate.toDate()}
                         maxDate={maxDate.toDate()}
                         timeIntervals={5}
@@ -215,11 +221,11 @@ export default function EventModal({ event }: EventModalProps) {
                     </div>
 
                     <div data-testid="modal-to-date">
-                      <p className="text-4 mb-2">To</p>
+                      <p className="text-base mb-2">To</p>
                       <DatePicker
                         disabled={statuses.creatingPost === 'loading'}
                         placeholderText="to-date"
-                        className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
+                        className="bg-stone-50 text-base p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full cursor-pointer"
                         minDate={minDate.toDate()}
                         selected={maxDate.toDate()}
                         timeIntervals={5}
@@ -254,7 +260,7 @@ export default function EventModal({ event }: EventModalProps) {
                       dataTestId="modal-location"
                       label="URL / Address"
                       name="address"
-                      labelClassnames="text-4"
+                      labelClassnames="!text-base"
                       placeholder="Enter URL or Address for the event"
                       value={currentEvent?.location ?? ''}
                       setValue={(location) =>
@@ -262,11 +268,11 @@ export default function EventModal({ event }: EventModalProps) {
                       }
                     />
 
-                    <p className="text-4 mb-2">Description</p>
+                    <p className="text-base mb-2">Description</p>
                     <textarea
                       disabled={statuses.creatingPost === 'loading'}
                       aria-label="Event Description"
-                      className="bg-stone-50 text-4 p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full"
+                      className="bg-stone-50 text-base p-3 mb-6 focus:outline-none border border-solid border-stone-400 rounded-lg w-full"
                       rows={2}
                       cols={50}
                       name="description"
@@ -291,6 +297,7 @@ export default function EventModal({ event }: EventModalProps) {
               </div>
             </Form>
             <div className="flex-auto hidden md:block">{memoizedRdsCalendar()}</div>
+            {showSpinner && <Rspinner />}
           </div>
         </Dialog.Content>
       </Dialog.Portal>
