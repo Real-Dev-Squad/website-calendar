@@ -75,7 +75,7 @@ const EmailChipsInput: FC<EmailChipsInputProps> = ({
 
   return (
     <div className="mb-6" data-testid="email-chip-wrapper">
-      <p className="text-sm text-black mb-2">{label}</p>
+      <p className="text-base mb-2">{label}</p>
       {attendees.map(({ attendee }) => (
         <div
           className="text-sm bg-gray-300 rounded-full h-8 px-4 inline-flex items-center mr-1 mb-1"

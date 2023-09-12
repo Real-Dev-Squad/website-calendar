@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState, Dispatch, SetStateAction, useRef } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 interface UserFormInterface {
@@ -15,6 +15,7 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps> = ({ placeholder, setUserTimezone }) => {
   const [dropdownValue, setDropdownValue] = useState<string>('');
   const [dropdownStatus, setDropdownStatus] = useState<boolean>(false);
+  const dropdownControllerRef = useRef<HTMLDivElement | null>(null);
 
   const timezoneArray = [
     {
@@ -44,15 +45,26 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder, setUserTimezone }) => 
     setUserTimezone((prev) => ({ ...prev, timezone: element.innerText }));
     setDropdownValue(element.innerText);
     setDropdownStatus(false);
+    dropdownControllerRef.current?.focus();
   };
   return (
     <main data-testid="dropdown">
       <div
+        ref={dropdownControllerRef}
         data-testid="dropdown-controller"
         className={`w-full flex items-center justify-between border border-stone-400 solid py-3 px-3 ${
           dropdownStatus ? 'rounded-b-none rounded-t-lg' : 'rounded-lg'
         } cursor-pointer `}
         onClick={() => setDropdownStatus((prev: boolean) => !prev)}
+        onKeyDown={(e) => {
+          if (e.key === ' ') {
+            // accessiblity with Spacebar
+            e.preventDefault();
+            setDropdownStatus((prev: boolean) => !prev);
+          }
+        }}
+        tabIndex={0}
+        role="button"
       >
         <button
           data-testid="dropdown-value"
@@ -80,7 +92,9 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder, setUserTimezone }) => 
               data-testid={`option-${index + 1}`}
               className="flex p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
             >
-              <label htmlFor={`checkbox-${index + 1}`}>{item.title}</label>
+              <label htmlFor={`checkbox-${index + 1}`} className="text-black">
+                {item.title}
+              </label>
             </li>
           ))}
         </ul>
