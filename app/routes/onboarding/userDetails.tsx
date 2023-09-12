@@ -3,11 +3,13 @@ import { Form, useSubmit, useActionData } from '@remix-run/react';
 import { ActionFunction, json, redirect } from '@remix-run/node';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
+import dayjs from 'dayjs';
 import UserInput from '../../components/common/userInput';
 import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
 import { initialUserDetails } from '~/constants/userOnboarding';
 import { checkUsername } from '~/constants/urls.constants';
+import Rspinner from '~/components/common/spinner';
 
 interface UserFormInterface {
   username: string;
@@ -58,7 +60,17 @@ export const action: ActionFunction = async ({ request }) => {
       },
     });
 
-    return redirect('/onboarding/userCalendarDetails');
+    // TODO: connect 3rd party calendars
+    // return redirect('/onboarding/userCalendarDetails');
+    return redirect('/', {
+      // set username cookie
+      headers: {
+        'Set-Cookie': `username=${username}; Path=/; Expires=${dayjs().add(
+          1,
+          'month',
+        )}; Secure; SameSite=Lax`,
+      },
+    });
   } catch (error) {
     return error;
   }
@@ -78,6 +90,7 @@ const UserDetails = () => {
   const [usernameAvailable, setUsernameAvailable] = useState<boolean | undefined>();
   const [query, setQuery] = useState<string>('');
   const [userErrors, setUserErrors] = useState(UserDetailErrors);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const submit = useSubmit();
   useEffect(() => {
@@ -114,6 +127,8 @@ const UserDetails = () => {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     // let's prevent the default event
     event.preventDefault();
+
+    setShowSpinner(true);
 
     // grab the form element
     const $form = event.currentTarget;
@@ -154,69 +169,72 @@ const UserDetails = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} method="patch" className=" h-full flex flex-col">
-      <div className="basis-10/12">
-        <div className="mx-4">
-          <div>
-            <UserInput
-              data-testid="username"
-              label="Username"
-              name="username"
-              placeholder="username here"
-              link="hap.day/"
-              value={userForm.username}
-              setValue={updateUsername}
-              err={usernameError() || errors?.username || userErrors.username}
-              handleBlur={handleBlur}
-              handleFocus={handleFocus}
-            />
-          </div>
+    <>
+      <Form onSubmit={handleSubmit} method="patch" className=" h-full flex flex-col">
+        <div className="basis-10/12">
+          <div className="mx-4">
+            <div>
+              <UserInput
+                data-testid="username"
+                label="Username"
+                name="username"
+                placeholder="username here"
+                link="hap.day/"
+                value={userForm.username}
+                setValue={updateUsername}
+                err={usernameError() || errors?.username || userErrors.username}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+              />
+            </div>
 
-          <div className="flex justify-between ">
-            <div className="basis-3/6 mx-1">
-              <UserInput
-                data-testid="firstname"
-                label="First name"
-                name="firstname"
-                placeholder="Jane"
-                value={userForm.firstname}
-                setValue={updateFirstName}
-                err={errors?.firstname || userErrors.firstname}
-                handleBlur={handleBlur}
-                handleFocus={handleFocus}
-              />
+            <div className="flex justify-between ">
+              <div className="basis-3/6 mx-1">
+                <UserInput
+                  data-testid="firstname"
+                  label="First name"
+                  name="firstname"
+                  placeholder="Jane"
+                  value={userForm.firstname}
+                  setValue={updateFirstName}
+                  err={errors?.firstname || userErrors.firstname}
+                  handleBlur={handleBlur}
+                  handleFocus={handleFocus}
+                />
+              </div>
+              <div className="basis-3/6 mx-1">
+                <UserInput
+                  data-testid="lastname"
+                  label="Last name"
+                  name="lastname"
+                  placeholder="Doe"
+                  value={userForm.lastname}
+                  setValue={updateLastName}
+                  err={errors?.lastname || userErrors.lastname}
+                  handleBlur={handleBlur}
+                  handleFocus={handleFocus}
+                />
+              </div>
             </div>
-            <div className="basis-3/6 mx-1">
-              <UserInput
-                data-testid="lastname"
-                label="Last name"
-                name="lastname"
-                placeholder="Doe"
-                value={userForm.lastname}
-                setValue={updateLastName}
-                err={errors?.lastname || userErrors.lastname}
-                handleBlur={handleBlur}
-                handleFocus={handleFocus}
-              />
+            <div>
+              <Dropdown placeholder="select timezone" setUserTimezone={setUserForm} />
             </div>
-          </div>
-          <div>
-            <Dropdown placeholder="select timezone" setUserTimezone={setUserForm} />
           </div>
         </div>
-      </div>
-      <div className=" mx-4 mb-3 basis-1/12">
-        <Button
-          dataTestId="submitButton"
-          label="Save & Next"
-          size="medium"
-          varient="primary"
-          type={'submit'}
-          style={'my-2'}
-          disabled={![...Object.values(userForm)].every((ele) => ele.length > 0)}
-        />
-      </div>
-    </Form>
+        <div className=" mx-4 mb-3 basis-1/12">
+          <Button
+            dataTestId="submitButton"
+            label="Submit"
+            size="medium"
+            varient="primary"
+            type={'submit'}
+            style={'my-2'}
+            disabled={![...Object.values(userForm)].every((ele) => ele.length > 0)}
+          />
+        </div>
+      </Form>
+      {showSpinner && <Rspinner />}
+    </>
   );
 };
 

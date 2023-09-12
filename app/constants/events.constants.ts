@@ -1,7 +1,9 @@
+const now = new Date();
+
 export const dummyEvent = {
   title: '',
-  start: new Date(),
-  end: new Date(),
+  start: now,
+  end: new Date(now.getTime() + 60000 * 30),
   location: '',
   description: '',
   attendees: [],
