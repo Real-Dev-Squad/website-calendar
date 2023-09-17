@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, dayjsLocalizer, View } from 'react-big-calendar';
-import { useNavigate } from '@remix-run/react';
+import { useNavigate, useLocation } from '@remix-run/react';
 import dayjs from 'dayjs';
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
@@ -35,11 +35,17 @@ const RdsCalendar = ({
   const onEventResize: withDragAndDropProps['onEventResize'] = (ev: UpdateEvent) =>
     updateEvent({ ...ev.event, start: dayjs(ev.start).toDate(), end: dayjs(ev.end).toDate() });
   const navigate = useNavigate();
+  const location = useLocation();
   const setView = useStore((state) => state.setView);
 
   const handleNavigate = (localDate: any) => {
     setDate(dayjs(localDate).toDate());
   };
+
+  useEffect(() => {
+    // path changed, hide spinner
+    setShowSpinner(false);
+  }, [location.pathname]);
 
   return (
     <>
