@@ -55,7 +55,9 @@ describe('Drawer', () => {
     expect(toggleDrawerMock).toHaveBeenCalledTimes(1);
 
     const eventTime = screen.getByText(
-      `${dayjs(event.start).format('MMMM DD, YYYY h A')} - ${dayjs(event.end).format('MMMM DD, YYYY h A')}`,
+      `${dayjs(event.start).format('MMMM DD, YYYY h A')} - ${dayjs(event.end).format(
+        'MMMM DD, YYYY h A',
+      )}`,
     );
     expect(eventTime).toBeInTheDocument();
 

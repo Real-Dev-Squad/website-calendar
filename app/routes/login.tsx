@@ -1,16 +1,27 @@
 import { Link, useLoaderData } from '@remix-run/react';
-import { json, LoaderFunction } from '@remix-run/node';
+import { json, LoaderFunction, redirect } from '@remix-run/node';
 
 import { SocialAuth } from '~/components/SocialAuth';
 import { getOAuthLinks } from '~/models/oauth.server';
+import { parseCookie } from '~/utils/cookie.utils';
 
 type LoaderData = {
   ENV: Awaited<ReturnType<typeof getOAuthLinks>>;
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
   const oAuthLinks = await getOAuthLinks();
 
+  const cookieHeader = request.headers.get('cookie');
+  if (cookieHeader) {
+    const cookies = parseCookie(cookieHeader);
+    const { rcalSession } = cookies;
+
+    if (rcalSession) {
+      // user is already logged in
+      return redirect('/');
+    }
+  }
   return json<LoaderData>({ ENV: oAuthLinks });
 };
 const LoginPage = () => {
@@ -22,9 +33,7 @@ const LoginPage = () => {
 
       <h2 className="text-3xl font-semibold sm:text-3xl">Welcome back</h2>
 
-      { (
-        <SocialAuth google={ENV.GOOGLE_OAUTH!} />
-      )}
+      {<SocialAuth google={ENV.GOOGLE_OAUTH!} />}
 
       {/* <h3 className="text-stone-500">
         New here?{' '}
