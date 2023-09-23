@@ -1,14 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import EventCard from '.';
 
+
+
 it('renders the event card', () => {
-  render(
-    <EventCard
-      title={'Marketing meet with John'}
-      start={new Date()}
-      end={new Date(new Date().setHours(new Date().getHours() + 2))}
-    />,
-  );
+  render(<EventCard title={'Marketing meet with John'} start={new Date()} end={new Date(new Date().setHours(new Date().getHours() + 2))} />);
 
   const eventCardBox = screen.getByTestId('event-card-box');
   const eventCardDates = screen.getByTestId('event-card-dates');
@@ -27,10 +23,7 @@ it('renders the event card attendees', () => {
       title={'Marketing meet with John'}
       start={new Date()}
       end={new Date(new Date().setHours(new Date().getHours() + 2))}
-      attendees={[
-        { attendee: { email: 'test1@abc.com' } },
-        { attendee: { email: 'test2@abc.com' } },
-      ]}
+      attendees={[{attendee: {email: 'test1@abc.com'}}, {attendee: {email: 'test2@abc.com'}}]}
     />,
   );
   const eventCardattendees = screen.getByTestId('event-card-attendees');
@@ -65,13 +58,8 @@ it('renders the event card location', () => {
 // });
 
 it('renders the event card no details', () => {
-  render(
-    <EventCard
-      title={'Marketing meet with John'}
-      start={new Date()}
-      end={new Date(new Date().setHours(new Date().getHours() + 2))}
-    />,
-  );
+  render(<EventCard title={'Marketing meet with John'} start={new Date()}
+  end={new Date(new Date().setHours(new Date().getHours() + 2))} />);
   const eventCardNoDetails = screen.getByTestId('event-card-no-details');
   expect(eventCardNoDetails).toBeInTheDocument();
 });

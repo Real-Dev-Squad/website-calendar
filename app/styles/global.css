@@ -1,7 +1,7 @@
 /* This is a global CSS file  */
-@import 'react-big-calendar/lib/css/react-big-calendar.css';
-@import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
-@import 'react-toastify/dist/ReactToastify.css';
+@import url('react-big-calendar/lib/css/react-big-calendar.css');
+@import url('react-big-calendar/lib/addons/dragAndDrop/styles.css');
+@import url('react-toastify/dist/ReactToastify.css');
 
 /* overriding react-big-calendar's css properties */
 .rbc-event {
@@ -11,7 +11,7 @@
 .rbc-day-slot .rbc-event,
 .rbc-day-slot .rbc-background-event {
   border: 1px solid #e7e5e4;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0px 8px 8px 0px;
 }
 
 .rbc-event.rbc-selected {
@@ -19,7 +19,7 @@
 }
 
 .rbc-event-content {
-  color: #000;
+  color: #000000;
   font-size: 90%;
 }
 
@@ -27,9 +27,7 @@
   color: #78716c;
   font-size: 60%;
 }
-
 .rbc-off-range-bg {
   background-color: #f5f5f5;
 }
-
 /* overriding react-big-calendar's css properties */

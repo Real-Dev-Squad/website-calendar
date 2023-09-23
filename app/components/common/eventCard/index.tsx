@@ -4,15 +4,23 @@ import { DynamicHeroIcon } from '../navbar';
 import { CalEvent } from '~/utils/interfaces';
 import { GoogleMeet } from '../../../components/icons';
 
-const EventCard = ({ title, start, end, attendees, location, onlineEventLink }: CalEvent) => {
+const EventCard = ({
+  title,
+  start,
+  end,
+  attendees,
+  location,
+  onlineEventLink
+} : CalEvent) => {
   const startDate = dayjs(start);
   const startTime = startDate.format('YYYY MMM DD h:mm A');
   const endTime = dayjs(end).format('YYYY MMM DD h:mm A');
-  return (
+    return(
     <>
       <div
         data-testid="event-card-box"
         className="w-full rounded-xl px-4 py-3 border-2 border-grey grid grid-cols-[auto,1fr] items-center gap-6 cursor-pointer"
+      
       >
         <div data-testid="event-card-dates" className="w-18 grid grid-cols-1 gap-1">
           <div className="text-xs text-grey-med">{startTime}</div>
@@ -31,7 +39,7 @@ const EventCard = ({ title, start, end, attendees, location, onlineEventLink }: 
           <div className="w-full">
             {attendees && (
               <div data-testid="event-card-attendees" className="w-full text-sm text-grey-dark">
-                {attendees.map((data) => data.attendee.email).join(', ')}
+              {attendees.map(data => data.attendee.email).join(", ")}
               </div>
             )}
             {!attendees && location && (
@@ -55,6 +63,7 @@ const EventCard = ({ title, start, end, attendees, location, onlineEventLink }: 
                 <div className="w-3 h-4 flex items-center mr-1 pt-0.5">
                   <GoogleMeet />
                 </div>
+              
               </Link>
             )}
             {!attendees && !location && !onlineEventLink && (
@@ -66,7 +75,6 @@ const EventCard = ({ title, start, end, attendees, location, onlineEventLink }: 
         </div>
       </div>
     </>
-  );
-};
+)};
 
 export default EventCard;

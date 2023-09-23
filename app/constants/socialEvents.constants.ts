@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 export const socialMockEvents = [
   {
@@ -33,7 +33,7 @@ export const socialMockEvents = [
     The agenda of the call includes Introduction of the core members of team ,Problem statement, Technical requirements of the product, Project discussion, Working Demo 
 
     `,
-    start: dayjs('2023-07-26').add(6, 'hour').add(30, 'minutes').toDate(),
+    start: dayjs('2023-07-26').add(6, 'hour').add(30,'minutes').toDate(),
     end: dayjs('2023-07-26').add(7, 'hours').toDate(),
     visibility: 'public',
     attendees: [
@@ -63,5 +63,4 @@ export const socialMockEvents = [
         },
       },
     ],
-  },
-];
+  }];

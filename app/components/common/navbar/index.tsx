@@ -28,7 +28,7 @@ export const DynamicHeroIcon = ({ name, className }: DynamicHeroIconType) => {
 
 const Navbar = () => {
   const matches = useMatches();
-  const { pathname } = matches[matches.length - 1];
+  const {pathname} = matches[matches.length - 1];
   const [active, setActive] = useState<string>('');
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
@@ -41,8 +41,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    setActive(pathname);
-  }, [pathname]);
+    setActive(pathname)
+  },[pathname]);
 
   const navbarElements = {
     navbarPages: [
