@@ -8,11 +8,13 @@ import RdsCalendar from '.';
 import { CalendarEventProps, CalEvent, UpdateEvent } from '~/utils/interfaces';
 
 // pay attention to write it at the top level of your file
-const mockedUsedNavigate = jest.fn();
+const mockedUseNavigate = jest.fn();
+const mockedUseLocation = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-   ...jest.requireActual('react-router-dom') as any,
-  useNavigate: () => mockedUsedNavigate,
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockedUseNavigate,
+  useLocation: () => mockedUseLocation,
 }));
 
 interface RdsCalendarProps {
@@ -53,6 +55,11 @@ const defaultProps: RdsCalendarProps = {
 };
 
 describe('RdsCalendar', () => {
+  beforeEach(() => {
+    mockedUseNavigate.mockReturnValue(jest.fn());
+    mockedUseLocation.mockReturnValue({ pathname: '/some-path' });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
