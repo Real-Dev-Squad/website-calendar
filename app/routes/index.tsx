@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { LoaderFunction, json, redirect } from '@remix-run/node';
-import { Outlet, useLoaderData } from '@remix-run/react';
+import { Outlet, useLoaderData, useNavigate } from '@remix-run/react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -10,7 +10,7 @@ import { useStore } from '~/store/useStore';
 import { parseEvents } from '~/utils/event.utils';
 import { getEvents } from '~/constants/urls.constants';
 import { getUrls } from '~/models/urls.server';
-import { parseCookie } from '~/utils/cookie.utils';
+import { clearCookies, parseCookie } from '~/utils/cookie.utils';
 
 type LoaderData = {
   apiHost?: string;
@@ -52,12 +52,11 @@ function CalendarPage() {
     let calendarId = 0;
     const startTime = dayjs().subtract(1, 'months').startOf('month').unix() * 1000;
     const endTime = dayjs().add(1, 'months').endOf('month').unix() * 1000;
-
+    const navigate = useNavigate();
     if (typeof window !== 'undefined') {
       const cookie = parseCookie(document.cookie);
       calendarId = Number(cookie.calendarId);
     }
-
     try {
       const { data: eventsList } = await axios.get(
         getEvents(apiHost, calendarId, startTime, endTime),
@@ -69,7 +68,11 @@ function CalendarPage() {
         },
       );
       setEvents(parseEvents(eventsList.data));
-    } catch (error) {
+    } catch (error: any) {
+      if (error?.response?.status === 401) {
+        clearCookies();
+        navigate('/login');
+      }
       toast.error('Unable to fetch the event Details', {
         toastId: 'events_error',
       });
