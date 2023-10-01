@@ -9,3 +9,13 @@ export const parseCookie = (str: string) =>
       acc[camelKey] = value;
       return acc;
     }, {} as Record<string, string>);
+
+const clearCookie = (cookieName: string) => {
+  document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+};
+
+export const clearCookies = () => {
+  clearCookie('rcal-session');
+  clearCookie('username');
+  clearCookie('calendar-id');
+};
