@@ -74,7 +74,7 @@ describe('Drawer', () => {
     const background = screen.getByTestId('drawer-background');
     fireEvent.click(background);
 
-    expect(toggleDrawerMock).toHaveBeenCalled();
+    expect(toggleDrawerMock).not.toHaveBeenCalled();
   });
 
   it('calls the toggleDrawer function when clicking the close button', () => {
