@@ -16,6 +16,7 @@ const Drawer: React.FC<DrawerProps> = ({ event, isDrawerVisible, toggleDrawer })
       className={`w-full h-full duration-500 ease-out transition-all inset-0 absolute bg-gray-900 ${
         isDrawerVisible ? 'opacity-50' : 'opacity-0'
       }`}
+      onClick={toggleDrawer}
     ></div>
     <div
       className={`pt-20 pb-12 px-12 min-w-[300px] sm:w-full md:w-1/2 lg:w-1/4 bg-white h-full absolute right-0 duration-300 ease-out transition-all flex flex-col justify-between  overflow-scroll ${
