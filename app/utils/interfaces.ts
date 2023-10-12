@@ -54,3 +54,10 @@ export interface UserState {
   user: User;
   updateUser: (data: Record<UpdateUserKey, string>) => void;
 }
+
+export interface UserFormInterface {
+  username: string;
+  firstname: string;
+  lastname: string;
+  timezone: string;
+}
