@@ -7,7 +7,7 @@ describe('UserInput', () => {
       <UserInput
         label="Username"
         placeholder="enter your name"
-        link="hap.day/"
+        link="rcal/"
         value=""
         setValue={() => {}}
       />,
@@ -21,7 +21,7 @@ describe('UserInput', () => {
       <UserInput
         label="Username"
         placeholder="enter your name"
-        link="hap.day/"
+        link="rcal/"
         value=""
         setValue={() => {}}
       />,

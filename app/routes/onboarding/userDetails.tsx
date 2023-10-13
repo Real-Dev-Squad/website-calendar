@@ -5,18 +5,12 @@ import debounce from 'lodash.debounce';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import UserInput from '../../components/common/userInput';
-import Dropdown from '../../components/common/dropdown';
 import { Button } from '../../components/Button';
 import { initialUserDetails } from '~/constants/userOnboarding';
 import { checkUsername } from '~/constants/urls.constants';
 import Rspinner from '~/components/common/spinner';
-
-interface UserFormInterface {
-  username: string;
-  firstname: string;
-  lastname: string;
-  timezone: string;
-}
+import TzPicker from '~/components/common/tzPicker';
+import { UserFormInterface } from '~/utils/interfaces';
 
 const isUsernameAvailable = async (host: string, username: string) => {
   const url = checkUsername(host, username);
@@ -179,7 +173,7 @@ const UserDetails = () => {
                 label="Username"
                 name="username"
                 placeholder="username here"
-                link="hap.day/"
+                link="rcal/"
                 value={userForm.username}
                 setValue={updateUsername}
                 err={usernameError() || errors?.username || userErrors.username}
@@ -217,7 +211,7 @@ const UserDetails = () => {
               </div>
             </div>
             <div>
-              <Dropdown placeholder="select timezone" setUserTimezone={setUserForm} />
+              <TzPicker placeholder="Select timezone" setUserTimezone={setUserForm} />
             </div>
           </div>
         </div>

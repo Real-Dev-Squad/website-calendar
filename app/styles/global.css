@@ -31,3 +31,19 @@
   background-color: #f5f5f5;
 }
 /* overriding react-big-calendar's css properties */
+
+/* START: overriding react-timezone-select's css properties */
+.css-b62m3t-container .css-13cymwt-control,
+.css-b62m3t-container .css-t3ipsp-control,
+.css-b62m3t-container .css-t3ipsp-control:hover {
+  background-color: #fafaf9;
+  border-color: #a8a29e;
+  border-radius: 0.5rem;
+  padding: 4px 0;
+  box-shadow: none;
+}
+
+.css-b62m3t-container .css-t3ipsp-control {
+  border-color: #000000;
+}
+/* END: overriding react-timezone-select's css properties */

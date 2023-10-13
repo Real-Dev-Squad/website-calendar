@@ -1,6 +1,6 @@
 export const FormTitlesAndSubtitles = [
   {
-    title: 'Welcome to HapDay',
+    title: 'Welcome to rCal',
     subtitle:
       'Tell us a bit about yourself, we will need this to get your profile setup. You’ll be able to edit this later.',
   },

@@ -43,6 +43,8 @@
     "react-big-calendar": "^1.8.1",
     "react-datepicker": "4.10.0",
     "react-dom": "^18.2.0",
+    "react-select": "^5.7.7",
+    "react-timezone-select": "^2.1.2",
     "react-toastify": "^9.1.1",
     "remix": "^1.7.4",
     "zustand": "^4.3.7"

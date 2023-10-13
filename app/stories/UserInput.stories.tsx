@@ -7,14 +7,14 @@ export default {
   args: {
     label: 'username',
     placeholder: 'enter your name',
-    link: 'hap.day/',
+    link: 'rcal/',
   },
   argTypes: {
     label: { control: 'text' },
     placeholder: { control: 'text' },
     link: {
       control: 'radio',
-      options: ['hap.day/', ''],
+      options: ['rcal/', ''],
     },
   },
 } as ComponentMeta<typeof UserInput>;
@@ -27,5 +27,5 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'username',
   placeholder: 'enter your name',
-  link: 'hap.day/',
+  link: 'rcal/',
 };
