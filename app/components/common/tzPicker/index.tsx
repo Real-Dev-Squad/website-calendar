@@ -1,6 +1,6 @@
 import { FC, Dispatch, SetStateAction, useState } from 'react';
 import TimezoneSelect, { ITimezone } from 'react-timezone-select';
-import useIsClient from '~/hooks/isClient';
+import useIsClient from '../../../hooks/isClient';
 import { UserFormInterface } from '~/utils/interfaces';
 
 interface DropdownProps {
@@ -23,7 +23,10 @@ const TzPicker: FC<DropdownProps> = ({ placeholder, setUserTimezone }) => {
   );
 
   const renderEmptyBorder = () => (
-    <div className="h-[46px] border-stone-400 bg-stone-50 rounded-lg border-solid border"></div>
+    <div
+      data-testid="empty-border"
+      className="h-[46px] border-stone-400 bg-stone-50 rounded-lg border-solid border"
+    ></div>
   );
 
   return (
