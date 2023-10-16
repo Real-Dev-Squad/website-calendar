@@ -40,7 +40,7 @@ type LoaderData = {
     GOOGLE_OAUTH: string;
     MICROSOFT_OAUTH: string;
   };
-  calendarId: string;
+  calendarId?: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -71,13 +71,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
       return json<LoaderData>({ ENV, calendarId });
     }
-    return null;
   }
 
   // No session cookie, and the user is not already on the /login route
   if (url.pathname !== '/login') return redirect('/login');
 
-  return null;
+  return json<LoaderData>({ ENV });
 };
 
 const App = () => {
