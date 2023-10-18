@@ -173,7 +173,6 @@ const UserDetails = () => {
                 label="Username"
                 name="username"
                 placeholder="username here"
-                link="rcal/"
                 value={userForm.username}
                 setValue={updateUsername}
                 err={usernameError() || errors?.username || userErrors.username}
