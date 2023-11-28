@@ -6,6 +6,9 @@ export const getUserCalendarId = (HOST: string, username: string) => `${HOST}/ca
 export const getEvents = (HOST: string, calendarId: number, startTime: number, endTime: number) =>
   `${HOST}/events/calendar/${calendarId}?startTime=${startTime}&endTime=${endTime}`;
 
+export const getSocialEvents = (HOST: string, startTime: number, endTime: number) =>
+  `${HOST}/events?startTime=${startTime}&endTime=${endTime}`;
+
 export const getEventById = (HOST: string, id: number) => `${HOST}/events/${id}`;
 
 export const patchEvent = (HOST: string, id: number) => `${HOST}/events/${id}`;

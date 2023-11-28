@@ -2,17 +2,15 @@ import { FC, useState } from 'react';
 import { GlobeAltIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 
 export interface EventVisibilityProps {
-  visibility: string;
-  setVisibility: (visibility: string) => void;
+  isPrivate: boolean;
+  setVisibility: (isPrivate: boolean) => void;
 }
 
-const EventVisibilitySetter: FC<EventVisibilityProps> = ({ visibility, setVisibility }) => {
+const EventVisibilitySetter: FC<EventVisibilityProps> = ({ isPrivate, setVisibility }) => {
   const [showTooltip, setShowTooltip] = useState(false);
-  const isPrivate = visibility === 'private';
 
   const toggleSwitch = () => {
-    const toggledVisibility = isPrivate ? 'public' : 'private';
-    setVisibility(toggledVisibility);
+    setVisibility(!isPrivate);
   };
 
   return (
