@@ -87,8 +87,8 @@ describe('SocialEventCard', () => {
 
   it('should render the correct date', () => {
     const { getByText } = render(<SocialEventCard {...dummyevent1} />);
-    const dateText = date;
-    const eventDate = getByText(dateText);
+    const dt = dayjs(dummyevent1.start).format('D');
+    const eventDate = getByText(dt);
     expect(eventDate).toBeInTheDocument();
   });
 
