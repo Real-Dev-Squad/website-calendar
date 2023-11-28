@@ -8,7 +8,7 @@ describe('EventVisibilitySetter', () => {
   beforeEach(() => {
     setVisibility = jest.fn();
     props = {
-      visibility: 'public',
+      isPrivate: false,
       setVisibility,
     };
   });
@@ -19,7 +19,7 @@ describe('EventVisibilitySetter', () => {
   });
 
   it('should display lock icon when visibility is private', () => {
-    props.visibility = 'private';
+    props.isPrivate = true;
     render(<EventVisibilitySetter {...props} />);
     expect(screen.getByTestId('lock-icon')).toBeInTheDocument();
   });
@@ -27,7 +27,7 @@ describe('EventVisibilitySetter', () => {
   it('should toggle visibility when clicked', () => {
     render(<EventVisibilitySetter {...props} />);
     fireEvent.click(screen.getByRole('checkbox'));
-    expect(setVisibility).toHaveBeenCalledWith('private');
+    expect(setVisibility).toHaveBeenCalledWith(true);
   });
 
   it('should display tooltip on hover', async () => {
@@ -41,7 +41,7 @@ describe('EventVisibilitySetter', () => {
   it('should show tooltip on mouse enter and hide on mouse leave', async () => {
     // Set up initial props and render the component
     const setVisibilityMock = jest.fn();
-    render(<EventVisibilitySetter visibility="public" setVisibility={setVisibilityMock} />);
+    render(<EventVisibilitySetter isPrivate={false} setVisibility={setVisibilityMock} />);
 
     // Find the icon element
     const icon = screen.getByTestId('globe-icon');
@@ -63,25 +63,25 @@ describe('EventVisibilitySetter', () => {
 
   // This will test for both background colors
   it('should show correct background color based on the visibility', () => {
-    props.visibility = 'public';
+    props.isPrivate = false;
     const { rerender } = render(<EventVisibilitySetter {...props} />);
     expect(screen.getByTestId('bg-toggle-span')).toHaveClass('bg-green-400');
 
-    props.visibility = 'private';
+    props.isPrivate = true;
     rerender(<EventVisibilitySetter {...props} />);
     expect(screen.getByTestId('bg-toggle-span')).toHaveClass('bg-gray-400');
   });
 
   // This will test toggling from private to public
   it('should toggle from private to public', () => {
-    props.visibility = 'private';
+    props.isPrivate = true;
     render(<EventVisibilitySetter {...props} />);
     fireEvent.click(screen.getByRole('checkbox'));
-    expect(setVisibility).toHaveBeenCalledWith('public');
+    expect(setVisibility).toHaveBeenCalledWith(false);
   });
 
   it('should display correct tooltip text when visibility is public', async () => {
-    render(<EventVisibilitySetter visibility="public" setVisibility={jest.fn()} />);
+    render(<EventVisibilitySetter isPrivate={false} setVisibility={jest.fn()} />);
     const icon = screen.getByTestId('icon-container');
     fireEvent.mouseEnter(icon);
     await waitFor(() => {
@@ -90,7 +90,7 @@ describe('EventVisibilitySetter', () => {
   });
 
   it('should display correct tooltip text when visibility is private', async () => {
-    render(<EventVisibilitySetter visibility="private" setVisibility={jest.fn()} />);
+    render(<EventVisibilitySetter isPrivate={true} setVisibility={jest.fn()} />);
     const icon = screen.getByTestId('icon-container');
     fireEvent.mouseEnter(icon);
     await waitFor(() => {

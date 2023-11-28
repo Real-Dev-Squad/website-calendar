@@ -53,6 +53,7 @@ export const parseEventToCreateOrUpdateEventPayload = (
 
   return {
     name: formData.get('title'),
+    isPrivate: currentEvent.isPrivate,
     startTime: dayjs(currentEvent.start).valueOf(),
     endTime: dayjs(currentEvent.end).valueOf(),
     location: formData.get('address'),

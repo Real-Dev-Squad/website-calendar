@@ -69,6 +69,7 @@ export default function EventModal({ event }: EventModalProps) {
         ...e,
         event: {
           ...e.event,
+          isPrivate: true,
           start: dayjs(routerLocation.state.start).toDate(),
           end: dayjs(routerLocation.state.end).toDate(),
         },
@@ -169,9 +170,9 @@ export default function EventModal({ event }: EventModalProps) {
                     </button>
                   </Dialog.Close>
                   <EventVisibilitySetter
-                    visibility={currentEvent?.visibility ?? 'private'}
-                    setVisibility={(visibility) =>
-                      setCalendarEvent((e) => ({ ...e, event: { ...e.event, visibility } }))
+                    isPrivate={currentEvent?.isPrivate ?? true}
+                    setVisibility={(isPrivate) =>
+                      setCalendarEvent((e) => ({ ...e, event: { ...e.event, isPrivate } }))
                     }
                   />
                 </div>
